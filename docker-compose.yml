@@ -1,0 +1,57 @@
+services:
+  builder:
+    build: ./builder
+    container_name: ffmg-builder
+    restart: unless-stopped
+    ports:
+      - "8002:8002"
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      ASSISTANT_API_KEY: ${ASSISTANT_API_KEY:-}
+      SITE_ADMIN_TOKEN: ${SITE_ADMIN_TOKEN:-}
+      POLSIA_SECRET: ${POLSIA_SECRET:-}
+      GITHUB_PAT: ${GITHUB_PAT:-}
+      GITHUB_REPO: ${GITHUB_REPO:-https://github.com/oakc123/website-builder.git}
+      PREVIEW_DOMAIN: ${PREVIEW_DOMAIN:-preview.funkfactorymediagroup.com}
+      WEBSITE_BUILDS_DIR: /app/website-builds
+      INTAKE_JOBS_DIR: /app/intake/jobs
+      INTAKE_COSTS_DIR: /app/intake/costs
+      INTAKE_LOGS_DIR: /app/intake/logs
+      TZ: America/Denver
+    volumes:
+      - ./intake/jobs:/app/intake/jobs
+      - ./intake/costs:/app/intake/costs
+      - ./intake/logs:/app/intake/logs
+      - ./website-builds:/app/website-builds
+      - ./caddy/sites:/srv/sites
+
+  intake:
+    build: ./intake
+    container_name: ffmg-intake
+    restart: unless-stopped
+    ports:
+      - "8001:8001"
+    environment:
+      ANTHROPIC_API_KEY: ${ANTHROPIC_API_KEY:-}
+      POLSIA_SECRET: ${POLSIA_SECRET:-}
+      OLLAMA_HOST: ${OLLAMA_HOST:-http://192.168.0.18:11434}
+      TZ: America/Denver
+    volumes:
+      - ./intake/jobs:/app/jobs
+      - ./intake/logs:/app/logs
+
+  caddy:
+    image: caddy:2-alpine
+    container_name: ffmg-caddy
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./caddy/Caddyfile:/etc/caddy/Caddyfile
+      - ./caddy/sites:/srv/sites
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  caddy_data:
+  caddy_config:

@@ -1,0 +1,11 @@
+.env
+__pycache__/
+*.pyc
+*.pyo
+node_modules/
+caddy/sites/
+website-builds/
+intake/jobs/
+intake/costs/
+intake/logs/
+*.log

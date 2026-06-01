@@ -1,0 +1,53 @@
+{
+  "job_id": "JOB-2026-001",
+  "submitted_at": "2026-05-09T14:00:00Z",
+  "source": "polsia-intake",
+  "package": "starter",
+  "contact": {
+    "full_name": "Maria Chen",
+    "business_name": "Sunrise Bakery",
+    "industry": "Food & Beverage",
+    "email": "maria@sunrisebakery.com",
+    "phone": "+1-555-0142"
+  },
+  "project": {
+    "goal": "Create a warm, inviting website that showcases artisan baked goods, daily specials, and allows customers to place pre-orders online.",
+    "target_audience": "Local community members aged 25-60 who appreciate artisan baked goods and support small businesses",
+    "pages": ["Home", "Menu", "About", "Contact"],
+    "tone": ["warm", "local", "inviting"],
+    "has_existing_website": false,
+    "inspiration_urls": ["https://tartinebakery.com", "https://acmebread.com"]
+  },
+  "brand": {
+    "has_logo": true,
+    "colors": ["#F5E6D3", "#8B4513", "#FFD700"],
+    "content_writing_needed": "Mix of both"
+  },
+  "images": [
+    {
+      "filename": "hero-bread.jpg",
+      "width": 1920,
+      "height": 1080,
+      "size_bytes": 460800,
+      "format": "jpeg",
+      "validation": "pass"
+    },
+    {
+      "filename": "pastries-display.jpg",
+      "width": 1280,
+      "height": 960,
+      "size_bytes": 327680,
+      "format": "jpeg",
+      "validation": "pass"
+    }
+  ],
+  "delivery": {
+    "method": "zip",
+    "host_target": "GoDaddy"
+  },
+  "domain": {
+    "status": "have_one",
+    "name": "sunrisebakery.com"
+  },
+  "notes": "We open at 6am daily. Would love to feature sourdough bread prominently. Instagram: @sunrisebakery_local"
+}
