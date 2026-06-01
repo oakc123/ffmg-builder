@@ -3,18 +3,18 @@
 	auto_https off
 }
 
-admin.funkfactorymediagroup.com:8080 {
+http://admin.funkfactorymediagroup.com:8080 {
 	root * /srv/sites/admin
 	file_server
 	try_files {path} /index.html
 }
 
-preview.funkfactorymediagroup.com:8080 {
+http://preview.funkfactorymediagroup.com:8080 {
 	root * /srv/sites
 	file_server browse
 	try_files {path} {path}/index.html =404
 }
 
-:8080 {
+http://:8080 {
 	respond "Not found" 404
 }
