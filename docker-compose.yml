@@ -10,6 +10,7 @@ services:
       ASSISTANT_API_KEY: ${ASSISTANT_API_KEY:-}
       SITE_ADMIN_TOKEN: ${SITE_ADMIN_TOKEN:-}
       POLSIA_SECRET: ${POLSIA_SECRET:-}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
       GITHUB_PAT: ${GITHUB_PAT:-}
       GITHUB_REPO: ${GITHUB_REPO:-https://github.com/oakc123/website-builder.git}
       PREVIEW_DOMAIN: ${PREVIEW_DOMAIN:-preview.funkfactorymediagroup.com}

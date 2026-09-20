@@ -11,6 +11,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from build_routes import router as build_router
 from admin_routes import router as admin_router
+from gallery_routes import router as gallery_router
 
 
 def _setup_logging() -> None:
@@ -44,6 +45,7 @@ app.add_middleware(
 
 app.include_router(build_router)
 app.include_router(admin_router)
+app.include_router(gallery_router)
 
 
 @app.get("/health")
