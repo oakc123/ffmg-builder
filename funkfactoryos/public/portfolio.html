@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio | Concert &amp; Event Media in New Mexico</title>
+    <meta name="description" content="See how Funk Factory Media Group documents live music, sports events, and brand stories. Concert films, photography series, and web design for New Mexico clients.">
+    <link rel="canonical" href="https://funkfactoryos.polsia.app/portfolio">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="Portfolio | Concert &amp; Event Media in New Mexico">
+    <meta property="og:description" content="See how Funk Factory Media Group documents live music, sports events, and brand stories. Concert films, photography series, and web design for New Mexico clients.">
+    <meta property="og:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/portfolio">
+    <meta property="og:type" content="website">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "FFMG Portfolio",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Sunshine Theater Concert Film", "description": "Multi-camera concert documentary"},
+    {"@type": "ListItem", "position": 2, "name": "RRHS Football Season Coverage", "description": "Full sports season photo and video package"},
+    {"@type": "ListItem", "position": 3, "name": "Artist Social Media Package", "description": "Monthly content creation for musicians"},
+    {"@type": "ListItem", "position": 4, "name": "Rattlesnake Bar Brand Film", "description": "Brand identity video production"},
+    {"@type": "ListItem", "position": 5, "name": "Venue Web Design", "description": "Custom website for live music venue"}
+  ]
+}
+</script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--accent); }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding-top: 64px;
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 64px 80px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* decorative grain overlay */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            pointer-events: none;
+        }
+
+        /* decorative copper glow */
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -80px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,149,106,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -2.5px;
+            color: #fff;
+            margin-bottom: 28px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.6);
+            max-width: 560px;
+            line-height: 1.75;
+            margin-bottom: 48px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .hero-stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+
+        .hero-stat-num span { color: var(--accent); }
+
+        .hero-stat-label {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.45);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* ===== FILTER TABS ===== */
+        .filter-bar {
+            background: var(--bg-warm);
+            border-bottom: 1px solid var(--border);
+            padding: 0 64px;
+            position: sticky;
+            top: 64px;
+            z-index: 90;
+        }
+
+        .filter-bar-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
+        }
+
+        .filter-bar-inner::-webkit-scrollbar { display: none; }
+
+        .filter-tab {
+            padding: 18px 24px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: none;
+            border: none;
+            border-bottom: 2px solid transparent;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: color 0.2s, border-color 0.2s;
+        }
+
+        .filter-tab:hover { color: var(--text); }
+        .filter-tab.active { color: var(--accent-dark); border-bottom-color: var(--accent); }
+
+        /* ===== PORTFOLIO GRID ===== */
+        .portfolio-section {
+            background: var(--bg);
+            padding: 80px 64px 120px;
+        }
+
+        .portfolio-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        /* ===== CASE STUDY CARD ===== */
+        .case-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .case-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(107,58,31,0.12);
+        }
+
+        .case-card-thumb {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+
+        .case-card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.85);
+            transition: transform 0.6s ease, filter 0.4s ease;
+        }
+
+        .case-card:hover .case-card-thumb img {
+            transform: scale(1.05);
+            filter: saturate(1);
+        }
+
+        .case-card-thumb-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26,15,8,0.55) 0%, transparent 60%);
+        }
+
+        /* type badge in corner of thumb */
+        .case-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(26,15,8,0.7);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(212,149,106,0.3);
+        }
+
+        /* result pill in corner */
+        .case-result-badge {
+            position: absolute;
+            bottom: 16px;
+            right: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--accent-dark);
+            background: rgba(212,149,106,0.9);
+            padding: 5px 12px;
+            border-radius: 20px;
+        }
+
+        .case-card-body {
+            padding: 28px 32px 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .case-client {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+
+        .case-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+
+        .case-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            flex: 1;
+        }
+
+        .case-meta {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+            padding-top: 16px;
+            border-top: 1px solid var(--border);
+            margin-top: 4px;
+        }
+
+        .case-meta-item {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .case-meta-label {
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+        }
+
+        .case-meta-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .case-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            text-decoration: none;
+            transition: gap 0.2s;
+        }
+
+        .case-card:hover .case-cta { gap: 10px; }
+
+        .case-cta-arrow {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+
+        .case-card:hover .case-cta-arrow { transform: translateX(4px); }
+
+        /* ===== HIDDEN / FILTERED ===== */
+        .case-card[data-hidden="true"] { display: none; }
+
+        /* ===== WEB DESIGN SECTION (different treatment) ===== */
+        .web-card {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            min-height: 320px;
+        }
+
+        .web-card .case-card-thumb {
+            height: 100%;
+            border-radius: 0;
+        }
+
+        .web-card .case-card-body {
+            padding: 40px 44px;
+            background: var(--bg-dark);
+            color: #fff;
+        }
+
+        .web-card .case-client { color: var(--accent); }
+        .web-card .case-title { color: #fff; }
+        .web-card .case-desc { color: rgba(255,255,255,0.6); }
+        .web-card .case-meta { border-top-color: rgba(255,255,255,0.1); }
+        .web-card .case-meta-label { color: rgba(255,255,255,0.4); }
+        .web-card .case-meta-value { color: #fff; }
+        .web-card .case-cta { color: var(--accent); }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: var(--bg-dark);
+            padding: 120px 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            bottom: -160px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 800px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(212,149,106,0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .cta-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .cta-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .cta-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .cta-title em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .cta-desc {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.75;
+            margin-bottom: 44px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(212,149,106,0.5);
+            color: var(--accent);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0f0804;
+            padding: 64px 64px 40px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            flex-wrap: wrap;
+        }
+
+        .footer-brand-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .footer-brand-name span { color: var(--accent); }
+
+        .footer-tagline {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.35);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 28px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.8); }
+
+        .footer-bottom {
+            padding-top: 32px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.2);
+        }
+
+        /* ===== SECTION LABEL ===== */
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px; left: 0; right: 0;
+                background: rgba(255,255,255,0.97);
+                backdrop-filter: blur(10px);
+                padding: 24px 24px 32px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { font-size: 1.05rem; color: var(--text); }
+            .nav-toggle { display: flex; }
+
+            .hero-inner { padding: 72px 24px 64px; }
+            .hero-stats { gap: 32px; }
+
+            .filter-bar { padding: 0 24px; }
+
+            .portfolio-section { padding: 56px 24px 80px; }
+            .portfolio-grid { grid-template-columns: 1fr; gap: 20px; }
+
+            .web-card {
+                grid-column: span 1;
+                grid-template-columns: 1fr;
+            }
+            .web-card .case-card-thumb { height: 200px; }
+
+            .cta-section { padding: 80px 24px; }
+
+            footer { padding: 48px 24px 32px; }
+            .footer-top { flex-direction: column; gap: 28px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-stat-num { font-size: 1.8rem; }
+            .case-card-thumb { height: 200px; }
+            .case-card-body { padding: 22px 24px 26px; }
+        }
+
+        /* ===== NAV PROGRESS BAR ===== */
+        .nav-progress{position:fixed;top:64px;left:0;right:0;z-index:99;height:3px;background:transparent;pointer-events:none;}
+        .nav-progress-bar{height:100%;background:var(--accent,#D4956A);transition:width .1s linear;}
+
+        /* ===== NAV SOCIAL PROOF ===== */
+        .nav-social-proof{font-size:.72rem;color:var(--text-muted,#6b5c50);opacity:0;transition:opacity .4s;white-space:nowrap;line-height:1;}
+
+        /* ===== SCROLL PANEL ===== */
+        .scroll-panel{position:fixed;bottom:28px;right:28px;z-index:250;background:var(--bg-warm,#faf6f1);border:1px solid var(--border,rgba(107,58,31,.1));border-radius:10px;padding:14px 40px 14px 20px;box-shadow:0 4px 20px rgba(26,15,8,.1);font-size:.88rem;color:var(--text,#1a0f08);line-height:1.5;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;pointer-events:none;}
+        .scroll-panel.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+        .sp-inner{display:flex;align-items:center;gap:6px;}
+        .sp-link{color:var(--accent-dark,#6B3A1F);font-weight:600;text-decoration:none;}
+        .sp-link:hover{text-decoration:underline;}
+        .scroll-panel-close{position:absolute;top:8px;right:10px;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-muted,#6b5c50);line-height:1;padding:0;}
+        .scroll-panel-close:hover{color:var(--text,#1a0f08);}
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/portfolio" class="active">Portfolio</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/intake" class="nav-cta" id="navCtaBtn">Get a Quote</a></li>
+            <li><span class="nav-social-proof" id="navSocialProof">Trusted by 500+ teams</span></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+    <div class="nav-progress" id="navProgress"></div>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-eyebrow">Our Work · New Mexico</div>
+            <h1>Built for<br>Venues<br>That <em>Show Up</em></h1>
+            <p class="hero-desc">Eight years of concert nights, game days, brand films, and web builds. Every project below was delivered on time and built to be used — not filed away.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num">500<span>+</span></div>
+                    <div class="hero-stat-label">Events covered</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">10<span>+</span></div>
+                    <div class="hero-stat-label">Years in NM</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">48<span>hr</span></div>
+                    <div class="hero-stat-label">Recap turnaround</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">12<span>K+</span></div>
+                    <div class="hero-stat-label">Edited stills delivered</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FILTER TABS -->
+    <div class="filter-bar">
+        <div class="filter-bar-inner">
+            <button class="filter-tab active" data-filter="all">All Projects</button>
+            <button class="filter-tab" data-filter="video">Videography</button>
+            <button class="filter-tab" data-filter="photo">Photography</button>
+            <button class="filter-tab" data-filter="social">Social Content</button>
+            <button class="filter-tab" data-filter="web">Web Design</button>
+        </div>
+    </div>
+
+    <!-- PORTFOLIO GRID -->
+    <section class="portfolio-section">
+        <div class="portfolio-inner">
+            <div class="portfolio-grid" id="portfolioGrid">
+
+                <!-- Card 1: Concert Videography -->
+                <a class="case-card" href="/intake?project_type=Concert+Videography" data-category="video">
+                    <div class="case-card-thumb">
+                        <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=800&q=80" alt="Concert videography — Sunshine Theater" loading="lazy">
+                        <div class="case-card-thumb-overlay"></div>
+                        <span class="case-badge">Concert Videography</span>
+                        <span class="case-result-badge">6-night run</span>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-client">Sunshine Theater · Albuquerque, NM</div>
+                        <h2 class="case-title">Summer Night Series — Multi-Camera Event Coverage</h2>
+                        <p class="case-desc">Six consecutive concert nights, each shot with two cameras from floor and balcony positions. Delivered 48-hour recap clips for organic social posting plus a full series highlight reel for venue booking outreach.</p>
+                        <div class="case-meta">
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Deliverables</div>
+                                <div class="case-meta-value">6 recaps + series reel</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Turnaround</div>
+                                <div class="case-meta-value">48 hrs / show</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Format</div>
+                                <div class="case-meta-value">16:9 + 9:16 social cuts</div>
+                            </div>
+                        </div>
+                        <span class="case-cta">Book similar coverage <span class="case-cta-arrow">→</span></span>
+                    </div>
+                </a>
+
+                <!-- Card 2: Sports Photography -->
+                <a class="case-card" href="/intake?project_type=Event+Photography" data-category="photo">
+                    <div class="case-card-thumb">
+                        <img src="https://images.unsplash.com/photo-1563941811-f13a27b4de8d?w=800&q=80" alt="Sports photography — high school football" loading="lazy">
+                        <div class="case-card-thumb-overlay"></div>
+                        <span class="case-badge">Sports Photography</span>
+                        <span class="case-result-badge">8-game season</span>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-client">Rio Rancho High School · Rio Rancho, NM</div>
+                        <h2 class="case-title">Varsity Football — Full Season Sideline Coverage</h2>
+                        <p class="case-desc">Full sideline access for eight home games across the season. Edited gallery delivered every Sunday morning — ready for coaches, players, booster clubs, and school social accounts before the week starts.</p>
+                        <div class="case-meta">
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Coverage</div>
+                                <div class="case-meta-value">8 games</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Delivery</div>
+                                <div class="case-meta-value">Sunday AM</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Stills delivered</div>
+                                <div class="case-meta-value">1,200+ edited</div>
+                            </div>
+                        </div>
+                        <span class="case-cta">Book sports coverage <span class="case-cta-arrow">→</span></span>
+                    </div>
+                </a>
+
+                <!-- Card 3: Social Media Package -->
+                <a class="case-card" href="/intake?project_type=Social+Media+Content" data-category="social">
+                    <div class="case-card-thumb">
+                        <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80" alt="Social media content — artist content package" loading="lazy">
+                        <div class="case-card-thumb-overlay"></div>
+                        <span class="case-badge">Social Media Content</span>
+                        <span class="case-result-badge">48 clips / 12 weeks</span>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-client">Local Artist · Albuquerque, NM</div>
+                        <h2 class="case-title">12-Week Content Package — Weekly Reels & TikTok</h2>
+                        <p class="case-desc">One shoot day per month produced four weeks of platform-native content. Weekly Reels, TikTok clips, and story sequences with captions and hashtag sets — handed off scheduled and ready to post.</p>
+                        <div class="case-meta">
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Output</div>
+                                <div class="case-meta-value">48 short-form clips</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Platforms</div>
+                                <div class="case-meta-value">Instagram · TikTok</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Shoot days</div>
+                                <div class="case-meta-value">3 total</div>
+                            </div>
+                        </div>
+                        <span class="case-cta">Start a content package <span class="case-cta-arrow">→</span></span>
+                    </div>
+                </a>
+
+                <!-- Card 4: Brand Film -->
+                <a class="case-card" href="/intake?project_type=Brand+Video" data-category="video">
+                    <div class="case-card-thumb">
+                        <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=800&q=80" alt="Brand film — Rattlesnake Bar" loading="lazy">
+                        <div class="case-card-thumb-overlay"></div>
+                        <span class="case-badge">Brand Film</span>
+                        <span class="case-result-badge">2:10 final cut</span>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-client">Rattlesnake Bar · Santa Fe, NM</div>
+                        <h2 class="case-title">Venue Brand Film — Atmosphere, Regulars & Live Nights</h2>
+                        <p class="case-desc">A cinematic 2-minute brand film that captures the bar's energy, regulars, and live music nights. Used on the homepage, in booking decks, and as the lead piece for their Instagram presence relaunch.</p>
+                        <div class="case-meta">
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Runtime</div>
+                                <div class="case-meta-value">2:10 final cut</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Use</div>
+                                <div class="case-meta-value">Web + booking</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Color grade</div>
+                                <div class="case-meta-value">Cinematic warm</div>
+                            </div>
+                        </div>
+                        <span class="case-cta">Get a brand film quote <span class="case-cta-arrow">→</span></span>
+                    </div>
+                </a>
+
+                <!-- Card 5: Web Design (full-width dark card) -->
+                <a class="case-card web-card" href="/intake?package=premium" data-category="web">
+                    <div class="case-card-thumb">
+                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?w=900&q=80" alt="Web design — venue website" loading="lazy">
+                        <div class="case-card-thumb-overlay"></div>
+                        <span class="case-badge">Web Design · Premium Package</span>
+                    </div>
+                    <div class="case-card-body">
+                        <div class="case-client">Venue Client · New Mexico</div>
+                        <h2 class="case-title">Full-Service Venue Website — Booking, Gallery & Events</h2>
+                        <p class="case-desc">10-page responsive site built from scratch: hero video header, events calendar with ticketing links, artist gallery, booking inquiry form, and embedded social feed. Delivered in 3.5 weeks from kickoff to launch.</p>
+                        <div class="case-meta">
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Pages</div>
+                                <div class="case-meta-value">10 custom pages</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Timeline</div>
+                                <div class="case-meta-value">3.5 weeks</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Package</div>
+                                <div class="case-meta-value">Premium</div>
+                            </div>
+                            <div class="case-meta-item">
+                                <div class="case-meta-label">Features</div>
+                                <div class="case-meta-value">Booking + gallery + events</div>
+                            </div>
+                        </div>
+                        <span class="case-cta">See web service packages <span class="case-cta-arrow">→</span></span>
+                    </div>
+                </a>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="cta-inner">
+            <div class="cta-eyebrow">Your Project Could Be Next</div>
+            <h2 class="cta-title">Let's Build<br>Something <em>Worth Sharing</em></h2>
+            <p class="cta-desc">Tell us about your event, venue, or project. We'll get back within 24 hours with a custom quote and timeline — no pressure, no generic packages.</p>
+            <div class="cta-buttons">
+                <a href="/intake" class="btn-primary">Start Your Project →</a>
+                <a href="/services" class="btn-ghost">See Our Services</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-brand-name"><img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="32" style="display:inline-block;vertical-align:middle;"></div>
+                    <div class="footer-tagline">New Mexico · Sports & Live Event Media</div>
+                </div>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/services">Media Services</a>
+                    <a href="/portfolio">Portfolio</a>
+                    <a href="/work">Our Work</a>
+                    <a href="/what-we-offer">Web Services</a>
+                    <a href="/intake">Get a Quote</a>
+                    <a href="/portal">Client Portal</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Funk Factory Media Group · Albuquerque, NM
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile nav toggle -->
+    <script>
+    document.getElementById('navToggle').addEventListener('click', function() {
+        document.getElementById('navLinks').classList.toggle('open');
+    });
+    </script>
+
+    <!-- Filter tabs -->
+    <script>
+    (function() {
+        var tabs = document.querySelectorAll('.filter-tab');
+        var cards = document.querySelectorAll('.case-card');
+
+        tabs.forEach(function(tab) {
+            tab.addEventListener('click', function() {
+                var filter = tab.dataset.filter;
+
+                // Update active tab
+                tabs.forEach(function(t) { t.classList.remove('active'); });
+                tab.classList.add('active');
+
+                // Show/hide cards
+                cards.forEach(function(card) {
+                    if (filter === 'all' || card.dataset.category === filter) {
+                        card.removeAttribute('data-hidden');
+                        card.style.display = '';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+    })();
+    </script>
+
+    <!-- Scroll panel + nav CTA logic -->
+    <div class="scroll-panel" id="scrollPanel" role="complementary" aria-label="Get a free quote">
+        <button class="scroll-panel-close" id="scrollPanelClose" aria-label="Dismiss">×</button>
+        <div class="sp-inner">
+            <span class="sp-text">Have a question? Get a free quote in under 24 hrs →</span>
+        </div>
+    </div>
+    <script src="/js/nav-cta.js"></script>
+
+    <!-- Analytics beacon -->
+    <script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';var p=new URLSearchParams(window.location.search);var payload={path:path,referrer:referrer};if(p.get('utm_source'))payload.utm_source=p.get('utm_source');if(p.get('utm_medium'))payload.utm_medium=p.get('utm_medium');if(p.get('utm_campaign'))payload.utm_campaign=p.get('utm_campaign');if(p.get('utm_content'))payload.utm_content=p.get('utm_content');fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});})();</script>
+</body>
+</html>

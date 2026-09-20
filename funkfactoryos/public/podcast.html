@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Podcast | Funk Factory Media Group — New Mexico Stories</title>
+    <meta name="description" content="New Mexico stories from the artists, venues, events, and creative teams shaping the Southwest, hosted by Funk Factory Media Group.">
+    <link rel="canonical" href="https://funkfactoryos.polsia.app/podcast">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="Podcast | Funk Factory Media Group — New Mexico Stories">
+    <meta property="og:description" content="Conversations and field notes from New Mexico's artists, venues, live events, and media makers.">
+    <meta property="og:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/podcast">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet">
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "PodcastSeries",
+        "name": "Funk Factory Media Group Podcast",
+        "url": "https://funkfactoryos.polsia.app/podcast",
+        "description": "Conversations and field notes from New Mexico's artists, venues, live events, and media makers.",
+        "inLanguage": "en-US",
+        "image": "https://funkfactoryos.polsia.app/images/ffmg-logo.png",
+        "publisher": {
+            "@type": "Organization",
+            "name": "Funk Factory Media Group",
+            "url": "https://funkfactoryos.polsia.app",
+            "logo": "https://funkfactoryos.polsia.app/images/ffmg-logo.png"
+        }
+    }
+    </script>
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        a:focus-visible,
+        button:focus-visible,
+        summary:focus-visible {
+            outline: 3px solid var(--accent-dark);
+            outline-offset: 4px;
+        }
+
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--text); }
+        .nav-links a.active { font-weight: 600; }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 8px 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+        }
+
+        .page-hero {
+            padding: 128px 64px 78px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a { color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+        .breadcrumb a:hover { color: var(--accent); }
+        .breadcrumb-sep { opacity: 0.4; }
+
+        .hero-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1.15fr) minmax(260px, 0.85fr);
+            align-items: center;
+            gap: 72px;
+        }
+
+        .page-eyebrow,
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+
+        .page-eyebrow { margin-bottom: 20px; }
+
+        .page-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1;
+            letter-spacing: -2px;
+            max-width: 700px;
+            margin-bottom: 24px;
+        }
+
+        .page-hero h1 em { font-style: normal; color: var(--accent); }
+
+        .page-hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            line-height: 1.8;
+            margin-bottom: 32px;
+        }
+
+        .hero-actions,
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary,
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: background 0.2s, border-color 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .btn-primary { background: var(--accent); color: #fff; }
+        .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); }
+        .btn-secondary { background: transparent; color: var(--text); border: 1.5px solid var(--border-strong); }
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+        .hero-art {
+            position: relative;
+            min-height: 310px;
+            display: grid;
+            place-items: center;
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+        }
+
+        .hero-art::before,
+        .hero-art::after {
+            content: '';
+            position: absolute;
+            border: 1px solid rgba(212,149,106,0.45);
+            border-radius: 50%;
+        }
+
+        .hero-art::before { width: 360px; height: 360px; }
+        .hero-art::after { width: 250px; height: 250px; }
+
+        .hero-mark {
+            position: relative;
+            z-index: 1;
+            width: 112px;
+            height: 112px;
+            display: grid;
+            place-items: center;
+            border-radius: 50%;
+            background: var(--accent-dark);
+            color: #fff;
+            box-shadow: 0 14px 32px rgba(107,58,31,0.2);
+        }
+
+        .hero-mark::after {
+            content: '';
+            margin-left: 6px;
+            border-top: 15px solid transparent;
+            border-bottom: 15px solid transparent;
+            border-left: 22px solid #fff;
+        }
+
+        .hero-art-label {
+            position: absolute;
+            z-index: 1;
+            bottom: 22px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+        }
+
+        .episodes-section {
+            padding: 0 64px 100px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            color: var(--text-muted);
+            letter-spacing: 2.5px;
+            margin-bottom: 36px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .episode-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 24px;
+        }
+
+        .episode-card {
+            display: flex;
+            flex-direction: column;
+            min-height: 100%;
+            padding: 32px 36px 30px;
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            background: var(--bg);
+            transition: transform 0.25s, box-shadow 0.25s, border-color 0.25s;
+        }
+
+        .episode-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 16px 48px rgba(107,58,31,0.1);
+            border-color: var(--border-strong);
+        }
+
+        .episode-meta {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .episode-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            background: rgba(212,149,106,0.1);
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        .episode-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .episode-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.45rem;
+            font-weight: 700;
+            line-height: 1.25;
+            letter-spacing: -0.5px;
+            margin-bottom: 14px;
+        }
+
+        .episode-summary {
+            flex: 1;
+            margin-bottom: 24px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+
+        .show-notes {
+            border-top: 1px solid var(--border);
+            padding-top: 18px;
+        }
+
+        .show-notes summary {
+            cursor: pointer;
+            color: var(--accent-dark);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.88rem;
+            font-weight: 600;
+        }
+
+        .show-notes p {
+            padding-top: 12px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+            line-height: 1.7;
+        }
+
+        .no-results {
+            grid-column: 1 / -1;
+            padding: 64px 0;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .cta-section {
+            padding: 92px 24px;
+            text-align: center;
+            background: var(--bg-warm);
+        }
+
+        .cta-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.05;
+            margin-bottom: 20px;
+        }
+
+        .cta-section h2 em { font-style: normal; color: var(--accent); }
+
+        .cta-section p {
+            max-width: 500px;
+            margin: 0 auto 44px;
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .cta-buttons { justify-content: center; }
+
+        footer {
+            padding: 60px 64px 40px;
+            background: var(--bg-dark);
+            color: rgba(255,255,255,0.5);
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-brand .nav-logo {
+            display: block;
+            margin-bottom: 10px;
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+        }
+
+        .footer-brand p { max-width: 220px; font-size: 0.82rem; line-height: 1.6; }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.75); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            font-size: 0.78rem;
+            opacity: 0.35;
+        }
+
+        @media (max-width: 900px) {
+            .hero-layout { grid-template-columns: 1fr; gap: 40px; }
+            .hero-art { min-height: 250px; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                position: fixed;
+                top: 64px; left: 0; right: 0;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                padding: 24px 20px;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { color: var(--text); font-size: 1.05rem; }
+            .nav-toggle { display: flex; }
+            .page-hero { padding: 100px 24px 56px; }
+            .breadcrumb { margin-bottom: 32px; }
+            .page-hero h1 { letter-spacing: -1.5px; }
+            .episodes-section { padding: 0 24px 64px; }
+            .episode-grid { grid-template-columns: 1fr; }
+            .episode-card { padding: 26px 28px 28px; }
+            .cta-section { padding: 64px 24px; }
+            footer { padding: 48px 24px 32px; }
+            .footer-inner { flex-direction: column; }
+        }
+
+        @media (max-width: 420px) {
+            .episode-meta { align-items: flex-start; flex-direction: column; gap: 8px; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-controls="navLinks" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/blog">Blog</a></li>
+            <li><a href="/podcast" class="active">Podcast</a></li>
+            <li><a href="/contact">Contact</a></li>
+            <li><a href="/intake" class="nav-cta">Get a Quote</a></li>
+        </ul>
+    </nav>
+
+    <main>
+        <section class="page-hero">
+            <div class="breadcrumb" aria-label="Breadcrumb">
+                <a href="/">Home</a>
+                <span class="breadcrumb-sep">›</span>
+                <span aria-current="page">Podcast</span>
+            </div>
+            <div class="hero-layout">
+                <div>
+                    <div class="page-eyebrow">The Funk Factory Podcast</div>
+                    <h1>New Mexico stories, <em>in the room.</em></h1>
+                    <p class="page-hero-desc">A closer listen to the people, places, and productions making New Mexico move. FFMG sits down with artists, venue teams, event organizers, and fellow media makers to talk about the work behind the moment.</p>
+                    <div class="hero-actions">
+                        <a href="#episodes" class="btn-primary">Browse Episodes <span aria-hidden="true">↓</span></a>
+                        <a href="/services" class="btn-secondary">Work With FFMG</a>
+                    </div>
+                </div>
+                <div class="hero-art" aria-label="Podcast play mark">
+                    <div class="hero-mark" aria-hidden="true"></div>
+                    <span class="hero-art-label">Stories from behind the lens</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="episodes-section" id="episodes" aria-labelledby="episodes-heading">
+            <h2 class="section-label" id="episodes-heading">Episode Archive</h2>
+            <div class="episode-grid" id="episodeGrid"></div>
+        </section>
+
+        <section class="cta-section">
+            <span class="page-eyebrow">Bring the story forward</span>
+            <h2>Have a story worth <em>sharing?</em></h2>
+            <p>From a live event to a brand film or a new web presence, FFMG helps New Mexico teams turn good work into something people remember.</p>
+            <div class="cta-buttons">
+                <a href="/intake" class="btn-primary">Start Your Project <span aria-hidden="true">→</span></a>
+                <a href="/portfolio" class="btn-secondary">See Our Portfolio</a>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="nav-logo"><img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="32" style="display:inline-block;vertical-align:middle;"></a>
+                <p>New Mexico sports photography, concert videography, brand films &amp; web design. Since 2015.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Media Services</a></li>
+                <li><a href="/portfolio">Portfolio</a></li>
+                <li><a href="/work">Our Work</a></li>
+                <li><a href="/what-we-offer">Web Services</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li><a href="/podcast">Podcast</a></li>
+                <li><a href="/intake">Start a Project</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">© 2026 Funk Factory Media Group · Albuquerque, NM</div>
+    </footer>
+
+    <script>
+        const episodes = [
+            {
+                title: 'Making Room for the Moment',
+                date: '2026-08-14',
+                displayDate: 'August 14, 2026',
+                summary: 'A conversation about building trust on a busy event day, finding the story between the big moments, and creating images that feel like being there.',
+                showNotes: 'We talk pre-production, navigating live venues, and the small details that help a finished recap feel specific to its community.'
+            },
+            {
+                title: 'The Work Behind a New Mexico Stage',
+                date: '2026-07-29',
+                displayDate: 'July 29, 2026',
+                summary: 'Venue teams, performers, and production crews all shape a live show. This episode looks at how those collaborators turn an empty room into a shared experience.',
+                showNotes: 'Topics include venue communication, show flow, artist relationships, and why strong documentation begins long before doors open.'
+            },
+            {
+                title: 'From Local Story to Brand Film',
+                date: '2026-07-08',
+                displayDate: 'July 8, 2026',
+                summary: 'What makes a short film feel honest? FFMG breaks down the listening, planning, and visual choices that help a New Mexico organization sound like itself on screen.',
+                showNotes: 'A field guide to discovery calls, interview direction, location choices, and making room for a real voice in a polished production.'
+            }
+        ];
+
+        const episodeGrid = document.getElementById('episodeGrid');
+        const escapeHtml = (value) => String(value == null ? '' : value)
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+
+        const sortedEpisodes = episodes.slice().sort((a, b) => b.date.localeCompare(a.date));
+        if (!sortedEpisodes.length) {
+            episodeGrid.innerHTML = '<p class="no-results">New episodes are on the way. Check back soon for the first conversation.</p>';
+        } else {
+            episodeGrid.innerHTML = sortedEpisodes.map((episode, index) => `
+                <article class="episode-card">
+                    <div class="episode-meta">
+                        <span class="episode-number">Episode ${sortedEpisodes.length - index}</span>
+                        <time class="episode-date" datetime="${escapeHtml(episode.date)}">${escapeHtml(episode.displayDate)}</time>
+                    </div>
+                    <h3 class="episode-title">${escapeHtml(episode.title)}</h3>
+                    <p class="episode-summary">${escapeHtml(episode.summary)}</p>
+                    ${episode.showNotesUrl
+                        ? `<a class="btn-secondary" href="${escapeHtml(episode.showNotesUrl)}">Read show notes <span aria-hidden="true">↗</span></a>`
+                        : `<details class="show-notes"><summary>Show notes</summary><p>${escapeHtml(episode.showNotes || '')}</p></details>`}
+                </article>
+            `).join('');
+        }
+
+        const toggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        toggle.addEventListener('click', () => {
+            const open = navLinks.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', String(open));
+        });
+        navLinks.querySelectorAll('a').forEach((link) => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'Escape' && navLinks.classList.contains('open')) {
+                navLinks.classList.remove('open');
+                toggle.setAttribute('aria-expanded', 'false');
+                toggle.focus();
+            }
+        });
+    </script>
+
+    <script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';var p=new URLSearchParams(window.location.search);var payload={path:path,referrer:referrer};if(p.get('utm_source'))payload.utm_source=p.get('utm_source');if(p.get('utm_medium'))payload.utm_medium=p.get('utm_medium');if(p.get('utm_campaign'))payload.utm_campaign=p.get('utm_campaign');if(p.get('utm_content'))payload.utm_content=p.get('utm_content');fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});})();</script>
+</body>
+</html>

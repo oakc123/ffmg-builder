@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Cart — Funk Factory Pets 🐾</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --primary: #7C3AED; --primary-dark: #5B21B6; --pink: #EC4899; --green: #10B981; --bg: #FFFBF5; --card: #fff; --text: #1F0D3C; --text-muted: #6B5B8A; --border: rgba(124,58,237,0.12); }
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    .nav { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 2px solid var(--border); padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 20px rgba(124,58,237,0.07); }
+    .nav-logo { font-family: 'Fredoka One', cursive; font-size: 1.5rem; color: var(--primary); text-decoration: none; }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-shop-btn { background: var(--primary); color: #fff; padding: 10px 22px; border-radius: 100px; font-weight: 800; font-size: 0.88rem; text-decoration: none; }
+
+    /* PAGE */
+    .page-header { background: linear-gradient(135deg, #EDE9FE, #FCE7F3); padding: 40px 40px 32px; }
+    .page-header h1 { font-family: 'Fredoka One', cursive; font-size: clamp(1.8rem, 3.5vw, 3rem); color: var(--text); }
+
+    .cart-wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 40px 40px 80px;
+      display: grid;
+      grid-template-columns: 1fr 360px;
+      gap: 40px;
+      align-items: start;
+    }
+
+    /* CART ITEMS */
+    .cart-items { }
+
+    .cart-empty {
+      text-align: center;
+      padding: 80px 20px;
+      background: var(--card);
+      border-radius: 20px;
+      border: 2px solid var(--border);
+    }
+
+    .cart-empty .emoji { font-size: 4rem; margin-bottom: 16px; }
+    .cart-empty h2 { font-family: 'Fredoka One', cursive; font-size: 2rem; margin-bottom: 8px; }
+    .cart-empty p { color: var(--text-muted); margin-bottom: 28px; }
+
+    .btn-shop {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+    }
+
+    .cart-item {
+      background: var(--card);
+      border-radius: 16px;
+      border: 2px solid var(--border);
+      padding: 20px;
+      display: flex;
+      gap: 18px;
+      align-items: center;
+      margin-bottom: 16px;
+      transition: border-color 0.2s;
+    }
+
+    .cart-item:hover { border-color: var(--primary); }
+
+    .cart-item-img {
+      width: 90px;
+      height: 90px;
+      border-radius: 12px;
+      overflow: hidden;
+      flex-shrink: 0;
+      background: #F5F3FF;
+    }
+
+    .cart-item-img a { display: block; width: 100%; height: 100%; }
+
+    .cart-item-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    .cart-item-details { flex: 1; min-width: 0; }
+
+    .cart-item-name {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.1rem;
+      margin-bottom: 4px;
+    }
+
+    .cart-item-name a { color: var(--text); text-decoration: none; }
+    .cart-item-name a:hover { color: var(--primary); }
+
+    .cart-item-price { font-weight: 700; color: var(--text-muted); font-size: 0.9rem; margin-bottom: 12px; }
+
+    .cart-item-controls { display: flex; align-items: center; gap: 12px; }
+
+    .qty-ctrl { display: flex; align-items: center; gap: 10px; background: #F5F3FF; border-radius: 100px; padding: 4px 8px; }
+    .qty-btn { width: 30px; height: 30px; border: none; background: var(--primary); color: #fff; border-radius: 50%; font-size: 1rem; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background 0.2s; }
+    .qty-btn:hover { background: var(--primary-dark); }
+    .qty-btn:disabled { background: #ccc; cursor: not-allowed; }
+    .qty-num { font-family: 'Fredoka One', cursive; font-size: 1.1rem; min-width: 20px; text-align: center; }
+
+    .btn-remove {
+      background: none;
+      border: none;
+      color: #EF4444;
+      font-size: 0.82rem;
+      font-weight: 700;
+      cursor: pointer;
+      padding: 4px 8px;
+      border-radius: 8px;
+      transition: background 0.2s;
+    }
+
+    .btn-remove:hover { background: #FEE2E2; }
+
+    .cart-item-total {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.3rem;
+      color: var(--primary);
+      flex-shrink: 0;
+      min-width: 70px;
+      text-align: right;
+    }
+
+    /* ORDER SUMMARY */
+    .order-summary {
+      background: var(--card);
+      border-radius: 20px;
+      border: 2px solid var(--border);
+      padding: 28px;
+      position: sticky;
+      top: 88px;
+    }
+
+    .order-summary h3 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.5rem;
+      margin-bottom: 20px;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 0.95rem;
+    }
+
+    .summary-row:last-of-type { border-bottom: none; }
+
+    .summary-row .label { color: var(--text-muted); font-weight: 600; }
+    .summary-row .value { font-weight: 800; }
+
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 0 0;
+      border-top: 2px solid var(--border);
+      margin-top: 8px;
+    }
+
+    .summary-total .label { font-weight: 900; font-size: 1rem; }
+    .summary-total .value { font-family: 'Fredoka One', cursive; font-size: 1.8rem; color: var(--primary); }
+
+    .free-ship-banner {
+      background: #D1FAE5;
+      color: #065F46;
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 10px 14px;
+      border-radius: 10px;
+      margin: 12px 0 16px;
+      text-align: center;
+    }
+
+    .almost-free {
+      background: #FEF3C7;
+      color: #92400E;
+    }
+
+    .btn-checkout {
+      width: 100%;
+      padding: 16px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 100px;
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.2rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      transition: background 0.2s, transform 0.2s;
+      margin-top: 16px;
+    }
+
+    .btn-checkout:hover { background: var(--primary-dark); transform: translateY(-2px); }
+
+    .secure-note {
+      text-align: center;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-top: 12px;
+      font-weight: 600;
+    }
+
+    footer { background: #1F0D3C; color: rgba(255,255,255,0.45); padding: 32px 40px; text-align: center; font-size: 0.85rem; }
+    .footer-logo { font-family: 'Fredoka One', cursive; color: #fff; text-decoration: none; font-size: 1.3rem; display: block; margin-bottom: 8px; }
+
+    @media (max-width: 900px) {
+      .nav { padding: 0 20px; }
+      .cart-wrap { grid-template-columns: 1fr; padding: 24px 20px 60px; }
+      .page-header { padding: 32px 20px; }
+      .order-summary { position: static; }
+    }
+
+    @media (max-width: 480px) {
+      .cart-item { flex-wrap: wrap; }
+      .cart-item-img { width: 72px; height: 72px; }
+      .cart-item-total { min-width: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/pets" class="nav-logo">🐾 Funk Factory Pets</a>
+    <div class="nav-right">
+      <a href="/pets/shop" class="nav-shop-btn">← Keep Shopping</a>
+    </div>
+  </nav>
+
+  <div class="page-header">
+    <h1>🛒 Your Cart</h1>
+  </div>
+
+  <div class="cart-wrap" id="cartWrap">
+    <div style="text-align:center;padding:60px;color:var(--text-muted);font-weight:700;">Loading cart… 🐾</div>
+  </div>
+
+  <!-- HELP STRIP -->
+  <div style="background:#fff8f0;border-top:2px solid rgba(124,58,237,0.1);padding:20px 40px;text-align:center;">
+    <p style="font-family:'Nunito',sans-serif;font-size:0.92rem;color:#6B5B8A;">
+      <strong style="color:#1F0D3C;">Need help with your order?</strong>
+      Reach us at
+      <a href="mailto:funkfactoryos@polsia.app" style="color:#7C3AED;font-weight:700;text-decoration:none;">funkfactoryos@polsia.app</a>
+      &nbsp;·&nbsp; We reply within 24 hours.
+    </p>
+  </div>
+
+  <footer>
+    <a href="/pets" class="footer-logo">🐾 Funk Factory Pets</a>
+    <p style="margin-bottom:8px;">© 2026 Funk Factory Pets · Where Every Pet's a Rockstar</p>
+    <p style="font-size:0.8rem;"><a href="/pets/shipping" style="color:rgba(255,255,255,0.5);text-decoration:none;font-weight:600;">Shipping Policy</a> · <a href="/pets/returns" style="color:rgba(255,255,255,0.5);text-decoration:none;font-weight:600;">Returns</a> · <a href="/pets/about" style="color:rgba(255,255,255,0.5);text-decoration:none;font-weight:600;">About Us</a></p>
+  </footer>
+
+  <script>
+  function getCart() { try { return JSON.parse(localStorage.getItem('ffp_cart') || '[]'); } catch { return []; } }
+  function saveCart(c) { localStorage.setItem('ffp_cart', JSON.stringify(c)); }
+  function fmtPrice(c) { return '$' + (c/100).toFixed(2); }
+
+  function calcTotals(cart, products) {
+    let subtotal = 0;
+    for (const item of cart) {
+      const p = products.find(p => p.id === item.id);
+      if (p) subtotal += p.price_cents * item.qty;
+    }
+    const shipping = subtotal >= 5000 ? 0 : 599;
+    return { subtotal, shipping, total: subtotal + shipping };
+  }
+
+  function removeItem(id) {
+    let cart = getCart().filter(i => i.id !== id);
+    saveCart(cart);
+    renderCart();
+  }
+
+  function changeQty(id, delta) {
+    let cart = getCart();
+    const item = cart.find(i => i.id === id);
+    if (!item) return;
+    item.qty = Math.max(1, item.qty + delta);
+    saveCart(cart);
+    renderCart();
+  }
+
+  async function renderCart() {
+    const wrap = document.getElementById('cartWrap');
+    const cart = getCart();
+
+    if (!cart.length) {
+      wrap.innerHTML = `
+        <div class="cart-empty" style="grid-column:1/-1">
+          <div class="emoji">🐾</div>
+          <h2>Your cart is empty!</h2>
+          <p>Looks like your pet hasn't found anything they like yet. Let's fix that!</p>
+          <a href="/pets/shop" class="btn-shop">🛍️ Start Shopping</a>
+        </div>`;
+      return;
+    }
+
+    // Fetch product data for items in cart
+    let products = [];
+    try {
+      const res = await fetch('/api/pets/products-by-ids', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ids: cart.map(i => i.id) })
+      });
+      const data = await res.json();
+      products = data.products || [];
+    } catch {
+      // fallback: use cached cart data
+      products = cart.map(i => ({ id: i.id, name: i.name, price_cents: i.price_cents, image_url: null, slug: '' }));
+    }
+
+    const { subtotal, shipping, total } = calcTotals(cart, products.length ? products : cart.map(i => ({ id: i.id, price_cents: i.price_cents })));
+
+    const itemsHtml = cart.map(item => {
+      const p = products.find(p => p.id === item.id) || item;
+      const imgUrl = p.image_url ? `${p.image_url}?w=200&q=80` : 'https://images.unsplash.com/photo-1450778869180-41d0601e046e?w=200&q=80';
+      return `
+        <div class="cart-item">
+          <div class="cart-item-img">
+            <a href="/pets/product?slug=${p.slug||''}">
+              <img src="${imgUrl}" alt="${p.name||item.name}" loading="lazy">
+            </a>
+          </div>
+          <div class="cart-item-details">
+            <div class="cart-item-name"><a href="/pets/product?slug=${p.slug||''}">${p.name||item.name}</a></div>
+            <div class="cart-item-price">${fmtPrice(p.price_cents||item.price_cents)} each</div>
+            <div class="cart-item-controls">
+              <div class="qty-ctrl">
+                <button class="qty-btn" onclick="changeQty(${item.id},-1)" ${item.qty<=1?'disabled':''}>−</button>
+                <span class="qty-num">${item.qty}</span>
+                <button class="qty-btn" onclick="changeQty(${item.id},1)">+</button>
+              </div>
+              <button class="btn-remove" onclick="removeItem(${item.id})">Remove ✕</button>
+            </div>
+          </div>
+          <div class="cart-item-total">${fmtPrice((p.price_cents||item.price_cents)*item.qty)}</div>
+        </div>`;
+    }).join('');
+
+    const freeAtThreshold = 5000;
+    const remaining = freeAtThreshold - subtotal;
+    let shippingNote = '';
+    if (shipping === 0) {
+      shippingNote = `<div class="free-ship-banner">🎉 You've got FREE shipping!</div>`;
+    } else {
+      shippingNote = `<div class="free-ship-banner almost-free">🚚 Add ${fmtPrice(remaining)} more for FREE shipping!</div>`;
+    }
+
+    wrap.innerHTML = `
+      <div class="cart-items">${itemsHtml}</div>
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div class="summary-row"><span class="label">Subtotal (${cart.reduce((s,i)=>s+i.qty,0)} items)</span><span class="value">${fmtPrice(subtotal)}</span></div>
+        <div class="summary-row"><span class="label">Shipping</span><span class="value">${shipping === 0 ? '<span style="color:var(--green)">FREE</span>' : fmtPrice(shipping)}</span></div>
+        ${shippingNote}
+        <div class="summary-total"><span class="label">Total</span><span class="value">${fmtPrice(total)}</span></div>
+        <a href="/pets/checkout" class="btn-checkout">🔒 Proceed to Checkout</a>
+        <div class="secure-note">🔒 Secure SSL checkout · Powered by Stripe</div>
+      </div>`;
+  }
+
+  renderCart();
+  </script>
+<!-- Polsia analytics -->
+<script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:path,referrer:referrer}),keepalive:true}).catch(function(){});})();</script>
+</body>
+</html>

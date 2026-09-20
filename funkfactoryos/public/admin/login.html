@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFMG Admin — Sign In</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f7f3ef;
+      --surface: #ffffff;
+      --border: #e8e0d8;
+      --text: #1a1209;
+      --text-muted: #7a6e62;
+      --copper: #D4956A;
+      --copper-dark: #b97a52;
+      --brown: #6B3A1F;
+      --error: #dc2626;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 48px 40px;
+      width: 100%;
+      max-width: 400px;
+      box-shadow: 0 4px 24px rgba(107,58,31,0.08);
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
+
+    .logo-mark {
+      width: 40px;
+      height: 40px;
+      background: var(--brown);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .logo-mark svg { width: 24px; height: 24px; }
+
+    .logo-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--text);
+      line-height: 1;
+    }
+
+    .logo-sub {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-muted);
+      margin-top: 2px;
+    }
+
+    h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    input[type="password"] {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      color: var(--text);
+      background: var(--bg);
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    input[type="password"]:focus {
+      border-color: var(--copper);
+    }
+
+    .error-msg {
+      display: none;
+      font-size: 13px;
+      color: var(--error);
+      margin-top: 8px;
+    }
+
+    .error-msg.visible { display: block; }
+
+    button[type="submit"] {
+      width: 100%;
+      padding: 13px;
+      background: var(--brown);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 24px;
+      transition: background 0.15s, transform 0.1s;
+    }
+
+    button[type="submit"]:hover { background: #5a3018; }
+    button[type="submit"]:active { transform: scale(0.99); }
+    button[type="submit"]:disabled { background: #b0a090; cursor: not-allowed; }
+
+    .field { margin-bottom: 0; }
+
+    .forgot-link {
+      display: block;
+      text-align: center;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+    .forgot-link:hover { color: var(--copper); text-decoration: underline; }
+
+    .success-banner {
+      display: none;
+      font-size: 14px;
+      color: #16a34a;
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 20px;
+    }
+    .success-banner.visible { display: block; }
+  </style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M4 4h10v4H8v3h5v4H8v5H4V4z" fill="#D4956A"/>
+      </svg>
+    </div>
+    <div>
+      <div class="logo-text">FFMG Admin</div>
+      <div class="logo-sub">Funk Factory Media Group</div>
+    </div>
+  </div>
+
+  <h1>Sign In</h1>
+  <p class="subtitle">Internal access only.</p>
+
+  <div class="success-banner" id="successMsg">Password updated successfully. Sign in with your new password.</div>
+
+  <form id="loginForm">
+    <div class="field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" placeholder="Enter admin password" autocomplete="current-password" autofocus>
+      <div class="error-msg" id="errorMsg">Incorrect password</div>
+    </div>
+    <button type="submit" id="submitBtn">Sign In</button>
+  </form>
+  <a href="/admin/forgot-password" class="forgot-link">Forgot your password?</a>
+</div>
+
+<script>
+  // Show success banner if redirected after password reset
+  (function() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('reset') === 'success') {
+      const msg = document.getElementById('successMsg');
+      if (msg) msg.classList.add('visible');
+    }
+  })();
+
+  // Redirect if already authenticated
+  (function() {
+    const token = localStorage.getItem('ffmg_admin_token');
+    const exp = localStorage.getItem('ffmg_admin_expires');
+    if (token && exp && new Date(exp) > new Date()) {
+      window.location.href = '/admin/dashboard';
+    }
+  })();
+
+  document.getElementById('loginForm').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submitBtn');
+    const errMsg = document.getElementById('errorMsg');
+    const password = document.getElementById('password').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+    errMsg.classList.remove('visible');
+
+    try {
+      const res = await fetch('/api/admin/auth', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        localStorage.setItem('ffmg_admin_token', data.token);
+        localStorage.setItem('ffmg_admin_expires', data.expires_at);
+        window.location.href = '/admin/dashboard';
+      } else if (res.status === 429) {
+        errMsg.textContent = data.message || 'Too many attempts. Try again in 15 minutes.';
+        errMsg.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      } else {
+        errMsg.textContent = 'Incorrect password';
+        errMsg.classList.add('visible');
+        btn.disabled = false;
+        btn.textContent = 'Sign In';
+      }
+    } catch {
+      errMsg.textContent = 'Network error — try again';
+      errMsg.classList.add('visible');
+      btn.disabled = false;
+      btn.textContent = 'Sign In';
+    }
+  });
+</script>
+</body>
+</html>

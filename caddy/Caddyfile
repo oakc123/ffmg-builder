@@ -15,6 +15,14 @@ http://preview.funkfactorymediagroup.com:8080 {
 	try_files {path} {path}/index.html =404
 }
 
+http://funkfactorymediagroup.com:8080 http://www.funkfactorymediagroup.com:8080 {
+	reverse_proxy funkfactoryos:3000
+}
+
+http://funkfactorypets.com:8080 http://www.funkfactorypets.com:8080 {
+	reverse_proxy funkfactoryos:3000
+}
+
 http://:8080 {
 	respond "Not found" 404
 }

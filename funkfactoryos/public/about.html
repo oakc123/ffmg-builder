@@ -1,0 +1,1016 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About | Funk Factory Media Group — New Mexico Sports & Event Media</title>
+    <meta name="description" content="Funk Factory Media Group is a New Mexico-based media company capturing the energy of live events — sports photography, concert videography, brand films, and web design since 2015.">
+    <link rel="canonical" href="https://funkfactoryos.polsia.app/about">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="About Funk Factory Media Group">
+    <meta property="og:description" content="New Mexico-based sports photography, concert videography, and web design — capturing the energy of live events since 2015.">
+    <meta property="og:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/about">
+    <meta property="og:type" content="website">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  "name": "Funk Factory Media Group",
+  "description": "Sports photography, concert videography, brand films, and web design for athletes, venues, and brands across New Mexico.",
+  "url": "https://funkfactoryos.polsia.app",
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Albuquerque",
+    "addressRegion": "NM",
+    "addressCountry": "US"
+  },
+  "foundingDate": "2015",
+  "areaServed": "Albuquerque, New Mexico"
+}
+</script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--text); }
+
+        .nav-links a.active { font-weight: 600; }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+        }
+
+        /* ===== PAGE HERO ===== */
+        .page-hero {
+            padding: 128px 64px 80px;
+            background: var(--bg);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover { color: var(--accent); }
+
+        .breadcrumb-sep { opacity: 0.4; }
+
+        .page-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 5vw, 5rem);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -2px;
+            max-width: 780px;
+            margin-bottom: 28px;
+        }
+
+        .page-hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .page-hero-desc {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 560px;
+            line-height: 1.8;
+        }
+
+        /* ===== HERO IMAGE STRIP ===== */
+        .hero-image-strip {
+            width: 100%;
+            height: 420px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 4px;
+        }
+
+        .strip-img {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .strip-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.88);
+            transition: transform 0.6s ease, filter 0.3s;
+        }
+
+        .strip-img:hover img {
+            transform: scale(1.03);
+            filter: saturate(1.05);
+        }
+
+        /* ===== STORY SECTION ===== */
+        .story {
+            padding: 100px 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 100px;
+            align-items: start;
+        }
+
+        .story-left { position: sticky; top: 100px; }
+
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .story-left h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.6rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 32px;
+        }
+
+        .story-stat {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stat-row {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .stat-big {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .stat-desc {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .story-right { padding-top: 8px; }
+
+        .story-right p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.85;
+            margin-bottom: 24px;
+        }
+
+        .story-right p strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .story-pullquote {
+            margin: 40px 0;
+            padding: 32px 36px;
+            background: var(--bg-warm);
+            border-left: 3px solid var(--accent);
+            border-radius: 0 8px 8px 0;
+        }
+
+        .story-pullquote p {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.6;
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        /* ===== VALUES ===== */
+        .values {
+            background: var(--bg-warm);
+            padding: 100px 64px;
+        }
+
+        .values-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .values-header {
+            margin-bottom: 64px;
+            max-width: 560px;
+        }
+
+        .values-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            margin-top: 12px;
+            line-height: 1.05;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2px;
+        }
+
+        .value-card {
+            background: var(--bg);
+            padding: 44px 40px;
+            position: relative;
+            transition: background 0.2s;
+        }
+
+        .value-card:hover { background: #fdf8f4; }
+
+        .value-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            opacity: 0.6;
+            margin-bottom: 24px;
+        }
+
+        .value-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+            margin-bottom: 16px;
+        }
+
+        .value-card p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+        }
+
+        /* ===== SERVICES OVERVIEW ===== */
+        .services-overview {
+            padding: 100px 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .services-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 64px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .services-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.05;
+        }
+
+        .services-header a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: gap 0.2s;
+        }
+
+        .services-header a:hover { gap: 10px; }
+
+        .service-list {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .service-item {
+            display: grid;
+            grid-template-columns: 80px 1fr 1fr auto;
+            align-items: center;
+            gap: 40px;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            transition: background 0.15s;
+            cursor: default;
+        }
+
+        .service-item:last-child { border-bottom: 1px solid var(--border); }
+
+        .service-item-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: var(--accent);
+            opacity: 0.5;
+        }
+
+        .service-item-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .service-item-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.65;
+        }
+
+        .service-item-tag {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--accent);
+            background: rgba(212,149,106,0.1);
+            padding: 6px 14px;
+            border-radius: 100px;
+            white-space: nowrap;
+        }
+
+        /* ===== TERRITORY ===== */
+        .territory {
+            background: var(--bg-dark);
+            padding: 100px 64px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .territory::before {
+            content: '';
+            position: absolute;
+            top: -200px;
+            right: -200px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, rgba(212,149,106,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .territory-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .territory-text .section-label { color: var(--accent); }
+
+        .territory-text h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            color: #fff;
+            margin-top: 12px;
+            margin-bottom: 24px;
+            line-height: 1.05;
+        }
+
+        .territory-text p {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .territory-locations {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .location-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 20px 24px;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 8px;
+        }
+
+        .location-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        .location-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: rgba(255,255,255,0.85);
+        }
+
+        .location-desc {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.35);
+            margin-left: auto;
+        }
+
+        /* ===== CTA ===== */
+        .cta-section {
+            padding: 120px 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-section .section-label { margin-bottom: 20px; display: block; }
+
+        .cta-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 4.5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.0;
+            margin-bottom: 20px;
+        }
+
+        .cta-section h2 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 480px;
+            margin: 0 auto 44px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 1.5px solid var(--border-strong);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-dark);
+            color: rgba(255,255,255,0.5);
+            padding: 60px 64px 40px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+            margin-bottom: 48px;
+        }
+
+        .footer-brand .nav-logo {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-brand p {
+            font-size: 0.82rem;
+            line-height: 1.6;
+            max-width: 220px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.75); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+            font-size: 0.78rem;
+            opacity: 0.35;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .story { grid-template-columns: 1fr; gap: 48px; }
+            .story-left { position: static; }
+            .values-grid { grid-template-columns: 1fr 1fr; }
+            .service-item { grid-template-columns: 60px 1fr 1fr; }
+            .service-item-tag { display: none; }
+            .territory-inner { grid-template-columns: 1fr; gap: 60px; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                background: rgba(255,255,255,0.98);
+                padding: 24px 20px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { font-size: 1.05rem; color: var(--text); }
+            .nav-toggle { display: flex; }
+            .page-hero { padding: 100px 24px 60px; }
+            .hero-image-strip { height: 260px; grid-template-columns: 2fr 1fr; }
+            .strip-img:last-child { display: none; }
+            .story,
+            .services-overview,
+            .cta-section { padding: 64px 24px; }
+            .values { padding: 64px 24px; }
+            .territory { padding: 64px 24px; }
+            footer { padding: 48px 24px 32px; }
+            .values-grid { grid-template-columns: 1fr; }
+            .service-item { grid-template-columns: 1fr; gap: 8px; padding: 24px 0; }
+            .service-item-num { display: none; }
+            .footer-inner { flex-direction: column; }
+        }
+
+        /* ===== NAV PROGRESS BAR ===== */
+        .nav-progress{position:fixed;top:64px;left:0;right:0;z-index:99;height:3px;background:transparent;pointer-events:none;}
+        .nav-progress-bar{height:100%;background:var(--accent,#D4956A);transition:width .1s linear;}
+
+        /* ===== NAV SOCIAL PROOF ===== */
+        .nav-social-proof{font-size:.72rem;color:var(--text-muted,#6b5c50);opacity:0;transition:opacity .4s;white-space:nowrap;line-height:1;}
+
+        /* ===== SCROLL PANEL ===== */
+        .scroll-panel{position:fixed;bottom:28px;right:28px;z-index:250;background:var(--bg-warm,#faf6f1);border:1px solid var(--border,rgba(107,58,31,.1));border-radius:10px;padding:14px 40px 14px 20px;box-shadow:0 4px 20px rgba(26,15,8,.1);font-size:.88rem;color:var(--text,#1a0f08);line-height:1.5;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;pointer-events:none;}
+        .scroll-panel.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+        .sp-inner{display:flex;align-items:center;gap:6px;}
+        .sp-link{color:var(--accent-dark,#6B3A1F);font-weight:600;text-decoration:none;}
+        .sp-link:hover{text-decoration:underline;}
+        .scroll-panel-close{position:absolute;top:8px;right:10px;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-muted,#6b5c50);line-height:1;padding:0;}
+        .scroll-panel-close:hover{color:var(--text,#1a0f08);}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/about" class="active">About</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/#gallery">Work</a></li>
+            <li><a href="/intake" class="nav-cta" id="navCtaBtn">Get a Quote</a></li>
+            <li><span class="nav-social-proof" id="navSocialProof">Trusted by 500+ teams</span></li>
+        </ul>
+    </nav>
+    <div class="nav-progress" id="navProgress"></div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span class="breadcrumb-sep">›</span>
+            <span>About</span>
+        </nav>
+        <div class="page-eyebrow">Who We Are</div>
+        <h1>New Mexico's media crew for the<br><em>moments that matter</em></h1>
+        <p class="page-hero-desc">Funk Factory Media Group has been on the sidelines, in the pit, and behind the lens for over a decade — capturing the energy of live events across New Mexico and beyond.</p>
+    </section>
+
+    <!-- HERO IMAGE STRIP -->
+    <div class="hero-image-strip" role="img" aria-label="FFMG photography and videography work">
+        <div class="strip-img">
+            <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=900&q=80" alt="Concert videography at a New Mexico venue" loading="lazy">
+        </div>
+        <div class="strip-img">
+            <img src="https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=500&q=80" alt="Sports photography at a high school football game" loading="lazy">
+        </div>
+        <div class="strip-img">
+            <img src="https://images.unsplash.com/photo-1516450360452-9312f5e86fc7?w=500&q=80" alt="Event photography at a live music venue" loading="lazy">
+        </div>
+    </div>
+
+    <!-- STORY SECTION -->
+    <section class="story">
+        <div class="story-left">
+            <div class="section-label">The Story</div>
+            <h2>Built from years in the field, not a boardroom</h2>
+            <div class="story-stat">
+                <div class="stat-row">
+                    <div class="stat-big">500+</div>
+                    <div class="stat-desc">Events documented<br>across New Mexico</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-big">10+</div>
+                    <div class="stat-desc">Years capturing<br>live events</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-big">48hr</div>
+                    <div class="stat-desc">Standard recap<br>turnaround</div>
+                </div>
+                <div class="stat-row">
+                    <div class="stat-big">12K+</div>
+                    <div class="stat-desc">Stills delivered<br>to clients</div>
+                </div>
+            </div>
+        </div>
+        <div class="story-right">
+            <p>Funk Factory Media Group started as most creative businesses do — one camera, one passion, and a willingness to show up. We were in the stands before we were on the sidelines. We shot every weekend game, every local concert, every community event we could find.</p>
+            <p>Over time, the craft sharpened and the clients followed. <strong>Schools, venues, leagues, and artists across New Mexico</strong> started calling on FFMG when they needed media that captured what actually happened — not a sanitized marketing version of it.</p>
+
+            <div class="story-pullquote">
+                <p>"Great imagery isn't just marketing — it's the record. We treat every shot like it might be the one that gets framed."</p>
+            </div>
+
+            <p>We're based in Albuquerque, but we travel throughout New Mexico — Albuquerque, Santa Fe, Rio Rancho, Las Cruces, and everywhere in between. <strong>If there's a game, a show, or an event worth capturing, we'll be there.</strong></p>
+            <p>In 2020, we expanded beyond photography and videography into web design — building digital platforms for the same clients who needed their media to live somewhere worth showing it. The same principles apply: clear, purposeful, built to last.</p>
+        </div>
+    </section>
+
+    <!-- VALUES -->
+    <section class="values">
+        <div class="values-inner">
+            <div class="values-header">
+                <div class="section-label">How We Work</div>
+                <h2>What we believe about good media</h2>
+            </div>
+            <div class="values-grid">
+                <div class="value-card">
+                    <div class="value-num">01</div>
+                    <h3>Show up prepared</h3>
+                    <p>We scout venues before game day. We know the lighting before the first pitch. Preparation is what separates a great shot from a lucky one — and we don't rely on luck.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">02</div>
+                    <h3>Deliver on time, every time</h3>
+                    <p>Coaches need film before Monday practice. Venues need content before the post goes live. We have a 48-hour turnaround on recaps because your clients' timelines are real, and so are ours.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">03</div>
+                    <h3>Authentic energy only</h3>
+                    <p>We don't stage shots. We don't use stock. We capture the real moment — the celebration, the exhaustion, the intensity — because that's what people actually connect with.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">04</div>
+                    <h3>No junk shots in the gallery</h3>
+                    <p>Quantity is easy. We edit with taste. You'll never scroll through 800 blurry frames wondering which one to use — the edit is part of the product.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">05</div>
+                    <h3>Know your client's world</h3>
+                    <p>We've been covering sports long enough to know what a coach needs vs. what a booster club wants vs. what the athlete's parents are going to frame. That context changes every shot decision.</p>
+                </div>
+                <div class="value-card">
+                    <div class="value-num">06</div>
+                    <h3>Build to last</h3>
+                    <p>Whether it's a photo gallery or a website, we build things that don't break in three months. Every deliverable is made to work — not just to impress in the initial handoff.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SERVICES OVERVIEW -->
+    <section class="services-overview">
+        <div class="services-header">
+            <div>
+                <div class="section-label">What We Do</div>
+                <h2>The full capability set</h2>
+            </div>
+            <a href="/services">See full services →</a>
+        </div>
+        <div class="service-list">
+            <div class="service-item">
+                <div class="service-item-num">01</div>
+                <div class="service-item-name">Sports Photography</div>
+                <div class="service-item-desc">Sideline coverage for high school and collegiate athletics — football, basketball, baseball, and more. Season packages and single-event rates.</div>
+                <div class="service-item-tag">Most Popular</div>
+            </div>
+            <div class="service-item">
+                <div class="service-item-num">02</div>
+                <div class="service-item-name">Concert Videography</div>
+                <div class="service-item-desc">Multi-camera live music and event video production. Recap reels, full show records, social media cuts — delivered in 48 hours.</div>
+                <div class="service-item-tag">Signature Service</div>
+            </div>
+            <div class="service-item">
+                <div class="service-item-num">03</div>
+                <div class="service-item-name">Brand Films</div>
+                <div class="service-item-desc">Cinematic short-form content for venues, businesses, and organizations that need a visual identity beyond a logo and a color scheme.</div>
+                <div class="service-item-tag">High Impact</div>
+            </div>
+            <div class="service-item">
+                <div class="service-item-num">04</div>
+                <div class="service-item-name">Social Media Content</div>
+                <div class="service-item-desc">Platform-optimized photo and video packages designed for Instagram, TikTok, and YouTube — shot and cut for the feed, not just repurposed from the main deliverable.</div>
+                <div class="service-item-tag">Ongoing Packages</div>
+            </div>
+            <div class="service-item">
+                <div class="service-item-num">05</div>
+                <div class="service-item-name">Web Design</div>
+                <div class="service-item-desc">Custom websites for sports organizations, venues, and small businesses. Clean, fast, mobile-first. From $1,250 for standard packages.</div>
+                <div class="service-item-tag">From $1,250</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TERRITORY -->
+    <section class="territory">
+        <div class="territory-inner">
+            <div class="territory-text">
+                <div class="section-label">Where We Work</div>
+                <h2>Albuquerque-based. New Mexico-wide.</h2>
+                <p>We're headquartered in Albuquerque but regularly travel across the state for events, games, and productions. No travel fee for events within 60 miles of Albuquerque.</p>
+                <p>Have an event further out? We'll talk. If it's worth showing up for, we'll show up.</p>
+            </div>
+            <div class="territory-locations">
+                <div class="location-row">
+                    <div class="location-dot"></div>
+                    <div class="location-name">Albuquerque</div>
+                    <div class="location-desc">Headquarters · No travel fee</div>
+                </div>
+                <div class="location-row">
+                    <div class="location-dot"></div>
+                    <div class="location-name">Rio Rancho</div>
+                    <div class="location-desc">Regular coverage · No travel fee</div>
+                </div>
+                <div class="location-row">
+                    <div class="location-dot"></div>
+                    <div class="location-name">Santa Fe</div>
+                    <div class="location-desc">Regular coverage · No travel fee</div>
+                </div>
+                <div class="location-row">
+                    <div class="location-dot"></div>
+                    <div class="location-name">Las Cruces</div>
+                    <div class="location-desc">Available by arrangement</div>
+                </div>
+                <div class="location-row">
+                    <div class="location-dot"></div>
+                    <div class="location-name">Statewide NM</div>
+                    <div class="location-desc">Available for the right project</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <span class="section-label">Ready to Work Together?</span>
+        <h2>Let's capture your<br><em>next big moment</em></h2>
+        <p>Fill out the intake form and we'll come back within 24 hours with availability and a custom quote — no pressure, no generic packages.</p>
+        <div class="cta-buttons">
+            <a href="/intake" class="btn-primary">Start Your Project →</a>
+            <a href="/portfolio" class="btn-secondary">See Our Work</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="nav-logo" style="color:rgba(255,255,255,0.85);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;"><img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="32" style="display:inline-block;vertical-align:middle;"></a>
+                <p>New Mexico sports photography, concert videography, brand films &amp; web design. Since 2015.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Media Services</a></li>
+                <li><a href="/portfolio">Portfolio</a></li>
+                <li><a href="/work">Our Work</a></li>
+                <li><a href="/what-we-offer">Web Services</a></li>
+                <li><a href="/intake">Start a Project</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">© 2026 Funk Factory Media Group · Albuquerque, NM</div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const toggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        toggle.addEventListener('click', () => {
+            const open = navLinks.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', open);
+        });
+        // Close on link click
+        navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+    </script>
+
+    <!-- Scroll panel + nav CTA logic -->
+    <div class="scroll-panel" id="scrollPanel" role="complementary" aria-label="Get a free quote">
+        <button class="scroll-panel-close" id="scrollPanelClose" aria-label="Dismiss">×</button>
+        <div class="sp-inner">
+            <span class="sp-text">Have a question? Get a free quote in under 24 hrs →</span>
+        </div>
+    </div>
+    <script src="/js/nav-cta.js"></script>
+</body>
+</html>

@@ -53,6 +53,70 @@ services:
       - caddy_data:/data
       - caddy_config:/config
 
+  # ── FunkFactoryOS — the live funkfactorymediagroup.com / funkfactorypets.com site ──
+  funkfactoryos-db:
+    image: postgres:16-alpine
+    container_name: ffmg-website-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: funkfactoryos
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: ${FFMG_POSTGRES_PASSWORD:-postgres}
+    volumes:
+      - funkfactoryos_postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d funkfactoryos"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+
+  funkfactoryos:
+    build: ./funkfactoryos
+    container_name: ffmg-website
+    restart: unless-stopped
+    ports:
+      - "8003:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      DATABASE_URL: postgresql://postgres:${FFMG_POSTGRES_PASSWORD:-postgres}@funkfactoryos-db:5432/funkfactoryos?sslmode=disable
+      APP_URL: ${FFMG_APP_URL:-https://funkfactorymediagroup.com}
+      PORTAL_BASE_URL: ${FFMG_PORTAL_BASE_URL:-https://funkfactorymediagroup.com/portal}
+      # ── Auth secrets — unique to this app, set real values in .env ─────────
+      ADMIN_PASSWORD: ${FFMG_ADMIN_PASSWORD:-}
+      JWT_SECRET: ${FFMG_JWT_SECRET:-}
+      ADMIN_JWT_SECRET: ${FFMG_ADMIN_JWT_SECRET:-}
+      MAGIC_LINK_SECRET: ${FFMG_MAGIC_LINK_SECRET:-}
+      # ── Shared with builder/intake — reuses this repo's existing secrets ───
+      ASSISTANT_API_KEY: ${ASSISTANT_API_KEY:-}
+      ASSISTANT_BASE_URL: ${ASSISTANT_BASE_URL:-https://builder.funkfactorymediagroup.com}
+      INTAKE_WEBHOOK_SECRET: ${POLSIA_SECRET:-}
+      # ── Optional integrations — app no-ops these features when unset ───────
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY:-}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET:-}
+      OWNER_EMAIL: ${OWNER_EMAIL:-}
+      AMER_ALERT_EMAIL: ${AMER_ALERT_EMAIL:-}
+      SMTP_HOST: ${SMTP_HOST:-}
+      SMTP_PORT: ${SMTP_PORT:-587}
+      SMTP_SECURE: ${SMTP_SECURE:-false}
+      SMTP_USER: ${SMTP_USER:-}
+      SMTP_PASS: ${SMTP_PASS:-}
+      SMTP_FROM: ${SMTP_FROM:-}
+      POLSIA_API_KEY: ${POLSIA_API_KEY:-}
+      POLSIA_R2_BASE_URL: ${POLSIA_R2_BASE_URL:-https://polsia.com}
+      OPENAI_API_KEY: ${OPENAI_API_KEY:-}
+      KLAVIYO_WEBHOOK_URL: ${KLAVIYO_WEBHOOK_URL:-}
+      GA4_MEASUREMENT_ID: ${GA4_MEASUREMENT_ID:-}
+      TZ: America/Denver
+    volumes:
+      - funkfactoryos_uploads:/app/public/uploads
+    depends_on:
+      funkfactoryos-db:
+        condition: service_healthy
+
 volumes:
   caddy_data:
   caddy_config:
+  funkfactoryos_postgres_data:
+  funkfactoryos_uploads:

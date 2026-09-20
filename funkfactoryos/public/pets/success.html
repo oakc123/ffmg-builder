@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order Confirmed! 🎉 — Funk Factory Pets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --primary: #7C3AED; --primary-dark: #5B21B6; --pink: #EC4899; --green: #10B981; --bg: #FFFBF5; --card: #fff; --text: #1F0D3C; --text-muted: #6B5B8A; --border: rgba(124,58,237,0.12); }
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    .nav { background: #fff; border-bottom: 2px solid var(--border); padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Fredoka One', cursive; font-size: 1.5rem; color: var(--primary); text-decoration: none; }
+
+    .confetti-bg {
+      min-height: calc(100vh - 68px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 24px;
+      background: linear-gradient(135deg, #EDE9FE 0%, #FCE7F3 50%, #FEF3C7 100%);
+    }
+
+    .success-card {
+      background: #fff;
+      border-radius: 32px;
+      padding: 60px 48px;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 80px rgba(124,58,237,0.15);
+      border: 2px solid var(--border);
+    }
+
+    .success-icon {
+      font-size: 5rem;
+      margin-bottom: 24px;
+      animation: bounce 1s ease-in-out;
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    .success-card h1 {
+      font-family: 'Fredoka One', cursive;
+      font-size: clamp(2rem, 4vw, 3rem);
+      color: var(--text);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .success-card .subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 32px;
+      font-weight: 600;
+    }
+
+    .order-details {
+      background: #F5F3FF;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 32px;
+      text-align: left;
+    }
+
+    .order-details h3 {
+      font-family: 'Fredoka One', cursive;
+      font-size: 1.15rem;
+      margin-bottom: 16px;
+      color: var(--primary);
+    }
+
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(124,58,237,0.08);
+      font-size: 0.9rem;
+    }
+
+    .detail-row:last-child { border-bottom: none; }
+    .detail-row .label { color: var(--text-muted); font-weight: 600; }
+    .detail-row .value { font-weight: 800; }
+
+    .shipping-timeline {
+      display: flex;
+      justify-content: center;
+      gap: 0;
+      margin-bottom: 32px;
+    }
+
+    .timeline-step {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      flex: 1;
+      position: relative;
+    }
+
+    .timeline-step::before {
+      content: '';
+      position: absolute;
+      top: 20px;
+      right: -50%;
+      width: 100%;
+      height: 2px;
+      background: #DDD6FE;
+    }
+
+    .timeline-step:last-child::before { display: none; }
+
+    .step-dot {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: #EDE9FE;
+      border: 3px solid var(--primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      margin-bottom: 8px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .step-dot.active { background: var(--primary); }
+    .step-dot.active span { filter: brightness(10); }
+
+    .step-label { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-align: center; }
+
+    .cta-row {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: background 0.2s;
+    }
+
+    .btn-primary:hover { background: var(--primary-dark); }
+
+    .btn-outline {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--primary);
+      padding: 14px 28px;
+      border-radius: 100px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      border: 2px solid var(--primary);
+      transition: background 0.2s;
+    }
+
+    .btn-outline:hover { background: #EDE9FE; }
+
+    @media (max-width: 600px) {
+      .success-card { padding: 40px 24px; }
+      .nav { padding: 0 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/pets" class="nav-logo">🐾 Funk Factory Pets</a>
+  </nav>
+
+  <div class="confetti-bg">
+    <div class="success-card">
+      <div class="success-icon">🎉</div>
+      <h1>Order Confirmed!</h1>
+      <p class="subtitle">Your pet's new gear is on its way! We'll send a confirmation email once your order ships. Thank you for shopping with Funk Factory Pets! 🐾</p>
+
+      <div id="orderDetails" class="order-details" style="display:none;">
+        <h3>🛍️ Your Order</h3>
+        <div id="orderDetailsContent"></div>
+      </div>
+
+      <div class="shipping-timeline">
+        <div class="timeline-step">
+          <div class="step-dot active"><span>✓</span></div>
+          <div class="step-label">Order<br>Placed</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-dot"><span>📦</span></div>
+          <div class="step-label">Processing<br>(1–3 days)</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-dot"><span>🚚</span></div>
+          <div class="step-label">Shipped<br>(3–5 days)</div>
+        </div>
+        <div class="timeline-step">
+          <div class="step-dot"><span>🏠</span></div>
+          <div class="step-label">Delivered<br>(7–14 days)</div>
+        </div>
+      </div>
+
+      <div class="cta-row">
+        <a href="/pets/shop" class="btn-primary">🛍️ Keep Shopping</a>
+        <a href="/pets" class="btn-outline">🐾 Back to Home</a>
+      </div>
+    </div>
+  </div>
+
+  <script>
+  function fmtPrice(c) { return '$' + (c/100).toFixed(2); }
+
+  // Clear the cart after successful payment
+  localStorage.removeItem('ffp_cart');
+
+  async function loadOrder() {
+    const params = new URLSearchParams(window.location.search);
+    const sessionId = params.get('session_id');
+    const orderId = params.get('order');
+    const isDemo = params.get('demo') === '1';
+
+    // Trigger order confirmation (captures shipping address + sends owner email)
+    // Non-blocking, server deduplicates via email_sent_at
+    if (sessionId) {
+      fetch('/api/pets/order-confirm', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ session_id: sessionId })
+      }).catch(() => {}); // silent — don't block page
+    }
+
+    // If this is a demo/unpaid order, show a notice instead of "confirmed"
+    if (isDemo || (!sessionId && orderId)) {
+      document.querySelector('.success-card h1').textContent = 'Order Received';
+      document.querySelector('.success-card .subtitle').innerHTML = 'Your order has been received but <strong>payment is still pending</strong>. We\'ll follow up with payment instructions. Thank you for shopping with Funk Factory Pets! 🐾';
+    }
+
+    const lookupId = sessionId || orderId;
+    if (!lookupId) return;
+
+    try {
+      const res = await fetch(`/api/pets/order/${encodeURIComponent(lookupId)}`);
+      const data = await res.json();
+      if (!data.success || !data.order) return;
+
+      const order = data.order;
+      const items = Array.isArray(order.items) ? order.items : [];
+      const validItems = items.filter(i => i.name);
+
+      let html = `
+        <div class="detail-row"><span class="label">Order #</span><span class="value">#${order.id}</span></div>
+        <div class="detail-row"><span class="label">Email</span><span class="value">${order.email}</span></div>
+      `;
+
+      if (validItems.length) {
+        validItems.forEach(i => {
+          html += `<div class="detail-row"><span class="label">${i.name} ×${i.quantity}</span><span class="value">${fmtPrice(i.unit_price_cents * i.quantity)}</span></div>`;
+        });
+      }
+
+      if (order.shipping_cents !== undefined) {
+        html += `<div class="detail-row"><span class="label">Shipping</span><span class="value">${order.shipping_cents === 0 ? 'FREE' : fmtPrice(order.shipping_cents)}</span></div>`;
+      }
+
+      if (order.total_cents) {
+        html += `<div class="detail-row" style="padding-top:12px;border-top:2px solid rgba(124,58,237,0.15);margin-top:8px"><span class="label" style="font-weight:900">Total${sessionId ? ' Paid' : ''}</span><span class="value" style="font-size:1.2rem;color:var(--primary)">${fmtPrice(order.total_cents)}</span></div>`;
+      }
+
+      document.getElementById('orderDetailsContent').innerHTML = html;
+      document.getElementById('orderDetails').style.display = '';
+    } catch {}
+  }
+
+  loadOrder();
+  </script>
+<!-- Polsia analytics -->
+<script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:path,referrer:referrer}),keepalive:true}).catch(function(){});})();</script>
+</body>
+</html>

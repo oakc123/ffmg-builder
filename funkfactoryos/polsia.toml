@@ -1,0 +1,19 @@
+
+runtime = "node"
+start = "npm start"
+build = "npm install --include=dev && npm run build --if-present"
+port_env_var = "PORT"
+healthcheck_path = "/health"
+
+[env]
+DATABASE_URL = { source = "rdbms" }
+
+[[crons]]
+name = "daily-attribution-snapshot"
+schedule = "0 9 * * *"
+command = "node jobs/daily-attribution-snapshot.js"
+
+[[crons]]
+name = "express-lead-nurture-daily"
+schedule = "0 14 * * *"
+command = "node jobs/express-lead-nurture-daily.js"

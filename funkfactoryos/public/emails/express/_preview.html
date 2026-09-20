@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFMG Express Nurture — Email Previews</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f7f3ef; --surface: #ffffff; --text: #1a0f08; --text-muted: #6b5c50;
+      --copper: #D4956A; --brown: #6B3A1F;
+      --border: rgba(107,58,31,0.12);
+      --border-strong: rgba(107,58,31,0.2);
+    }
+    html, body { height: 100%; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); line-height: 1.5; }
+    .layout { display: grid; grid-template-columns: 360px 1fr; min-height: 100vh; }
+
+    /* SIDEBAR */
+    .sidebar { background: var(--surface); border-right: 1px solid var(--border); padding: 32px 24px; overflow-y: auto; }
+    .sidebar h1 { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .sidebar .subtitle { font-size: 13px; color: var(--text-muted); margin-bottom: 24px; }
+    .sidebar h2 { font-family: 'Space Grotesk', sans-serif; font-size: 12px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin: 24px 0 12px; }
+    .sidebar h2:first-of-type { margin-top: 0; }
+    .sidebar .stage-card { border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-bottom: 16px; background: #faf6f1; }
+    .sidebar .stage-card .stage-num { display: inline-block; font-family: 'Space Grotesk', sans-serif; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--copper); margin-bottom: 8px; }
+    .sidebar .stage-card .stage-name { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); margin-bottom: 10px; }
+    .sidebar .stage-card .meta { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
+    .sidebar .stage-card .meta strong { color: var(--text); font-weight: 600; }
+    .sidebar .stage-card a { display: inline-block; margin-top: 10px; font-size: 13px; color: var(--copper); font-weight: 600; text-decoration: none; }
+    .sidebar .stage-card a:hover { text-decoration: underline; }
+    .sidebar .docs-link { display: block; padding: 12px 16px; background: var(--brown); color: #fff; border-radius: 8px; font-size: 13px; font-weight: 600; text-decoration: none; text-align: center; margin-top: 16px; }
+    .sidebar .docs-link:hover { background: #5a3219; }
+
+    /* MAIN */
+    .main { padding: 32px; overflow-y: auto; }
+    .email-stack { max-width: 760px; margin: 0 auto; }
+    .email-block { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 32px; overflow: hidden; }
+    .email-header { padding: 20px 24px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .email-header .label { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); }
+    .email-header .filename { font-family: 'Space Grotesk', sans-serif; font-size: 12px; color: var(--text-muted); }
+    .email-header .open-link { font-size: 13px; color: var(--copper); font-weight: 600; text-decoration: none; }
+    .email-header .open-link:hover { text-decoration: underline; }
+    .email-frame-wrapper { background: #faf6f1; padding: 24px; display: flex; justify-content: center; }
+    .email-frame-wrapper iframe { width: 520px; height: 720px; border: 1px solid var(--border-strong); border-radius: 8px; background: #faf6f1; }
+    .notes { padding: 20px 24px; background: #fdf6f0; border-top: 1px solid var(--border); font-size: 13px; color: var(--text-muted); }
+    .notes strong { color: var(--text); font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<div class="layout">
+  <!-- SIDEBAR -->
+  <aside class="sidebar">
+    <h1>FFMG Express Nurture</h1>
+    <div class="subtitle">3-email drip — owner preview &amp; approval</div>
+
+    <h2>Stage 1 — Day 0</h2>
+    <div class="stage-card">
+      <div class="stage-num">Stage 1 / Acknowledgment</div>
+      <div class="stage-name">WA confirmation + intake nudge</div>
+      <div class="meta"><strong>Subject:</strong> We got your FFMG Express request, {{FIRST_NAME}}</div>
+      <div class="meta"><strong>Preheader:</strong> Here's what happens next — including your 2 business day SLA.</div>
+      <div class="meta"><strong>Send delay:</strong> Day 0 (immediate on POST /api/contact)</div>
+      <div class="meta"><strong>Primary CTA:</strong> /intake</div>
+      <div class="meta"><strong>Conversion gate:</strong> intake_submissions row exists for same email (server-side) → skip Stage 2 + Stage 3 sends via Klaviyo flow filter.</div>
+      <a href="./01-acknowledgment.html" target="_blank">Open file →</a>
+    </div>
+
+    <h2>Stage 2 — Day 3</h2>
+    <div class="stage-card">
+      <div class="stage-num">Stage 2 / Case study</div>
+      <div class="stage-name">Three recent NM projects + testimonial</div>
+      <div class="meta"><strong>Subject:</strong> How three New Mexico teams launched with FFMG</div>
+      <div class="meta"><strong>Preheader:</strong> Recent projects from RRHS, Sunshine Theater, and a $2.5K web build.</div>
+      <div class="meta"><strong>Send delay:</strong> Day 3 from contact_submissions.created_at</div>
+      <div class="meta"><strong>Primary CTA:</strong> /intake</div>
+      <div class="meta"><strong>Owner TODO:</strong> Replace {{TESTIMONIAL_1_QUOTE}} with a live quote from public/index.html (testimonials section).</div>
+      <a href="./02-case-study.html" target="_blank">Open file →</a>
+    </div>
+
+    <h2>Stage 3 — Day 7</h2>
+    <div class="stage-card">
+      <div class="stage-num">Stage 3 / Re-engagement</div>
+      <div class="stage-name">Gentle check-in + slot urgency</div>
+      <div class="meta"><strong>Subject:</strong> One last check-in on your FFMG Express request</div>
+      <div class="meta"><strong>Preheader:</strong> Your open slot is held for 7 days — after that it moves to the next intake.</div>
+      <div class="meta"><strong>Send delay:</strong> Day 7 from contact_submissions.created_at</div>
+      <div class="meta"><strong>Primary CTA:</strong> /intake</div>
+      <div class="meta"><strong>Conversion gate:</strong> After Day 7 with no intake, lead drops from drip; remains on attribution dashboard for manual follow-up.</div>
+      <a href="./03-re-engagement.html" target="_blank">Open file →</a>
+    </div>
+
+    <h2>Klaviyo Sandbox Setup</h2>
+    <a class="docs-link" href="/docs/klaviyo-express-nurture-flow.md">Open Klaviyo sandbox checklist →</a>
+  </aside>
+
+  <!-- MAIN: stacked email renders -->
+  <main class="main">
+    <div class="email-stack">
+
+      <div class="email-block">
+        <div class="email-header">
+          <span class="label">Email 1 — Day 0</span>
+          <a class="open-link" href="./01-acknowledgment.html" target="_blank">Open in new tab →</a>
+        </div>
+        <div class="email-frame-wrapper">
+          <iframe src="./01-acknowledgment.html" title="Email 1 — Day 0 Acknowledgment"></iframe>
+        </div>
+        <div class="notes">
+          <strong>Trigger wiring:</strong> POST /api/contact returns 200 → routes/contact.js triggerStage1() POSTs the "FFMG Express Lead Submitted" event to KLAVIYO_WEBHOOK_URL → on success db_express_nurture.recordSend(contact_id, 1, event_id) runs.
+        </div>
+      </div>
+
+      <div class="email-block">
+        <div class="email-header">
+          <span class="label">Email 2 — Day 3</span>
+          <a class="open-link" href="./02-case-study.html" target="_blank">Open in new tab →</a>
+        </div>
+        <div class="email-frame-wrapper">
+          <iframe src="./02-case-study.html" title="Email 2 — Day 3 Case Study"></iframe>
+        </div>
+        <div class="notes">
+          <strong>Trigger wiring:</strong> jobs/express-lead-nurture-daily.js (runs daily at 14:00 UTC, defined in polsia.toml) → calls db_express_nurture.queueableContactsForDay(3) → POSTs the "FFMG Express Lead Day 3" event → recordSend(contact_id, 3, event_id).
+        </div>
+      </div>
+
+      <div class="email-block">
+        <div class="email-header">
+          <span class="label">Email 3 — Day 7</span>
+          <a class="open-link" href="./03-re-engagement.html" target="_blank">Open in new tab →</a>
+        </div>
+        <div class="email-frame-wrapper">
+          <iframe src="./03-re-engagement.html" title="Email 3 — Day 7 Re-engagement"></iframe>
+        </div>
+        <div class="notes">
+          <strong>Trigger wiring:</strong> Same cron as Stage 2, with day offset = 7. queueableContactsForDay(7) excludes rows already in express_nurture_sends for stage 3 (idempotency) and any contact with a matching intake_submissions email (already converted).
+        </div>
+      </div>
+
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

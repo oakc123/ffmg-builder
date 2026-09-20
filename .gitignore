@@ -9,3 +9,9 @@ intake/jobs/
 intake/costs/
 intake/logs/
 *.log
+
+# Exported production data — contains real customer PII, never commit
+funkfactoryos.zip
+funkfactoryos-database.zip
+funkfactoryos/db-import/*.sql
+funkfactoryos/db-import/README.txt

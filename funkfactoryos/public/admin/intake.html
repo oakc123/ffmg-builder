@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFMG Admin — Intake Submissions</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f7f3ef; --surface: #ffffff; --sidebar-bg: #1a0f08;
+      --sidebar-text: rgba(255,255,255,0.85); --sidebar-muted: rgba(255,255,255,0.4);
+      --sidebar-active: rgba(212,149,106,0.15); --sidebar-active-text: #D4956A;
+      --border: #e8e0d8; --text: #1a1209; --text-muted: #7a6e62;
+      --copper: #D4956A; --copper-dark: #b97a52; --brown: #6B3A1F; --red: #ef4444;
+    }
+    html, body { height: 100%; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; min-width: 1024px; }
+
+    .sidebar { width: 240px; flex-shrink: 0; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+    .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .wordmark { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .f-mark { width: 32px; height: 32px; background: var(--brown); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .f-mark svg { width: 18px; height: 18px; }
+    .sub { font-size: 11px; color: var(--sidebar-muted); margin-top: 1px; font-weight: 400; font-family: 'DM Sans', sans-serif; }
+    .nav { padding: 16px 12px; flex: 1; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sidebar-muted); padding: 0 8px; margin-bottom: 4px; margin-top: 16px; }
+    .nav-label:first-child { margin-top: 0; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); cursor: pointer; text-decoration: none; transition: background 0.15s; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); }
+    .nav-item.active { background: var(--sidebar-active); color: var(--sidebar-active-text); }
+    .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar { height: 56px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 50; }
+    .topbar-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .bell-wrap { position: relative; }
+    .bell-btn { position: relative; width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .bell-btn:hover { background: var(--bg); }
+    .bell-btn svg { width: 18px; height: 18px; color: var(--text-muted); }
+    .bell-badge { position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: var(--red); border-radius: 50%; border: 2px solid var(--surface); display: none; }
+    .bell-badge.show { display: block; }
+    .notif-dropdown { display: none; position: absolute; top: 44px; right: 0; width: 320px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 200; overflow: hidden; }
+    .notif-dropdown.open { display: block; }
+    .notif-header { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+    .notif-header span { font-size: 13px; font-weight: 600; }
+    .notif-read-all { font-size: 12px; color: var(--copper); cursor: pointer; background: none; border: none; padding: 0; }
+    .notif-list { max-height: 320px; overflow-y: auto; }
+    .notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer; display: flex; gap: 10px; align-items: flex-start; }
+    .notif-item:last-child { border-bottom: none; }
+    .notif-item:hover { background: var(--bg); }
+    .notif-item.unread { background: #fdf6f0; }
+    .notif-dot { width: 8px; height: 8px; background: var(--copper); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .notif-dot.read { background: transparent; border: 1px solid var(--border); }
+    .notif-text { flex: 1; }
+    .notif-text p { font-size: 13px; color: var(--text); line-height: 1.4; }
+    .notif-text span { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: block; }
+    .notif-empty { padding: 24px 16px; text-align: center; font-size: 13px; color: var(--text-muted); }
+    .signout-btn { font-size: 13px; font-weight: 500; color: var(--text-muted); background: none; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .signout-btn:hover { color: var(--red); border-color: var(--red); }
+
+    .page-content { padding: 28px 28px 40px; flex: 1; }
+    .page-heading { font-family: 'Space Grotesk', sans-serif; font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .page-sub { font-size: 14px; color: var(--text-muted); margin-bottom: 28px; }
+    .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .table-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; }
+    .table-header-actions { display: flex; align-items: center; gap: 14px; }
+    .export-btn { font-size: 13px; font-weight: 500; color: var(--surface); background: var(--brown); border: 1px solid var(--brown); padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .export-btn:hover { background: var(--copper-dark); border-color: var(--copper-dark); }
+    .table-info { font-size: 13px; color: var(--text-muted); }
+    .table-wrap { overflow-x: auto; }
+    table { width: 100%; min-width: 1080px; border-collapse: collapse; }
+    th { padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); background: #faf8f5; border-bottom: 1px solid var(--border); white-space: nowrap; }
+    td { padding: 13px 16px; font-size: 13px; color: var(--text); border-bottom: 1px solid var(--border); vertical-align: top; }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #faf8f5; }
+    tr:hover td { background: #fdf6f0; }
+    .name-cell { font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+    .muted-cell { color: var(--text-muted); }
+    .brief-cell { max-width: 360px; min-width: 260px; white-space: pre-wrap; overflow-wrap: anywhere; line-height: 1.5; }
+    .status-select { min-width: 112px; padding: 6px 26px 6px 8px; color: var(--brown); background: var(--surface); border: 1px solid var(--copper); border-radius: 6px; font: inherit; cursor: pointer; }
+    .status-select:disabled { opacity: 0.6; cursor: wait; }
+    .loading-box { display: flex; align-items: center; justify-content: center; padding: 64px; }
+    .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--copper); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .empty-box, .error-box { padding: 56px 24px; text-align: center; }
+    .empty-box h3, .error-box h3 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .empty-box p, .error-box p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+    .error-box h3 { color: var(--red); }
+  </style>
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="sidebar-logo">
+      <div class="wordmark">
+        <div class="f-mark"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M4 6h16M4 12h10M4 18h7"/></svg></div>
+        <div><div>FFMG Admin</div><div class="sub">Funk Factory Media Group</div></div>
+      </div>
+    </div>
+    <nav class="nav">
+      <div class="nav-label">Main</div>
+      <a href="/admin/dashboard" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>Dashboard</a>
+      <a href="/admin/jobs" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>Jobs</a>
+      <a href="/admin/messages" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Messages</a>
+      <a href="/admin/costs" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Costs</a>
+      <a href="/dashboard/intake" class="nav-item active"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h6M9 3h6a2 2 0 012 2v1h1a2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h1V5a2 2 0 012-2z"/><path d="M8 11h8M8 15h5"/></svg>Intake</a>
+      <div class="nav-label">Manage</div>
+      <a href="/admin" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>Gallery</a>
+      <a href="/admin/gigs" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>Gigs</a>
+      <a href="/admin/orders" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>Orders</a>
+      <a href="/admin/analytics" class="nav-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>Analytics</a>
+    </nav>
+  </aside>
+
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title">Intake Submissions</div>
+      <div class="topbar-right">
+        <div class="bell-wrap">
+          <button class="bell-btn" id="bellBtn" type="button" aria-label="Notifications" onclick="toggleNotif()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg><span class="bell-badge" id="bellBadge"></span></button>
+          <div class="notif-dropdown" id="notifDropdown">
+            <div class="notif-header"><span>Notifications</span><button class="notif-read-all" type="button" onclick="markAllRead()">Mark all read</button></div>
+            <div class="notif-list" id="notifList"><div class="notif-empty">No notifications</div></div>
+          </div>
+        </div>
+        <button class="signout-btn" type="button" onclick="signOut()">Sign out</button>
+      </div>
+    </div>
+
+    <main class="page-content">
+      <h1 class="page-heading">Client intake</h1>
+      <p class="page-sub">Saved project requests, newest first.</p>
+      <section class="table-card" aria-live="polite">
+        <div class="table-header"><div class="table-title">Submissions</div><div class="table-header-actions"><div class="table-info" id="tableInfo"></div><button class="export-btn" type="button" onclick="exportSubmissions()">Export CSV</button></div></div>
+        <div id="submissionContent"><div class="loading-box"><div class="spinner" aria-label="Loading submissions"></div></div></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const BASE = '/api/admin';
+    let token = null;
+
+    function getToken() {
+      token = localStorage.getItem('ffmg_admin_token');
+      const exp = localStorage.getItem('ffmg_admin_expires');
+      if (!token || !exp || new Date(exp) <= new Date()) {
+        window.location.href = '/admin/login';
+        return false;
+      }
+      return true;
+    }
+
+    function signOut() {
+      localStorage.removeItem('ffmg_admin_token');
+      localStorage.removeItem('ffmg_admin_expires');
+      window.location.href = '/admin/login';
+    }
+
+    function escHtml(value) {
+      return String(value == null ? '' : value)
+        .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;').replace(/'/g, '&#039;');
+    }
+
+    function displayValue(value) {
+      return value == null || value === '' ? '—' : escHtml(value);
+    }
+
+    function mapValue(value, values) {
+      return Object.prototype.hasOwnProperty.call(values, value) ? values[value] : (value || '—');
+    }
+
+    function formatDate(value) {
+      if (!value) return '—';
+      const date = new Date(value);
+      return Number.isNaN(date.getTime()) ? '—' : new Intl.DateTimeFormat(undefined, { dateStyle: 'medium', timeStyle: 'short' }).format(date);
+    }
+
+    const statusOptions = [
+      { value: 'new', label: 'New' },
+      { value: 'contacted', label: 'Contacted' },
+      { value: 'qualified', label: 'Qualified' },
+      { value: 'closed', label: 'Closed' }
+    ];
+
+    function renderStatusSelect(submission) {
+      const status = statusOptions.some((option) => option.value === submission.status) ? submission.status : 'new';
+      const options = statusOptions.map((option) => `<option value="${escHtml(option.value)}"${option.value === status ? ' selected' : ''}>${escHtml(option.label)}</option>`).join('');
+      return `<select class="status-select" data-submission-id="${escHtml(submission.id)}" aria-label="Status for ${escHtml(submission.name || 'submission')}">${options}</select>`;
+    }
+
+    function renderError(title = 'Could not load submissions') {
+      document.getElementById('tableInfo').textContent = '';
+      document.getElementById('submissionContent').innerHTML = `<div class="error-box"><h3>${escHtml(title)}</h3><p>Please try again later.</p></div>`;
+    }
+
+    function renderSubmissions(submissions) {
+      const info = document.getElementById('tableInfo');
+      info.textContent = `${submissions.length} ${submissions.length === 1 ? 'submission' : 'submissions'}`;
+      if (!submissions.length) {
+        document.getElementById('submissionContent').innerHTML = '<div class="empty-box"><h3>No intake submissions yet</h3><p>New client project requests will appear here.</p></div>';
+        return;
+      }
+
+      const projectTypes = { standard: 'Standard — $2,500–$3,000', premium: 'Premium — $5,000–$6,000', unsure: 'Not sure yet' };
+      const budgets = { '2500-3000': '$2,500–$3,000', '5000-6000': '$5,000–$6,000', unsure: 'Still evaluating' };
+      const timelines = { asap: 'ASAP (rush)', '1month': 'Within 1 month', '2months': '1–2 months', flexible: 'Flexible' };
+      const rows = submissions.map((submission) => `
+        <tr>
+          <td class="name-cell">${displayValue(submission.name)}</td>
+          <td>${displayValue(submission.business_name)}</td>
+          <td>${escHtml(mapValue(submission.package, projectTypes))}</td>
+          <td>${escHtml(mapValue(submission.budget_confirm, budgets))}</td>
+          <td>${escHtml(mapValue(submission.timeline, timelines))}</td>
+          <td class="brief-cell">${displayValue(submission.description)}</td>
+          <td class="muted-cell">${escHtml(formatDate(submission.created_at))}</td>
+          <td>${renderStatusSelect(submission)}</td>
+        </tr>`).join('');
+
+      document.getElementById('submissionContent').innerHTML = `<div class="table-wrap"><table><thead><tr><th>Client</th><th>Company</th><th>Project type</th><th>Budget</th><th>Timeline</th><th>Brief</th><th>Submitted</th><th>Status</th></tr></thead><tbody>${rows}</tbody></table></div>`;
+      document.querySelectorAll('.status-select').forEach((select) => {
+        select.addEventListener('change', () => updateSubmissionStatus(select));
+      });
+    }
+
+    async function updateSubmissionStatus(select) {
+      const previousValue = select.dataset.previousValue || select.value;
+      select.dataset.previousValue = previousValue;
+      select.disabled = true;
+      try {
+        const response = await fetch(`${BASE}/intake/${encodeURIComponent(select.dataset.submissionId)}/status`, {
+          method: 'PATCH',
+          headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+          body: JSON.stringify({ status: select.value })
+        });
+        if (response.status === 401) return signOut();
+        const data = await response.json();
+        if (!response.ok || !data.success || data.status !== select.value) throw new Error('Status update failed');
+        select.dataset.previousValue = data.status;
+      } catch (error) {
+        select.value = previousValue;
+        renderError('Could not update submission status');
+      } finally {
+        select.disabled = false;
+      }
+    }
+
+    async function loadSubmissions() {
+      try {
+        const response = await fetch(`${BASE}/intake`, { headers: { Authorization: `Bearer ${token}` } });
+        if (response.status === 401) return signOut();
+        const data = await response.json();
+        if (!response.ok || !data.success || !Array.isArray(data.submissions)) throw new Error('Request failed');
+        renderSubmissions(data.submissions);
+      } catch (error) {
+        renderError();
+      }
+    }
+
+    async function exportSubmissions() {
+      try {
+        const response = await fetch(`${BASE}/intake/export`, { headers: { Authorization: `Bearer ${token}` } });
+        if (response.status === 401) return signOut();
+        if (!response.ok) throw new Error('Export failed');
+
+        const blob = await response.blob();
+        const disposition = response.headers.get('Content-Disposition') || '';
+        const filenameMatch = disposition.match(/filename="([^"]+)"/i);
+        const filename = filenameMatch ? filenameMatch[1] : 'intake-submissions.csv';
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = filename;
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      } catch (error) {
+        renderError('Could not export submissions');
+      }
+    }
+
+    async function loadNotifications() {
+      if (!token) return;
+      try {
+        const response = await fetch(`${BASE}/notifications`, { headers: { Authorization: `Bearer ${token}` } });
+        if (response.status === 401) return signOut();
+        const data = await response.json();
+        if (!data.success) return;
+        document.getElementById('bellBadge').classList.toggle('show', Number(data.unread_count) > 0);
+        const list = document.getElementById('notifList');
+        list.innerHTML = data.notifications && data.notifications.length ? data.notifications.map((item) => `<div class="notif-item ${item.read ? '' : 'unread'}" onclick="readNotification(${Number(item.id)})"><div class="notif-dot ${item.read ? 'read' : ''}"></div><div class="notif-text"><p>${escHtml(item.message || '')}</p><span>${escHtml(formatDate(item.created_at))}</span></div></div>`).join('') : '<div class="notif-empty">No notifications</div>';
+      } catch (error) {
+        // Notifications are supplementary; keep the inbox available if they fail.
+      }
+    }
+
+    async function readNotification(id) {
+      await fetch(`${BASE}/notifications/read`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ notification_id: id }) }).catch(() => {});
+      loadNotifications();
+    }
+
+    async function markAllRead() {
+      await fetch(`${BASE}/notifications/read`, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` }, body: JSON.stringify({ all: true }) }).catch(() => {});
+      document.getElementById('notifDropdown').classList.remove('open');
+      loadNotifications();
+    }
+
+    function toggleNotif() { document.getElementById('notifDropdown').classList.toggle('open'); }
+
+    document.addEventListener('click', (event) => {
+      if (!event.target.closest('.bell-wrap')) document.getElementById('notifDropdown').classList.remove('open');
+    });
+
+    if (getToken()) {
+      loadSubmissions();
+      loadNotifications();
+      setInterval(loadNotifications, 90000);
+    }
+  </script>
+</body>
+</html>

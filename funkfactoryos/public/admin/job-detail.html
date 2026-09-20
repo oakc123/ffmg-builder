@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFMG Admin — Job Detail</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f7f3ef;
+      --surface: #ffffff;
+      --sidebar-bg: #1a0f08;
+      --sidebar-text: rgba(255,255,255,0.85);
+      --sidebar-muted: rgba(255,255,255,0.4);
+      --sidebar-active: rgba(212,149,106,0.15);
+      --sidebar-active-text: #D4956A;
+      --border: #e8e0d8;
+      --text: #1a1209;
+      --text-muted: #7a6e62;
+      --copper: #D4956A;
+      --copper-dark: #b97a52;
+      --brown: #6B3A1F;
+      --amber: #f59e0b;
+      --blue: #3b82f6;
+      --green: #22c55e;
+      --red: #ef4444;
+    }
+
+    html, body { height: 100%; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; min-width: 1024px; }
+
+    /* ── SIDEBAR ─────────────────────────────────────────────────────────── */
+    .sidebar { width: 240px; flex-shrink: 0; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+    .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .sidebar-logo .wordmark { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .sidebar-logo .f-mark { width: 32px; height: 32px; background: var(--brown); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sidebar-logo .f-mark svg { width: 18px; height: 18px; }
+    .sidebar-logo .sub { font-size: 11px; color: var(--sidebar-muted); margin-top: 1px; font-weight: 400; font-family: 'DM Sans', sans-serif; }
+    .nav { padding: 16px 12px; flex: 1; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sidebar-muted); padding: 0 8px; margin-bottom: 4px; margin-top: 16px; }
+    .nav-label:first-child { margin-top: 0; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); cursor: pointer; text-decoration: none; transition: background 0.1s, color 0.1s; margin-bottom: 1px; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); }
+    .nav-item.active { background: var(--sidebar-active); color: var(--sidebar-active-text); }
+    .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+    .sidebar-footer { padding: 16px 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+
+    /* ── MAIN ─────────────────────────────────────────────────────────────── */
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* ── TOP BAR ─────────────────────────────────────────────────────────── */
+    .topbar { background: var(--surface); border-bottom: 1px solid var(--border); padding: 0 28px; height: 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+    .topbar-left { display: flex; align-items: center; gap: 10px; }
+    .back-link { font-size: 13px; color: var(--text-muted); text-decoration: none; display: flex; align-items: center; gap: 4px; transition: color 0.1s; }
+    .back-link:hover { color: var(--text); }
+    .topbar-divider { color: var(--border); font-size: 18px; }
+    .topbar-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 16px; }
+    .bell-btn { position: relative; width: 36px; height: 36px; border-radius: 8px; border: 1px solid var(--border); background: var(--bg); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.1s; }
+    .bell-btn:hover { background: var(--border); }
+    .bell-btn svg { width: 18px; height: 18px; color: var(--text-muted); }
+    .bell-badge { position: absolute; top: -4px; right: -4px; background: var(--red); color: #fff; font-size: 10px; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
+    .signout-btn { font-size: 13px; font-weight: 500; color: var(--text-muted); cursor: pointer; background: none; border: none; text-decoration: none; transition: color 0.1s; }
+    .signout-btn:hover { color: var(--text); }
+
+    /* ── NOTIFICATION DROPDOWN ───────────────────────────────────────────── */
+    .notif-dropdown { position: absolute; top: 52px; right: 28px; width: 360px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 32px rgba(107,58,31,0.12); z-index: 200; display: none; overflow: hidden; }
+    .notif-dropdown.open { display: block; }
+    .notif-header { padding: 14px 16px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .notif-header span { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; }
+    .mark-read-btn { font-size: 12px; color: var(--copper); cursor: pointer; background: none; border: none; font-weight: 500; }
+    .notif-list { max-height: 360px; overflow-y: auto; }
+    .notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; display: flex; gap: 12px; align-items: flex-start; }
+    .notif-item:last-child { border-bottom: none; }
+    .notif-item:hover { background: var(--bg); }
+    .notif-item.unread { background: #fdf8f4; }
+    .notif-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--copper); flex-shrink: 0; margin-top: 5px; }
+    .notif-dot.read { background: transparent; }
+    .notif-msg { font-size: 13px; color: var(--text); line-height: 1.4; }
+    .notif-time-sm { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .notif-empty { padding: 32px 16px; text-align: center; font-size: 13px; color: var(--text-muted); }
+
+    /* ── HEADER BAR ──────────────────────────────────────────────────────── */
+    .job-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .job-header-left { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+
+    .job-title { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); }
+
+    .job-id-tag {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--text-muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 3px 8px;
+    }
+
+    .job-header-actions { display: flex; gap: 10px; align-items: center; flex-shrink: 0; }
+
+    /* ── ACTION BUTTONS ───────────────────────────────────────────────────── */
+    .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 16px; border-radius: 8px; font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: background 0.1s, opacity 0.1s; text-decoration: none; white-space: nowrap; }
+    .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+    .btn-amber { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+    .btn-amber:hover:not(:disabled) { background: #fde68a; }
+    .btn-copper { background: var(--copper); color: #fff; }
+    .btn-copper:hover:not(:disabled) { background: var(--copper-dark); }
+    .btn-green { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
+    .btn-green:hover:not(:disabled) { background: #bbf7d0; }
+    .btn-red { background: #fee2e2; color: #991b1b; border: 1px solid #fecaca; }
+    .btn-red:hover:not(:disabled) { background: #fecaca; }
+    .btn-ghost { background: var(--bg); color: var(--text-muted); border: 1px solid var(--border); }
+    .btn-ghost:hover:not(:disabled) { background: var(--border); }
+    .btn-brown { background: var(--brown); color: #fff; }
+    .btn-brown:hover:not(:disabled) { background: #5a3018; }
+
+    /* ── PAGE CONTENT ─────────────────────────────────────────────────────── */
+    .page-content { padding: 24px 28px; flex: 1; display: flex; flex-direction: column; gap: 20px; }
+
+    /* ── CARDS ────────────────────────────────────────────────────────────── */
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+    .card-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+
+    .card-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
+
+    .card-body { padding: 20px; }
+
+    /* ── FIELD GRID ───────────────────────────────────────────────────────── */
+    .field-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 16px; }
+
+    .field { display: flex; flex-direction: column; gap: 4px; }
+
+    .field-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); }
+
+    .field-value { font-size: 14px; color: var(--text); line-height: 1.5; }
+
+    .field-value.empty { color: var(--text-muted); font-style: italic; }
+
+    /* ── BADGES ───────────────────────────────────────────────────────────── */
+    .badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+    .badge-intake { background: #f3f0ec; color: #7a6e62; }
+    .badge-pending { background: #fef3c7; color: #92400e; }
+    .badge-approved { background: #dbeafe; color: #1d4ed8; }
+    .badge-development { background: #dbeafe; color: #1d4ed8; }
+    .badge-preview { background: #dcfce7; color: #166534; }
+    .badge-changes { background: #fee2e2; color: #991b1b; }
+    .badge-delivered { background: #166534; color: #fff; }
+    .badge-flagged { background: #fee2e2; color: #991b1b; }
+    .badge-standard { background: #f3f0ec; color: var(--brown); border: 1px solid var(--border); }
+    .badge-premium { background: #fef3c7; color: #92400e; border: 1px solid #fde68a; }
+
+    /* ── RISKS LIST ───────────────────────────────────────────────────────── */
+    .risk-item { display: flex; gap: 8px; align-items: flex-start; padding: 8px 0; border-bottom: 1px solid var(--border); }
+    .risk-item:last-child { border-bottom: none; }
+    .risk-icon { color: var(--amber); font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+    .risk-text { font-size: 14px; color: var(--text); line-height: 1.4; }
+
+    /* ── TASK LIST ────────────────────────────────────────────────────────── */
+    .task-item { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; gap: 16px; align-items: flex-start; }
+    .task-item:last-child { border-bottom: none; }
+    .task-num { font-family: 'Space Grotesk', sans-serif; font-size: 13px; font-weight: 700; color: var(--copper); flex-shrink: 0; width: 28px; }
+    .task-body { flex: 1; min-width: 0; }
+    .task-title { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 4px; }
+    .task-desc { font-size: 13px; color: var(--text-muted); line-height: 1.5; margin-bottom: 10px; }
+    .task-actions { display: flex; gap: 8px; align-items: center; }
+    .task-status-area { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+
+    /* ── REJECTION MODAL ──────────────────────────────────────────────────── */
+    .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.4); z-index: 500; display: flex; align-items: center; justify-content: center; display: none; }
+    .modal-overlay.open { display: flex; }
+    .modal { background: var(--surface); border-radius: 14px; padding: 28px; width: 440px; max-width: 90vw; box-shadow: 0 20px 60px rgba(107,58,31,0.2); }
+    .modal-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 700; margin-bottom: 12px; }
+    .modal-textarea { width: 100%; min-height: 100px; padding: 12px; border: 1px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); resize: vertical; outline: none; }
+    .modal-textarea:focus { border-color: var(--copper); }
+    .modal-actions { display: flex; gap: 10px; margin-top: 16px; justify-content: flex-end; }
+
+    /* ── SELECT / TOGGLE ──────────────────────────────────────────────────── */
+    .pkg-select { height: 36px; padding: 0 32px 0 12px; border: 1px solid var(--border); border-radius: 8px; font-family: 'DM Sans', sans-serif; font-size: 14px; background: var(--bg); color: var(--text); cursor: pointer; outline: none; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%237a6e62' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; }
+
+    .toggle-label { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text); cursor: pointer; user-select: none; }
+    .toggle-input { width: 36px; height: 20px; appearance: none; background: var(--border); border-radius: 10px; position: relative; cursor: pointer; transition: background 0.2s; flex-shrink: 0; }
+    .toggle-input:checked { background: var(--copper); }
+    .toggle-input::after { content: ''; position: absolute; width: 14px; height: 14px; background: white; border-radius: 50%; top: 3px; left: 3px; transition: left 0.2s; }
+    .toggle-input:checked::after { left: 19px; }
+
+    /* ── INLINE SPINNER ───────────────────────────────────────────────────── */
+    .spinner { width: 16px; height: 16px; border: 2px solid var(--border); border-top-color: var(--copper); border-radius: 50%; animation: spin 0.7s linear infinite; display: inline-block; vertical-align: middle; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── INLINE ALERT ─────────────────────────────────────────────────────── */
+    .inline-alert { padding: 10px 14px; border-radius: 8px; font-size: 13px; margin-top: 12px; }
+    .inline-alert.success { background: #dcfce7; color: #166534; }
+    .inline-alert.error { background: #fee2e2; color: #991b1b; }
+
+    /* ── LOADING ──────────────────────────────────────────────────────────── */
+    .loading-screen { display: flex; align-items: center; justify-content: center; min-height: 300px; flex-direction: column; gap: 12px; color: var(--text-muted); }
+    .big-spinner { width: 32px; height: 32px; border: 3px solid var(--border); border-top-color: var(--copper); border-radius: 50%; animation: spin 0.7s linear infinite; }
+
+    /* ── PREVIEW CARD LINK ────────────────────────────────────────────────── */
+    .preview-link { display: inline-flex; align-items: center; gap: 6px; color: var(--copper); text-decoration: none; font-weight: 500; font-size: 14px; }
+    .preview-link:hover { color: var(--copper-dark); text-decoration: underline; }
+
+    /* ── SECTION DIVIDER ──────────────────────────────────────────────────── */
+    .section-sep { border: none; border-top: 1px solid var(--border); margin: 16px 0; }
+
+    .pulse { animation: pulse 2s infinite; }
+    @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="wordmark">
+      <div class="f-mark">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M4 4h10v4H8v3h5v4H8v5H4V4z" fill="#D4956A"/></svg>
+      </div>
+      <div>
+        <div>FFMG Admin</div>
+        <div class="sub">Funk Factory Media Group</div>
+      </div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Main</div>
+    <a class="nav-item" href="/admin/dashboard">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Dashboard
+    </a>
+    <a class="nav-item active" href="/admin/jobs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+      Jobs
+    </a>
+    <a class="nav-item" href="/admin/messages">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+      Messages
+    </a>
+    <a class="nav-item" href="/admin/costs">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg>
+      Costs
+    </a>
+    <a class="nav-item" href="/dashboard/intake">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5h6M9 3h6a2 2 0 012 2v1h1a2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h1V5a2 2 0 012-2z"/><path d="M8 11h8M8 15h5"/></svg>
+      Intake
+    </a>
+    <div class="nav-label">Business</div>
+    <a class="nav-item" href="/admin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>Gallery</a>
+    <a class="nav-item" href="/admin/gigs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 7V3m8 4V3M3 11h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>Gigs</a>
+    <a class="nav-item" href="/admin/orders"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17M17 13v4a2 2 0 11-4 0v-4m0 0H7"/></svg>Orders</a>
+    <a class="nav-item" href="/admin/analytics"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>Analytics</a>
+  </nav>
+  <div class="sidebar-footer">
+    <a class="nav-item" href="/admin/settings" style="margin-bottom:0">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+      Settings
+    </a>
+  </div>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <header class="topbar">
+    <div class="topbar-left">
+      <a class="back-link" href="/admin/jobs">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+        Jobs
+      </a>
+      <span class="topbar-divider">/</span>
+      <div class="topbar-title" id="topbarTitle">Loading…</div>
+    </div>
+    <div class="topbar-right">
+      <div style="position:relative">
+        <button class="bell-btn" id="bellBtn" title="Notifications">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          <span class="bell-badge" id="bellBadge"></span>
+        </button>
+        <div class="notif-dropdown" id="notifDropdown">
+          <div class="notif-header">
+            <span>Notifications</span>
+            <button class="mark-read-btn" id="markAllRead">Mark all read</button>
+          </div>
+          <div class="notif-list" id="notifList"><div class="notif-empty">Loading…</div></div>
+        </div>
+      </div>
+      <button class="signout-btn" id="signoutBtn">Sign out</button>
+    </div>
+  </header>
+
+  <!-- JOB HEADER BAR (populated by JS) -->
+  <div class="job-header" id="jobHeaderBar" style="display:none">
+    <div class="job-header-left">
+      <div class="job-title" id="jobHeaderTitle"></div>
+      <span class="job-id-tag" id="jobHeaderId"></span>
+      <span id="jobHeaderPkg"></span>
+      <span id="jobHeaderStatus"></span>
+    </div>
+    <div class="job-header-actions">
+      <button class="btn btn-amber" id="flagBtn">⚑ Flag for Manual Handling</button>
+      <button class="btn btn-copper" id="triggerBuildHeaderBtn" style="display:none">Trigger Build Agent →</button>
+    </div>
+  </div>
+
+  <!-- PAGE CONTENT -->
+  <div class="page-content" id="pageContent">
+    <div class="loading-screen"><div class="big-spinner"></div>Loading job…</div>
+  </div>
+</div>
+
+<!-- REJECTION MODAL -->
+<div class="modal-overlay" id="rejectModal">
+  <div class="modal">
+    <div class="modal-title">Reject Task</div>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px">Provide a reason so the team knows what needs to change.</p>
+    <textarea class="modal-textarea" id="rejectReason" placeholder="e.g. Timeline is too aggressive given current workload…"></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="rejectCancelBtn">Cancel</button>
+      <button class="btn btn-red" id="rejectConfirmBtn">Reject Task</button>
+    </div>
+  </div>
+</div>
+
+<!-- FLAG MODAL -->
+<div class="modal-overlay" id="flagModal">
+  <div class="modal">
+    <div class="modal-title">Flag for Manual Handling</div>
+    <p style="font-size:13px;color:var(--text-muted);margin-bottom:14px">Describe why this job needs manual review.</p>
+    <textarea class="modal-textarea" id="flagReason" placeholder="e.g. Client requested non-standard requirements that need team discussion…"></textarea>
+    <div class="modal-actions">
+      <button class="btn btn-ghost" id="flagCancelBtn">Cancel</button>
+      <button class="btn btn-amber" id="flagConfirmBtn">Flag Job</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ── STATE ─────────────────────────────────────────────────────────────────────
+const JOB_ID = location.pathname.split('/admin/jobs/')[1] || '';
+let JOB = null;
+let rejectPendingTask = null;
+
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+function getToken() {
+  const token = localStorage.getItem('ffmg_admin_token');
+  const exp = localStorage.getItem('ffmg_admin_expires');
+  if (!token || !exp || new Date(exp) <= new Date()) {
+    localStorage.removeItem('ffmg_admin_token');
+    localStorage.removeItem('ffmg_admin_expires');
+    window.location.href = '/admin/login';
+    return null;
+  }
+  return token;
+}
+
+function authHeaders() {
+  return { 'Authorization': `Bearer ${getToken()}`, 'Content-Type': 'application/json' };
+}
+
+document.getElementById('signoutBtn').addEventListener('click', () => {
+  localStorage.removeItem('ffmg_admin_token');
+  localStorage.removeItem('ffmg_admin_expires');
+  window.location.href = '/admin/login';
+});
+
+// ── HELPERS ───────────────────────────────────────────────────────────────────
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function fmtDate(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+}
+
+function fmtDateShort(d) {
+  if (!d) return '—';
+  return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+}
+
+function timeAgo(dateStr) {
+  if (!dateStr) return '—';
+  const diff = Math.floor((Date.now() - new Date(dateStr)) / 1000);
+  if (diff < 60) return 'just now';
+  if (diff < 3600) return `${Math.floor(diff/60)}m ago`;
+  if (diff < 86400) return `${Math.floor(diff/3600)}h ago`;
+  return `${Math.floor(diff/86400)}d ago`;
+}
+
+function val(v) {
+  if (v === null || v === undefined || v === '') return '<span class="field-value empty">—</span>';
+  return `<span class="field-value">${escHtml(String(v))}</span>`;
+}
+
+function statusBadge(status) {
+  const map = {
+    intake_received: ['badge-intake', 'Intake'],
+    pending_approval: ['badge-pending', 'Pending Approval'],
+    approved: ['badge-approved', 'Approved'],
+    in_development: ['badge-development', 'In Dev'],
+    preview_ready: ['badge-preview', 'Preview Ready'],
+    changes_requested: ['badge-changes', 'Changes Req.'],
+    delivered: ['badge-delivered', 'Delivered'],
+    flagged: ['badge-flagged', '⚑ Flagged']
+  };
+  const [cls, label] = map[status] || ['badge-intake', status || '—'];
+  return `<span class="badge ${cls}">${label}</span>`;
+}
+
+function packageBadge(tier) {
+  if (!tier) return '';
+  const cls = (tier || '').toLowerCase() === 'premium' ? 'badge-premium' : 'badge-standard';
+  return `<span class="badge ${cls}">${tier.charAt(0).toUpperCase() + tier.slice(1)}</span>`;
+}
+
+function taskStatusBadge(s) {
+  if (!s || s === 'pending') return '<span class="badge badge-pending">Pending</span>';
+  if (s === 'approved') return '<span class="badge badge-approved">Approved</span>';
+  if (s === 'rejected') return '<span class="badge badge-changes">Rejected</span>';
+  return `<span class="badge badge-intake">${escHtml(s)}</span>`;
+}
+
+// ── LOAD JOB ──────────────────────────────────────────────────────────────────
+async function loadJob() {
+  if (!JOB_ID) {
+    document.getElementById('pageContent').innerHTML = '<div class="loading-screen">Invalid job ID</div>';
+    return;
+  }
+  const token = getToken();
+  if (!token) return;
+
+  try {
+    const res = await fetch(`/api/admin/jobs/${encodeURIComponent(JOB_ID)}`, { headers: authHeaders() });
+    if (res.status === 401) { window.location.href = '/admin/login'; return; }
+    if (res.status === 404) {
+      document.getElementById('pageContent').innerHTML = '<div class="loading-screen" style="color:var(--red)">Job not found</div>';
+      return;
+    }
+    const data = await res.json();
+    if (!data.success) throw new Error(data.message || 'Failed to load');
+    JOB = data.job;
+    renderJob();
+  } catch (err) {
+    document.getElementById('pageContent').innerHTML = `<div class="loading-screen" style="color:var(--red)">Error: ${escHtml(err.message)}</div>`;
+  }
+}
+
+// ── RENDER ────────────────────────────────────────────────────────────────────
+function renderJob() {
+  const j = JOB;
+  const status = j.status || j.project_status || 'intake_received';
+  const pkg = j.package || j.package_tier || '';
+  const bizName = j.business_name || j.name || 'Unknown';
+  const brief = j.original_brief || j.brief || {};
+  const plan = j.job_plan || j.plan || {};
+  const tasks = j.tasks || plan.tasks || [];
+  const isFlagged = status === 'flagged';
+  const isApproved = status === 'approved';
+  const allTasksApproved = tasks.length > 0 && tasks.every(t => (t.status || 'pending') === 'approved');
+
+  // Topbar
+  document.getElementById('topbarTitle').textContent = bizName;
+
+  // Header bar
+  document.getElementById('jobHeaderTitle').textContent = bizName;
+  document.getElementById('jobHeaderId').textContent = JOB_ID;
+  document.getElementById('jobHeaderPkg').innerHTML = packageBadge(pkg);
+  document.getElementById('jobHeaderStatus').innerHTML = statusBadge(status);
+  document.getElementById('jobHeaderBar').style.display = 'flex';
+
+  // Flag button behavior
+  if (isFlagged) {
+    document.getElementById('flagBtn').textContent = '✓ Unflag Job';
+    document.getElementById('flagBtn').className = 'btn btn-ghost';
+    document.getElementById('flagBtn').onclick = unflagJob;
+  } else {
+    document.getElementById('flagBtn').textContent = '⚑ Flag for Manual Handling';
+    document.getElementById('flagBtn').className = 'btn btn-amber';
+    document.getElementById('flagBtn').onclick = () => openFlagModal();
+  }
+
+  // Trigger build header button (only when approved)
+  const trigBtn = document.getElementById('triggerBuildHeaderBtn');
+  trigBtn.style.display = isApproved ? 'inline-flex' : 'none';
+  trigBtn.onclick = () => document.getElementById('buildCard')?.scrollIntoView({ behavior: 'smooth' });
+
+  // Build page content
+  const sections = [];
+
+  // ── JOB BRIEF CARD ────────────────────────────────────────────────────────
+  sections.push(`
+    <div class="card">
+      <div class="card-header"><span class="card-title">Job Brief</span></div>
+      <div class="card-body">
+        <div class="field-grid">
+          <div class="field"><div class="field-label">Contact Name</div>${val(brief.contact_name || brief.name || j.name)}</div>
+          <div class="field"><div class="field-label">Business Name</div>${val(brief.business_name || j.business_name)}</div>
+          <div class="field"><div class="field-label">Email</div>${val(brief.email || j.email)}</div>
+          <div class="field"><div class="field-label">Phone</div>${val(brief.phone || j.phone)}</div>
+          <div class="field"><div class="field-label">Package</div>${packageBadge(pkg) || val('')}</div>
+          <div class="field"><div class="field-label">Submitted</div>${val(fmtDateShort(j.submitted_at || j.created_at))}</div>
+        </div>
+        ${brief.project_description || brief.project_details ? `
+        <hr class="section-sep">
+        <div class="field-grid">
+          <div class="field" style="grid-column: 1/-1"><div class="field-label">Project Description</div>${val(brief.project_description || brief.project_details)}</div>
+          ${brief.target_audience ? `<div class="field"><div class="field-label">Target Audience</div>${val(brief.target_audience)}</div>` : ''}
+          ${brief.competitors ? `<div class="field"><div class="field-label">Competitors</div>${val(brief.competitors)}</div>` : ''}
+          ${brief.goals ? `<div class="field" style="grid-column: 1/-1"><div class="field-label">Goals</div>${val(brief.goals)}</div>` : ''}
+        </div>` : ''}
+        ${brief.brand_colors || brief.brand_fonts || brief.brand_style ? `
+        <hr class="section-sep">
+        <div class="field-grid">
+          <div class="field"><div class="field-label">Brand Colors</div>${val(brief.brand_colors)}</div>
+          <div class="field"><div class="field-label">Brand Fonts</div>${val(brief.brand_fonts)}</div>
+          <div class="field"><div class="field-label">Style Notes</div>${val(brief.brand_style)}</div>
+        </div>` : ''}
+        ${brief.delivery_method || brief.hosting_preference ? `
+        <hr class="section-sep">
+        <div class="field-grid">
+          <div class="field"><div class="field-label">Delivery Method</div>${val(brief.delivery_method)}</div>
+          <div class="field"><div class="field-label">Hosting Preference</div>${val(brief.hosting_preference)}</div>
+        </div>` : ''}
+        ${brief.image_qc_summary || brief.image_count || brief.notes ? `
+        <hr class="section-sep">
+        <div class="field-grid">
+          ${brief.image_qc_summary ? `<div class="field"><div class="field-label">Image QC Summary</div>${val(brief.image_qc_summary)}</div>` : ''}
+          ${brief.image_count !== undefined ? `<div class="field"><div class="field-label">Images Uploaded</div>${val(brief.image_count)}</div>` : ''}
+          ${brief.notes ? `<div class="field" style="grid-column: 1/-1"><div class="field-label">Notes</div>${val(brief.notes)}</div>` : ''}
+        </div>` : ''}
+      </div>
+    </div>
+  `);
+
+  // ── JOB PLAN CARD ─────────────────────────────────────────────────────────
+  if (Object.keys(plan).length > 0) {
+    const risks = plan.risks || [];
+    const questions = plan.questions_for_client || plan.questions || [];
+    sections.push(`
+      <div class="card">
+        <div class="card-header"><span class="card-title">Job Plan</span>${plan.planned_by ? `<span class="badge badge-standard">${escHtml(plan.planned_by)}</span>` : ''}</div>
+        <div class="card-body">
+          <div class="field-grid">
+            ${plan.client_summary ? `<div class="field" style="grid-column: 1/-1"><div class="field-label">Client Summary</div>${val(plan.client_summary)}</div>` : ''}
+            ${plan.recommended_stack ? `<div class="field"><div class="field-label">Recommended Stack</div>${val(plan.recommended_stack)}</div>` : ''}
+            ${plan.estimated_complexity ? `<div class="field"><div class="field-label">Estimated Complexity</div>${val(plan.estimated_complexity)}</div>` : ''}
+          </div>
+          ${risks.length > 0 ? `
+          <hr class="section-sep">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:8px">Risks</div>
+          ${risks.map(r => `<div class="risk-item"><div class="risk-icon">⚠</div><div class="risk-text">${escHtml(String(r))}</div></div>`).join('')}
+          ` : ''}
+          ${questions.length > 0 ? `
+          <hr class="section-sep">
+          <div style="font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;color:var(--text-muted);margin-bottom:8px">Questions for Client</div>
+          ${questions.map((q, i) => {
+            const qText = typeof q === 'string' ? q : (q.question || q.text || String(q));
+            const answered = j.customer_response && j.customer_response.answered_questions && j.customer_response.answered_questions[i];
+            return `<div class="risk-item">
+              <div class="risk-icon" style="color:var(--blue)">?</div>
+              <div>
+                <div class="risk-text">${escHtml(qText)}</div>
+                ${answered ? `<div style="font-size:13px;color:var(--text-muted);margin-top:4px;font-style:italic">"${escHtml(answered)}"</div>` : ''}
+              </div>
+            </div>`;
+          }).join('')}
+          ` : ''}
+        </div>
+      </div>
+    `);
+  }
+
+  // ── TASK LIST CARD ────────────────────────────────────────────────────────
+  if (tasks.length > 0) {
+    const pendingCount = tasks.filter(t => (t.status || 'pending') === 'pending').length;
+    sections.push(`
+      <div class="card" id="tasksCard">
+        <div class="card-header">
+          <span class="card-title">Tasks (${tasks.length})</span>
+          ${pendingCount > 0 ? `<button class="btn btn-green" onclick="approveAllTasks()">Approve All Tasks (${pendingCount} pending)</button>` : '<span class="badge badge-delivered">All Approved</span>'}
+        </div>
+        <div id="taskListBody">
+          ${tasks.map((t, i) => renderTask(t, i)).join('')}
+        </div>
+      </div>
+    `);
+  }
+
+  // ── PACKAGE OVERRIDE CARD ─────────────────────────────────────────────────
+  sections.push(`
+    <div class="card">
+      <div class="card-header"><span class="card-title">Package Override</span></div>
+      <div class="card-body">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+          <div class="field">
+            <div class="field-label">Current Package</div>
+            <div style="margin-top:4px">${packageBadge(pkg) || '<span class="field-value empty">Not set</span>'}</div>
+          </div>
+          <div style="display:flex;align-items:flex-end;gap:8px;margin-top:20px">
+            <select class="pkg-select" id="pkgOverrideSelect">
+              <option value="standard" ${pkg === 'standard' ? 'selected' : ''}>Standard</option>
+              <option value="premium" ${pkg === 'premium' ? 'selected' : ''}>Premium</option>
+            </select>
+            <button class="btn btn-brown" onclick="savePackageOverride()">Save Override</button>
+          </div>
+        </div>
+        <div id="pkgOverrideAlert"></div>
+      </div>
+    </div>
+  `);
+
+  // ── BUILD AGENT CARD (all tasks approved) ─────────────────────────────────
+  if (allTasksApproved) {
+    sections.push(`
+      <div class="card" id="buildCard">
+        <div class="card-header"><span class="card-title">Build Agent</span></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-muted);margin-bottom:16px">All tasks approved. Ready to trigger the build agent for this job.</p>
+          <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+            <label class="toggle-label">
+              <input type="checkbox" class="toggle-input" id="forceClaude">
+              Force Claude API
+            </label>
+            <button class="btn btn-copper" id="triggerBuildBtn" onclick="triggerBuild()">Trigger Build Agent</button>
+          </div>
+          <div id="buildAlert"></div>
+        </div>
+      </div>
+    `);
+  } else if (isApproved) {
+    // Approved but tasks not all done — show build card anyway without button
+    sections.push(`
+      <div class="card" id="buildCard">
+        <div class="card-header"><span class="card-title">Build Agent</span></div>
+        <div class="card-body">
+          <p style="font-size:14px;color:var(--text-muted)">Approve all tasks before triggering the build agent.</p>
+        </div>
+      </div>
+    `);
+  }
+
+  // ── PREVIEW CARD (build_status = preview_ready) ───────────────────────────
+  const preview = j.preview || j.build_preview || null;
+  const buildStatus = j.build_status || '';
+  if (buildStatus === 'preview_ready' || preview) {
+    const previewUrl = (preview && (preview.url || preview.preview_url)) || '';
+    const githubUrl = (preview && preview.github_url) || '';
+    const builtPages = (preview && preview.pages) || [];
+    sections.push(`
+      <div class="card">
+        <div class="card-header"><span class="card-title">Preview</span><span class="badge badge-preview">Preview Ready</span></div>
+        <div class="card-body">
+          <div class="field-grid">
+            ${previewUrl ? `<div class="field"><div class="field-label">Preview Link</div><a class="preview-link" href="${escHtml(previewUrl)}" target="_blank">View Preview →</a></div>` : ''}
+            ${preview && preview.expires_at ? `<div class="field"><div class="field-label">Expires</div>${val(fmtDate(preview.expires_at))}</div>` : ''}
+            ${githubUrl ? `<div class="field"><div class="field-label">GitHub</div><a class="preview-link" href="${escHtml(githubUrl)}" target="_blank">View on GitHub →</a></div>` : ''}
+            ${preview && preview.built_at ? `<div class="field"><div class="field-label">Built</div>${val(timeAgo(preview.built_at))}</div>` : ''}
+          </div>
+          ${builtPages.length > 0 ? `
+          <hr class="section-sep">
+          <div class="field-label" style="margin-bottom:8px">Pages Built</div>
+          <ul style="padding-left:16px;font-size:14px;color:var(--text);">${builtPages.map(p => `<li>${escHtml(String(p))}</li>`).join('')}</ul>
+          ` : ''}
+        </div>
+      </div>
+    `);
+  }
+
+  // ── CUSTOMER RESPONSE CARD ────────────────────────────────────────────────
+  const cr = j.customer_response;
+  if (cr) {
+    const crApproved = cr.approved === true || cr.status === 'approved';
+    sections.push(`
+      <div class="card">
+        <div class="card-header"><span class="card-title">Customer Response</span>${crApproved ? '<span class="badge badge-delivered">Approved</span>' : '<span class="badge badge-changes">Changes Requested</span>'}</div>
+        <div class="card-body">
+          <div class="field-grid">
+            ${cr.responded_at ? `<div class="field"><div class="field-label">Responded</div>${val(fmtDate(cr.responded_at))}</div>` : ''}
+          </div>
+          ${cr.feedback ? `
+          <hr class="section-sep">
+          <div class="field-label" style="margin-bottom:8px">Feedback</div>
+          <p style="font-size:14px;color:var(--text);line-height:1.6;white-space:pre-wrap">${escHtml(cr.feedback)}</p>
+          ` : ''}
+        </div>
+      </div>
+    `);
+  }
+
+  // ── FLAGGED CARD ──────────────────────────────────────────────────────────
+  if (isFlagged) {
+    sections.push(`
+      <div class="card" style="border-color:#fecaca">
+        <div class="card-header" style="background:#fff5f5"><span class="card-title" style="color:var(--red)">⚑ Flagged for Manual Review</span></div>
+        <div class="card-body">
+          <div class="field-grid">
+            ${j.flag_reason ? `<div class="field" style="grid-column:1/-1"><div class="field-label">Flag Reason</div>${val(j.flag_reason)}</div>` : ''}
+            ${j.flagged_at ? `<div class="field"><div class="field-label">Flagged At</div>${val(fmtDate(j.flagged_at))}</div>` : ''}
+          </div>
+          <div style="margin-top:16px">
+            <button class="btn btn-ghost" onclick="unflagJob()">✓ Unflag Job</button>
+          </div>
+        </div>
+      </div>
+    `);
+  }
+
+  document.getElementById('pageContent').innerHTML = sections.join('');
+}
+
+// ── TASK RENDERER ─────────────────────────────────────────────────────────────
+function renderTask(t, index) {
+  const taskNum = t.task_number || t.number || (index + 1);
+  const taskStatus = t.status || 'pending';
+  const isDone = taskStatus === 'approved' || taskStatus === 'rejected';
+  return `
+    <div class="task-item" id="task-row-${taskNum}">
+      <div class="task-num">#${taskNum}</div>
+      <div class="task-body">
+        <div class="task-title">${escHtml(t.title || t.name || `Task ${taskNum}`)}</div>
+        <div class="task-desc">${escHtml(t.description || t.detail || '')}</div>
+        ${t.rejection_reason ? `<div style="font-size:12px;color:var(--red);margin-bottom:8px">Rejection reason: ${escHtml(t.rejection_reason)}</div>` : ''}
+        <div class="task-actions">
+          <button class="btn btn-green" onclick="approveTask(${taskNum})" ${isDone ? 'disabled' : ''}>Approve</button>
+          <button class="btn btn-red" onclick="openRejectModal(${taskNum})" ${isDone ? 'disabled' : ''}>Reject</button>
+        </div>
+      </div>
+      <div class="task-status-area">${taskStatusBadge(taskStatus)}</div>
+    </div>
+  `;
+}
+
+// ── TASK ACTIONS ──────────────────────────────────────────────────────────────
+async function approveTask(taskNum) {
+  await updateTask(taskNum, 'approved', null);
+}
+
+async function approveAllTasks() {
+  const tasks = JOB.tasks || (JOB.job_plan && JOB.job_plan.tasks) || [];
+  const pending = tasks.filter(t => (t.status || 'pending') === 'pending');
+  for (const t of pending) {
+    const num = t.task_number || t.number;
+    await updateTask(num, 'approved', null);
+  }
+}
+
+async function updateTask(taskNum, status, rejectionReason) {
+  try {
+    const res = await fetch(`/api/admin/jobs/${encodeURIComponent(JOB_ID)}/tasks`, {
+      method: 'PATCH',
+      headers: authHeaders(),
+      body: JSON.stringify({ task_number: taskNum, status, rejection_reason: rejectionReason })
+    });
+    const data = await res.json();
+    if (!data.success) { alert('Failed to update task: ' + (data.message || 'Unknown error')); return; }
+
+    // Update local state
+    const tasksList = JOB.tasks || (JOB.job_plan && JOB.job_plan.tasks) || [];
+    const task = tasksList.find(t => (t.task_number || t.number) === taskNum);
+    if (task) {
+      task.status = status;
+      if (rejectionReason) task.rejection_reason = rejectionReason;
+    }
+
+    // Re-render tasks section
+    const taskListBody = document.getElementById('taskListBody');
+    if (taskListBody) {
+      taskListBody.innerHTML = tasksList.map((t, i) => renderTask(t, i)).join('');
+    }
+
+    // Update approve-all button
+    const pendingCount = tasksList.filter(t => (t.status || 'pending') === 'pending').length;
+    const tasksCard = document.getElementById('tasksCard');
+    if (tasksCard) {
+      const hdr = tasksCard.querySelector('.card-header');
+      if (hdr) {
+        const btn = hdr.querySelector('button');
+        if (pendingCount === 0) {
+          if (btn) btn.outerHTML = '<span class="badge badge-delivered">All Approved</span>';
+        } else if (btn) {
+          btn.textContent = `Approve All Tasks (${pendingCount} pending)`;
+        }
+      }
+    }
+  } catch (err) {
+    alert('Error: ' + err.message);
+  }
+}
+
+// ── REJECT MODAL ──────────────────────────────────────────────────────────────
+function openRejectModal(taskNum) {
+  rejectPendingTask = taskNum;
+  document.getElementById('rejectReason').value = '';
+  document.getElementById('rejectModal').classList.add('open');
+}
+
+document.getElementById('rejectCancelBtn').addEventListener('click', () => {
+  document.getElementById('rejectModal').classList.remove('open');
+  rejectPendingTask = null;
+});
+
+document.getElementById('rejectConfirmBtn').addEventListener('click', async () => {
+  const reason = document.getElementById('rejectReason').value.trim();
+  if (!reason) { document.getElementById('rejectReason').focus(); return; }
+  document.getElementById('rejectModal').classList.remove('open');
+  await updateTask(rejectPendingTask, 'rejected', reason);
+  rejectPendingTask = null;
+});
+
+// ── PACKAGE OVERRIDE ──────────────────────────────────────────────────────────
+async function savePackageOverride() {
+  const pkg = document.getElementById('pkgOverrideSelect').value;
+  const alert = document.getElementById('pkgOverrideAlert');
+  alert.innerHTML = '<span class="spinner"></span>';
+  try {
+    const res = await fetch(`/api/admin/jobs/${encodeURIComponent(JOB_ID)}/package`, {
+      method: 'PATCH', headers: authHeaders(), body: JSON.stringify({ package: pkg })
+    });
+    const data = await res.json();
+    if (!data.success) { alert.innerHTML = `<div class="inline-alert error">${escHtml(data.message)}</div>`; return; }
+    // Update header badge
+    JOB.package = pkg;
+    JOB.package_tier = pkg;
+    document.getElementById('jobHeaderPkg').innerHTML = packageBadge(pkg);
+    alert.innerHTML = `<div class="inline-alert success">Package updated to ${pkg}</div>`;
+    setTimeout(() => { alert.innerHTML = ''; }, 3000);
+  } catch (err) {
+    alert.innerHTML = `<div class="inline-alert error">${escHtml(err.message)}</div>`;
+  }
+}
+
+// ── FLAG / UNFLAG ─────────────────────────────────────────────────────────────
+function openFlagModal() {
+  document.getElementById('flagReason').value = '';
+  document.getElementById('flagModal').classList.add('open');
+}
+
+document.getElementById('flagCancelBtn').addEventListener('click', () => {
+  document.getElementById('flagModal').classList.remove('open');
+});
+
+document.getElementById('flagConfirmBtn').addEventListener('click', async () => {
+  const reason = document.getElementById('flagReason').value.trim();
+  document.getElementById('flagModal').classList.remove('open');
+  try {
+    const res = await fetch(`/api/admin/jobs/${encodeURIComponent(JOB_ID)}/flag`, {
+      method: 'POST', headers: authHeaders(), body: JSON.stringify({ reason })
+    });
+    const data = await res.json();
+    if (!data.success) { alert('Flag failed: ' + (data.message || 'Error')); return; }
+    JOB.status = 'flagged'; JOB.project_status = 'flagged';
+    JOB.flag_reason = reason; JOB.flagged_at = new Date().toISOString();
+    renderJob();
+  } catch (err) { alert('Error: ' + err.message); }
+});
+
+async function unflagJob() {
+  try {
+    const res = await fetch(`/api/admin/jobs/${encodeURIComponent(JOB_ID)}/unflag`, {
+      method: 'POST', headers: authHeaders(), body: '{}'
+    });
+    const data = await res.json();
+    if (!data.success) { alert('Unflag failed: ' + (data.message || 'Error')); return; }
+    JOB.status = 'pending_approval'; JOB.project_status = 'pending_approval';
+    JOB.flag_reason = null; JOB.flagged_at = null;
+    renderJob();
+  } catch (err) { alert('Error: ' + err.message); }
+}
+
+// ── TRIGGER BUILD ─────────────────────────────────────────────────────────────
+async function triggerBuild() {
+  const forceClaude = document.getElementById('forceClaude')?.checked || false;
+  const btn = document.getElementById('triggerBuildBtn');
+  const alertEl = document.getElementById('buildAlert');
+  if (btn) { btn.disabled = true; btn.innerHTML = '<span class="spinner"></span> Triggering…'; }
+  alertEl.innerHTML = '';
+  try {
+    const res = await fetch(`/api/admin/jobs/${encodeURIComponent(JOB_ID)}/trigger-build`, {
+      method: 'POST', headers: authHeaders(), body: JSON.stringify({ job_id: JOB_ID, force_claude: forceClaude })
+    });
+    const data = await res.json();
+    if (data.success !== false) {
+      alertEl.innerHTML = '<div class="inline-alert success">Build agent triggered successfully! Check back for status updates.</div>';
+    } else {
+      alertEl.innerHTML = `<div class="inline-alert error">${escHtml(data.message || 'Build trigger failed')}</div>`;
+    }
+  } catch (err) {
+    alertEl.innerHTML = `<div class="inline-alert error">${escHtml(err.message)}</div>`;
+  } finally {
+    if (btn) { btn.disabled = false; btn.innerHTML = 'Trigger Build Agent'; }
+  }
+}
+
+// ── NOTIFICATIONS ─────────────────────────────────────────────────────────────
+let notifOpen = false;
+
+async function loadNotifications() {
+  const token = getToken();
+  if (!token) return;
+  try {
+    const res = await fetch('/api/admin/notifications', { headers: authHeaders() });
+    if (!res.ok) return;
+    const data = await res.json();
+    if (!data.success) return;
+    const badge = document.getElementById('bellBadge');
+    if (data.unread_count > 0) { badge.textContent = data.unread_count > 9 ? '9+' : data.unread_count; badge.style.display = 'flex'; }
+    else { badge.style.display = 'none'; }
+    const list = document.getElementById('notifList');
+    const recent = (data.notifications || []).slice(0, 5);
+    if (recent.length === 0) { list.innerHTML = '<div class="notif-empty">No notifications</div>'; return; }
+    list.innerHTML = recent.map(n => `
+      <div class="notif-item ${n.read ? '' : 'unread'}" data-notif-id="${n.notification_id}" data-job="${escHtml(n.job_id || '')}">
+        <div class="notif-dot ${n.read ? 'read' : ''}"></div>
+        <div><div class="notif-msg">${escHtml(n.message)}</div><div class="notif-time-sm">${timeAgo(n.created_at)}</div></div>
+      </div>
+    `).join('');
+    list.querySelectorAll('.notif-item').forEach(el => {
+      el.addEventListener('click', async () => {
+        const jobId = el.dataset.job;
+        await fetch('/api/admin/notifications/read', { method: 'POST', headers: authHeaders(), body: JSON.stringify({ notification_id: el.dataset.notifId }) }).catch(() => {});
+        if (jobId) window.location.href = `/admin/jobs/${jobId}`;
+      });
+    });
+  } catch {}
+}
+
+document.getElementById('bellBtn').addEventListener('click', (e) => {
+  e.stopPropagation();
+  notifOpen = !notifOpen;
+  document.getElementById('notifDropdown').classList.toggle('open', notifOpen);
+  if (notifOpen) loadNotifications();
+});
+
+document.addEventListener('click', (e) => {
+  if (notifOpen && !document.getElementById('notifDropdown').contains(e.target)) {
+    notifOpen = false;
+    document.getElementById('notifDropdown').classList.remove('open');
+  }
+});
+
+document.getElementById('markAllRead').addEventListener('click', async () => {
+  await fetch('/api/admin/notifications/read', { method: 'POST', headers: authHeaders(), body: JSON.stringify({ all: true }) }).catch(() => {});
+  loadNotifications();
+});
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+getToken();
+loadJob();
+loadNotifications();
+setInterval(loadNotifications, 90000);
+</script>
+</body>
+</html>

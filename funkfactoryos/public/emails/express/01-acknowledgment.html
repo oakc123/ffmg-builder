@@ -1,0 +1,66 @@
+<!--
+  Email 1 of 3 — FFMG Express Lead Nurture (Day 0 / immediate post-submit)
+  Subject: We got your FFMG Express request, {{FIRST_NAME}}
+  Preheader: Here's what happens next — including your 2 business day SLA.
+  Trigger: POST /api/contact returns 200 → fires from routes/contact.js triggerStage1()
+  Owner TODO before pasting into Klaviyo:
+    1. Replace {{FIRST_NAME}} with Klaviyo's $first_name property.
+    2. Map the FFMG logo block at the top to a saved Klaviyo image block (or keep inline SVG).
+    3. Confirm sender = reply-to = amer.child@funkfactorymediagroup.com.
+    4. Confirm CTA URL = https://funkfactoryos.polsia.app/intake (NOT the literal /intake string).
+-->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>We got your FFMG Express request</title>
+</head>
+<body style="font-family: 'DM Sans', Arial, sans-serif; background: #faf6f1; margin: 0; padding: 40px 20px; color: #6b5c50;">
+  <div style="max-width: 520px; margin: 0 auto; background: #ffffff; border-radius: 12px; border: 1px solid rgba(107,58,31,0.12); padding: 40px;">
+
+    <div style="text-align: center; margin-bottom: 32px;">
+      <svg width="40" height="40" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+        <rect width="32" height="32" rx="6" fill="#6B3A1F"/>
+        <text x="8" y="24" font-family="Arial Black,Arial" font-weight="900" font-size="22" fill="#D4956A">F</text>
+      </svg>
+    </div>
+
+    <h1 style="color: #1a0f08; font-size: 22px; font-weight: 700; margin: 0 0 16px; text-align: center;">We got your FFMG Express request, {{FIRST_NAME}}</h1>
+
+    <p style="font-size: 15px; line-height: 1.6; margin: 0 0 16px;">
+      Thanks for reaching out through FFMG Express. We just received your message and it's queued for <strong>amer.child@funkfactorymediagroup.com</strong>. Within <strong>2 business days</strong> you'll hear from them with a custom proposal and 2–3 clarifying questions.
+    </p>
+
+    <p style="font-size: 15px; line-height: 1.6; margin: 0 0 16px;">
+      While you wait, the fastest way to move forward is to complete our 4-section intake form — it takes about 4 minutes and gives us everything we need to scope and price your project accurately.
+    </p>
+
+    <p style="font-size: 15px; line-height: 1.6; margin: 0 0 24px;">
+      <strong>Most web design projects ship in 7–14 days from intake approval</strong>, so the sooner the intake is in, the sooner we can reserve a build slot.
+    </p>
+
+    <div style="text-align: center; margin-bottom: 24px;">
+      <a href="https://funkfactoryos.polsia.app/intake" style="display: inline-block; background: #D4956A; color: #ffffff; text-decoration: none; font-weight: 600; font-size: 16px; padding: 14px 32px; border-radius: 8px;">
+        Complete the 4-section intake →
+      </a>
+    </div>
+
+    <p style="font-size: 13px; line-height: 1.5; margin: 0 0 8px; text-align: center;">
+      Direct link: <a href="https://funkfactoryos.polsia.app/intake" style="color: #D4956A; text-decoration: none;">https://funkfactoryos.polsia.app/intake</a>
+    </p>
+
+    <p style="font-size: 15px; line-height: 1.6; margin: 24px 0 0;">
+      — Amer Child, Funk Factory Media Group
+    </p>
+
+    <div style="margin-top: 32px; padding-top: 20px; border-top: 1px solid rgba(107,58,31,0.1); text-align: center;">
+      <p style="color: #9b8a7e; font-size: 12px; margin: 0;">
+        Funk Factory Media Group · Albuquerque, NM<br>
+        Reply STOP to opt out.
+      </p>
+    </div>
+
+  </div>
+</body>
+</html>

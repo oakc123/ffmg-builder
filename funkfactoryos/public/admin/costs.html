@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFMG Admin — Costs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f7f3ef; --surface: #ffffff; --sidebar-bg: #1a0f08;
+      --sidebar-text: rgba(255,255,255,0.85); --sidebar-muted: rgba(255,255,255,0.4);
+      --sidebar-active: rgba(212,149,106,0.15); --sidebar-active-text: #D4956A;
+      --border: #e8e0d8; --text: #1a1209; --text-muted: #7a6e62;
+      --copper: #D4956A; --copper-dark: #b97a52; --brown: #6B3A1F;
+      --amber: #f59e0b; --blue: #3b82f6; --green: #22c55e; --red: #ef4444;
+    }
+    html, body { height: 100%; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; min-width: 1024px; }
+
+    /* SIDEBAR */
+    .sidebar { width: 240px; flex-shrink: 0; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+    .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .sidebar-logo .wordmark { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .sidebar-logo .f-mark { width: 32px; height: 32px; background: var(--brown); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sidebar-logo .f-mark svg { width: 18px; height: 18px; }
+    .sidebar-logo .sub { font-size: 11px; color: var(--sidebar-muted); margin-top: 1px; font-weight: 400; font-family: 'DM Sans', sans-serif; }
+    .nav { padding: 16px 12px; flex: 1; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sidebar-muted); padding: 0 8px; margin-bottom: 4px; margin-top: 16px; }
+    .nav-label:first-child { margin-top: 0; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); cursor: pointer; text-decoration: none; transition: background 0.15s; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); }
+    .nav-item.active { background: var(--sidebar-active); color: var(--sidebar-active-text); }
+    .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+
+    /* MAIN */
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* TOPBAR */
+    .topbar { height: 56px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 50; }
+    .topbar-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .bell-btn { position: relative; width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .bell-btn:hover { background: var(--bg); }
+    .bell-btn svg { width: 18px; height: 18px; color: var(--text-muted); }
+    .bell-badge { position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: var(--red); border-radius: 50%; border: 2px solid var(--surface); display: none; }
+    .bell-badge.show { display: block; }
+    .notif-dropdown { display: none; position: absolute; top: 44px; right: 0; width: 320px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 200; overflow: hidden; }
+    .notif-dropdown.open { display: block; }
+    .notif-header { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+    .notif-header span { font-size: 13px; font-weight: 600; color: var(--text); }
+    .notif-read-all { font-size: 12px; color: var(--copper); cursor: pointer; background: none; border: none; padding: 0; }
+    .notif-list { max-height: 320px; overflow-y: auto; }
+    .notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; display: flex; gap: 10px; align-items: flex-start; }
+    .notif-item:last-child { border-bottom: none; }
+    .notif-item:hover { background: var(--bg); }
+    .notif-item.unread { background: #fdf6f0; }
+    .notif-dot { width: 8px; height: 8px; background: var(--copper); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .notif-dot.read { background: transparent; border: 1px solid var(--border); }
+    .notif-text p { font-size: 13px; color: var(--text); line-height: 1.4; }
+    .notif-text span { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: block; }
+    .notif-empty { padding: 24px 16px; text-align: center; font-size: 13px; color: var(--text-muted); }
+    .bell-wrap { position: relative; }
+    .signout-btn { font-size: 13px; font-weight: 500; color: var(--text-muted); background: none; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .signout-btn:hover { color: var(--red); border-color: var(--red); }
+
+    /* PAGE CONTENT */
+    .page-content { padding: 28px 28px 40px; flex: 1; }
+    .page-heading { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 20px; }
+
+    /* SUMMARY CARDS */
+    .cards-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .card-label { font-size: 12px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .card-value { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--text); margin-top: 8px; }
+    .card-value.copper { color: var(--copper); }
+    .card-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* CHART */
+    .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 28px; }
+    .chart-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; }
+    .chart-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
+    .chart-legend { display: flex; gap: 16px; }
+    .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--text-muted); }
+    .legend-dot { width: 10px; height: 10px; border-radius: 3px; }
+    canvas { display: block; }
+
+    /* TABLE */
+    .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+    .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .table-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
+    .table-info { font-size: 13px; color: var(--text-muted); }
+    table { width: 100%; border-collapse: collapse; }
+    th { padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); background: #faf8f5; border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; user-select: none; }
+    th:hover { color: var(--text); }
+    th .sort-arrow { display: inline; margin-left: 4px; opacity: 0.4; }
+    th.sorted .sort-arrow { opacity: 1; color: var(--copper); }
+    td { padding: 11px 16px; font-size: 13px; color: var(--text); border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #faf8f5; }
+    tr:hover td { background: #fdf6f0; }
+    .job-id-cell { font-family: 'Space Grotesk', sans-serif; font-size: 12px; color: var(--text-muted); }
+    .model-badge { display: inline-block; padding: 2px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+    .model-badge.claude { background: #fdf6f0; color: var(--copper-dark); }
+    .model-badge.qwen { background: #f0f4ff; color: #3b5bdb; }
+    .model-badge.other { background: #f5f5f5; color: var(--text-muted); }
+    .cost-cell { font-weight: 600; color: var(--text); }
+
+    /* PAGINATION */
+    .pagination { display: flex; align-items: center; justify-content: space-between; padding: 14px 20px; border-top: 1px solid var(--border); }
+    .pagination-info { font-size: 13px; color: var(--text-muted); }
+    .pagination-btns { display: flex; gap: 6px; }
+    .page-btn { padding: 6px 12px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; font-size: 13px; cursor: pointer; color: var(--text); transition: all 0.15s; }
+    .page-btn:hover:not(:disabled) { border-color: var(--copper); color: var(--copper); }
+    .page-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .page-btn.active { background: var(--copper); color: #fff; border-color: var(--copper); }
+
+    /* UNAVAILABLE STATE */
+    .unavailable-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; text-align: center; }
+    .unavailable-box svg { width: 40px; height: 40px; color: var(--amber); margin-bottom: 12px; }
+    .unavailable-box h3 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; }
+    .unavailable-box p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+
+    /* SPINNER */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-box { display: flex; align-items: center; justify-content: center; padding: 60px; }
+    .loading-box .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--copper); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="wordmark">
+      <div class="f-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
+          <path d="M4 6h16M4 12h10M4 18h7"/>
+        </svg>
+      </div>
+      <div>
+        <div>FFMG Admin</div>
+        <div class="sub">Funk Factory Media Group</div>
+      </div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Main</div>
+    <a href="/admin/dashboard" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="/admin/jobs" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+      Jobs
+    </a>
+    <a href="/admin/messages" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Messages
+    </a>
+    <a href="/admin/costs" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Costs
+    </a>
+    <a href="/dashboard/intake" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h6M9 3h6a2 2 0 012 2v1h1a2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h1V5a2 2 0 012-2z"/><path d="M8 11h8M8 15h5"/></svg>
+      Intake
+    </a>
+    <div class="nav-label">Manage</div>
+    <a href="/admin" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+      Gallery
+    </a>
+    <a href="/admin/gigs" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Gigs
+    </a>
+    <a href="/admin/orders" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Orders
+    </a>
+    <a href="/admin/analytics" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Analytics
+    </a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title">API Costs</div>
+    <div class="topbar-right">
+      <div class="bell-wrap">
+        <button class="bell-btn" id="bellBtn" onclick="toggleNotif()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <div class="bell-badge" id="bellBadge"></div>
+        </button>
+        <div class="notif-dropdown" id="notifDropdown">
+          <div class="notif-header">
+            <span>Notifications</span>
+            <button class="notif-read-all" onclick="markAllRead()">Mark all read</button>
+          </div>
+          <div class="notif-list" id="notifList"><div class="notif-empty">No notifications</div></div>
+        </div>
+      </div>
+      <button class="signout-btn" onclick="signOut()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="page-content" id="pageContent">
+    <div class="loading-box"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<script>
+  const BASE = '/api/admin';
+  let token = null;
+  let allRows = [];
+  let sortKey = 'date';
+  let sortDir = 'desc';
+  let currentPage = 1;
+  const PER_PAGE = 20;
+
+  function getToken() {
+    token = localStorage.getItem('ffmg_admin_token');
+    const exp = localStorage.getItem('ffmg_admin_expires');
+    if (!token || (exp && Date.now() > parseInt(exp))) {
+      window.location.href = '/admin/login';
+      return false;
+    }
+    return true;
+  }
+
+  function signOut() {
+    localStorage.removeItem('ffmg_admin_token');
+    localStorage.removeItem('ffmg_admin_expires');
+    window.location.href = '/admin/login';
+  }
+
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function fmtCost(n) {
+    if (n == null) return '—';
+    return '$' + Number(n).toFixed(4);
+  }
+
+  function fmtDate(iso) {
+    if (!iso) return '—';
+    return new Date(iso).toLocaleDateString([], { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  function fmtNum(n) {
+    if (n == null) return '—';
+    return Number(n).toLocaleString();
+  }
+
+  function modelBadge(model) {
+    const m = (model || '').toLowerCase();
+    if (m.includes('claude')) return `<span class="model-badge claude">${escHtml(model)}</span>`;
+    if (m.includes('qwen')) return `<span class="model-badge qwen">${escHtml(model)}</span>`;
+    return `<span class="model-badge other">${escHtml(model || 'unknown')}</span>`;
+  }
+
+  // ── LOAD COSTS ──────────────────────────────────────────────────────────────
+  async function loadCosts() {
+    try {
+      const r = await fetch(`${BASE}/costs`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await r.json();
+
+      if (!data.success) {
+        renderUnavailable(data.message || 'Cost data unavailable');
+        return;
+      }
+
+      renderPage(data);
+    } catch (err) {
+      renderUnavailable('Cost data unavailable — ensure the builder service is running at https://builder.funkfactorymediagroup.com');
+    }
+  }
+
+  function renderUnavailable(msg) {
+    document.getElementById('pageContent').innerHTML = `
+      <div class="unavailable-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/>
+          <line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/>
+        </svg>
+        <h3>Cost data unavailable</h3>
+        <p>${escHtml(msg)}</p>
+      </div>`;
+  }
+
+  function renderPage(data) {
+    const summary = data.summary || {};
+    allRows = data.jobs || data.breakdown || [];
+
+    const content = document.getElementById('pageContent');
+    content.innerHTML = `
+      <div class="page-heading">API Cost Tracking</div>
+
+      <!-- SUMMARY CARDS -->
+      <div class="cards-row">
+        <div class="card">
+          <div class="card-label">Total Spend (All Time)</div>
+          <div class="card-value copper">${escHtml(summary.total_cost != null ? '$' + Number(summary.total_cost).toFixed(2) : '—')}</div>
+          <div class="card-sub">Across all jobs and models</div>
+        </div>
+        <div class="card">
+          <div class="card-label">This Month</div>
+          <div class="card-value">${escHtml(summary.this_month_cost != null ? '$' + Number(summary.this_month_cost).toFixed(2) : '—')}</div>
+          <div class="card-sub">${new Date().toLocaleDateString([], { month: 'long', year: 'numeric' })}</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Avg Cost / Job</div>
+          <div class="card-value">${escHtml(summary.avg_cost_per_job != null ? '$' + Number(summary.avg_cost_per_job).toFixed(4) : '—')}</div>
+          <div class="card-sub">Across all processed jobs</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Jobs Processed</div>
+          <div class="card-value">${escHtml(summary.total_jobs != null ? fmtNum(summary.total_jobs) : '—')}</div>
+          <div class="card-sub">Total jobs with AI usage</div>
+        </div>
+      </div>
+
+      <!-- MODEL USAGE CHART -->
+      <div class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title">Model Usage</div>
+          <div class="chart-legend">
+            <div class="legend-item"><div class="legend-dot" style="background:#D4956A"></div> claude-sonnet</div>
+            <div class="legend-item"><div class="legend-dot" style="background:#6B3A1F"></div> qwen3:14b-fallback</div>
+          </div>
+        </div>
+        <canvas id="modelChart" width="700" height="200" style="width:100%;height:200px;max-height:200px"></canvas>
+      </div>
+
+      <!-- BREAKDOWN TABLE -->
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Cost Breakdown</div>
+          <div class="table-info" id="tableInfo"></div>
+        </div>
+        <div id="tableWrap"></div>
+        <div class="pagination" id="paginationBar"></div>
+      </div>`;
+
+    renderChart(data.model_usage || summary.model_usage || []);
+    renderTable();
+  }
+
+  // ── CANVAS BAR CHART ────────────────────────────────────────────────────────
+  function renderChart(modelUsage) {
+    const canvas = document.getElementById('modelChart');
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    const dpr = window.devicePixelRatio || 1;
+    const w = canvas.offsetWidth;
+    const h = 200;
+    canvas.width = w * dpr;
+    canvas.height = h * dpr;
+    ctx.scale(dpr, dpr);
+
+    ctx.clearRect(0, 0, w, h);
+
+    if (!modelUsage || !modelUsage.length) {
+      ctx.fillStyle = '#a09080';
+      ctx.font = '13px DM Sans, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText('No model usage data available', w / 2, h / 2);
+      return;
+    }
+
+    const padL = 60, padR = 20, padT = 16, padB = 40;
+    const chartW = w - padL - padR;
+    const chartH = h - padT - padB;
+    const barColors = ['#D4956A', '#6B3A1F', '#3b82f6', '#22c55e', '#f59e0b'];
+
+    const maxVal = Math.max(...modelUsage.map(m => m.count || m.usage_count || 0), 1);
+    const barW = Math.min(60, (chartW / modelUsage.length) * 0.6);
+    const gap = chartW / modelUsage.length;
+
+    // Y axis
+    ctx.strokeStyle = '#e8e0d8';
+    ctx.lineWidth = 1;
+    const ticks = 4;
+    for (let i = 0; i <= ticks; i++) {
+      const y = padT + chartH - (i / ticks) * chartH;
+      ctx.beginPath(); ctx.moveTo(padL, y); ctx.lineTo(padL + chartW, y); ctx.stroke();
+      ctx.fillStyle = '#a09080';
+      ctx.font = '11px DM Sans, sans-serif';
+      ctx.textAlign = 'right';
+      ctx.fillText(Math.round((maxVal / ticks) * i), padL - 6, y + 4);
+    }
+
+    // Bars
+    modelUsage.forEach((m, i) => {
+      const count = m.count || m.usage_count || 0;
+      const x = padL + i * gap + (gap - barW) / 2;
+      const barH = (count / maxVal) * chartH;
+      const y = padT + chartH - barH;
+
+      ctx.fillStyle = barColors[i % barColors.length];
+      const radius = 4;
+      ctx.beginPath();
+      ctx.moveTo(x + radius, y);
+      ctx.lineTo(x + barW - radius, y);
+      ctx.quadraticCurveTo(x + barW, y, x + barW, y + radius);
+      ctx.lineTo(x + barW, y + barH);
+      ctx.lineTo(x, y + barH);
+      ctx.lineTo(x, y + radius);
+      ctx.quadraticCurveTo(x, y, x + radius, y);
+      ctx.closePath();
+      ctx.fill();
+
+      // Count label above bar
+      ctx.fillStyle = '#1a1209';
+      ctx.font = '12px Space Grotesk, sans-serif';
+      ctx.textAlign = 'center';
+      ctx.fillText(count.toLocaleString(), x + barW / 2, y - 6);
+
+      // Model label below
+      const label = (m.model || m.model_name || 'unknown').replace('claude-', 'claude-').replace('sonnet-', 'sonnet\n');
+      ctx.fillStyle = '#7a6e62';
+      ctx.font = '11px DM Sans, sans-serif';
+      ctx.fillText((m.model || m.model_name || 'unknown').slice(0, 20), x + barW / 2, padT + chartH + 20);
+    });
+  }
+
+  // ── TABLE ───────────────────────────────────────────────────────────────────
+  function sortRows() {
+    const key = sortKey;
+    const dir = sortDir === 'asc' ? 1 : -1;
+    allRows.sort((a, b) => {
+      let av = a[key] ?? '', bv = b[key] ?? '';
+      if (key === 'cost' || key === 'input_tokens' || key === 'output_tokens') {
+        av = Number(av) || 0; bv = Number(bv) || 0;
+      } else if (key === 'date' || key === 'created_at') {
+        av = new Date(av).getTime() || 0; bv = new Date(bv).getTime() || 0;
+      } else {
+        av = String(av).toLowerCase(); bv = String(bv).toLowerCase();
+      }
+      return av < bv ? -dir : av > bv ? dir : 0;
+    });
+  }
+
+  function renderTable() {
+    sortRows();
+    const total = allRows.length;
+    const totalPages = Math.ceil(total / PER_PAGE);
+    const start = (currentPage - 1) * PER_PAGE;
+    const rows = allRows.slice(start, start + PER_PAGE);
+
+    document.getElementById('tableInfo').textContent = `${total} job${total !== 1 ? 's' : ''}`;
+
+    function sortArrow(col) {
+      if (sortKey !== col) return `<span class="sort-arrow">↕</span>`;
+      return `<span class="sort-arrow">${sortDir === 'asc' ? '↑' : '↓'}</span>`;
+    }
+
+    const colMap = [
+      { key: 'job_id', label: 'Job ID' },
+      { key: 'business_name', label: 'Business Name' },
+      { key: 'model', label: 'Model Used' },
+      { key: 'input_tokens', label: 'Input Tokens' },
+      { key: 'output_tokens', label: 'Output Tokens' },
+      { key: 'cost', label: 'Cost' },
+      { key: 'date', label: 'Date' }
+    ];
+
+    const thead = `<thead><tr>${colMap.map(c =>
+      `<th class="${sortKey === c.key ? 'sorted' : ''}" onclick="setSort('${c.key}')">${c.label}${sortArrow(c.key)}</th>`
+    ).join('')}</tr></thead>`;
+
+    const tbody = rows.length
+      ? `<tbody>${rows.map(r => `<tr>
+          <td class="job-id-cell">${escHtml(r.job_id || '—')}</td>
+          <td>${escHtml(r.business_name || r.name || '—')}</td>
+          <td>${modelBadge(r.model || r.model_name)}</td>
+          <td>${fmtNum(r.input_tokens)}</td>
+          <td>${fmtNum(r.output_tokens)}</td>
+          <td class="cost-cell">${fmtCost(r.cost)}</td>
+          <td>${fmtDate(r.date || r.created_at)}</td>
+        </tr>`).join('')}</tbody>`
+      : `<tbody><tr><td colspan="7" style="text-align:center;padding:32px;color:var(--text-muted);font-size:13px">No cost records found</td></tr></tbody>`;
+
+    document.getElementById('tableWrap').innerHTML = `<table>${thead}${tbody}</table>`;
+
+    // Pagination
+    const bar = document.getElementById('paginationBar');
+    if (totalPages <= 1) { bar.style.display = 'none'; return; }
+    bar.style.display = 'flex';
+
+    const pageButtons = [];
+    for (let p = 1; p <= totalPages; p++) {
+      if (p === 1 || p === totalPages || (p >= currentPage - 2 && p <= currentPage + 2)) {
+        pageButtons.push(p);
+      } else if (pageButtons[pageButtons.length - 1] !== '…') {
+        pageButtons.push('…');
+      }
+    }
+
+    bar.innerHTML = `
+      <div class="pagination-info">Showing ${start + 1}–${Math.min(start + PER_PAGE, total)} of ${total}</div>
+      <div class="pagination-btns">
+        <button class="page-btn" onclick="goPage(${currentPage - 1})" ${currentPage === 1 ? 'disabled' : ''}>← Prev</button>
+        ${pageButtons.map(p => p === '…'
+          ? `<button class="page-btn" disabled>…</button>`
+          : `<button class="page-btn ${p === currentPage ? 'active' : ''}" onclick="goPage(${p})">${p}</button>`
+        ).join('')}
+        <button class="page-btn" onclick="goPage(${currentPage + 1})" ${currentPage === totalPages ? 'disabled' : ''}>Next →</button>
+      </div>`;
+  }
+
+  function setSort(col) {
+    if (sortKey === col) { sortDir = sortDir === 'asc' ? 'desc' : 'asc'; }
+    else { sortKey = col; sortDir = col === 'date' || col === 'cost' ? 'desc' : 'asc'; }
+    currentPage = 1;
+    renderTable();
+  }
+
+  function goPage(p) {
+    const totalPages = Math.ceil(allRows.length / PER_PAGE);
+    if (p < 1 || p > totalPages) return;
+    currentPage = p;
+    renderTable();
+    document.getElementById('tableWrap').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  // ── NOTIFICATIONS ───────────────────────────────────────────────────────────
+  async function loadNotifications() {
+    if (!token) return;
+    try {
+      const r = await fetch(`${BASE}/notifications`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await r.json();
+      if (!data.success) return;
+      document.getElementById('bellBadge').classList.toggle('show', data.unread_count > 0);
+      const list = document.getElementById('notifList');
+      if (!data.notifications || !data.notifications.length) {
+        list.innerHTML = '<div class="notif-empty">No notifications</div>';
+        return;
+      }
+      list.innerHTML = data.notifications.map(n => `
+        <div class="notif-item ${n.read ? '' : 'unread'}" onclick="handleNotifClick('${escHtml(n.job_id || '')}', ${n.notification_id})">
+          <div class="notif-dot ${n.read ? 'read' : ''}"></div>
+          <div class="notif-text"><p>${escHtml(n.message || n.type)}</p><span>${new Date(n.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></div>
+        </div>`).join('');
+    } catch { /* non-critical */ }
+  }
+
+  async function handleNotifClick(jobId, notifId) {
+    await fetch(`${BASE}/notifications/read`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ notification_id: notifId })
+    }).catch(() => {});
+    if (jobId) window.location.href = `/admin/jobs/${encodeURIComponent(jobId)}`;
+    else document.getElementById('notifDropdown').classList.remove('open');
+  }
+
+  async function markAllRead() {
+    await fetch(`${BASE}/notifications/read`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ all: true })
+    }).catch(() => {});
+    document.getElementById('bellBadge').classList.remove('show');
+    document.getElementById('notifDropdown').classList.remove('open');
+    loadNotifications();
+  }
+
+  function toggleNotif() { document.getElementById('notifDropdown').classList.toggle('open'); }
+
+  document.addEventListener('click', (e) => {
+    const wrap = document.querySelector('.bell-wrap');
+    if (wrap && !wrap.contains(e.target)) document.getElementById('notifDropdown').classList.remove('open');
+  });
+
+  // ── INIT ────────────────────────────────────────────────────────────────────
+  if (getToken()) {
+    loadCosts();
+    loadNotifications();
+    setInterval(loadNotifications, 90000);
+  }
+</script>
+</body>
+</html>

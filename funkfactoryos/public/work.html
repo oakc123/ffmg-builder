@@ -1,0 +1,837 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Work | Funk Factory Media Group — Case Studies in New Mexico</title>
+    <meta name="description" content="Case studies from Funk Factory Media Group: concert videography, sports photography, social content, brand films, and venue websites — built for New Mexico clients.">
+    <link rel="canonical" href="__CANONICAL__">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="Work | Funk Factory Media Group — Case Studies in New Mexico">
+    <meta property="og:description" content="Six New Mexico case studies — multi-camera concert film, full-season sports coverage, brand films, social content packages, venue websites. 48-hour recap turnarounds.">
+    <meta property="og:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/generated-images/company_72576/4c846834-b7ba-434b-b1dc-bf9669458ead.jpg">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/work">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Work | Funk Factory Media Group — Case Studies in New Mexico">
+    <meta name="twitter:description" content="Six New Mexico case studies — multi-camera concert film, full-season sports coverage, brand films, social content packages, venue websites. 48-hour recap turnarounds.">
+    <meta name="twitter:image" content="https://pub-629428d185ca4960a0a73c850d32294b.r2.dev/generated-images/company_72576/4c846834-b7ba-434b-b1dc-bf9669458ead.jpg">
+    <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "FFMG Work — Case Studies",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Sunshine Theater Concert Film", "description": "Multi-camera concert documentary"},
+    {"@type": "ListItem", "position": 2, "name": "RRHS Football Season Coverage", "description": "Full sports season photo and video package"},
+    {"@type": "ListItem", "position": 3, "name": "Artist Social Media Package", "description": "Monthly content creation for musicians"},
+    {"@type": "ListItem", "position": 4, "name": "Rattlesnake Bar Brand Film", "description": "Brand identity video production"},
+    {"@type": "ListItem", "position": 5, "name": "Venue Web Design", "description": "Custom website for live music venue"},
+    {"@type": "ListItem", "position": 6, "name": "Weekly Sports Highlights", "description": "Sideline stills and short-form social clips"}
+  ]
+}
+</script>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--accent); }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            padding-top: 64px;
+            background: var(--bg-dark);
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 100px 64px 80px;
+            position: relative;
+            z-index: 2;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+            opacity: 0.5;
+            pointer-events: none;
+        }
+        .hero::after {
+            content: '';
+            position: absolute;
+            top: -120px;
+            right: -80px;
+            width: 600px;
+            height: 600px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(212,149,106,0.12) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(3rem, 6vw, 5.5rem);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -2.5px;
+            color: #fff;
+            margin-bottom: 28px;
+        }
+        .hero h1 em { font-style: normal; color: var(--accent); }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.6);
+            max-width: 560px;
+            line-height: 1.75;
+            margin-bottom: 48px;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+        .hero-stat { display: flex; flex-direction: column; gap: 4px; }
+        .hero-stat-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            letter-spacing: -1px;
+            line-height: 1;
+        }
+        .hero-stat-num span { color: var(--accent); }
+        .hero-stat-label {
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.45);
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        /* ===== WORK GRID ===== */
+        .work-section {
+            background: var(--bg);
+            padding: 80px 64px 120px;
+        }
+        .work-inner { max-width: 1200px; margin: 0 auto; }
+
+        .featured-case {
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            min-height: 460px;
+            margin-bottom: 48px;
+            background: var(--bg-dark);
+            border: 1px solid rgba(107,58,31,0.18);
+            border-radius: 20px;
+            overflow: hidden;
+            color: #fff;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .featured-case:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 24px 70px rgba(107,58,31,0.2);
+        }
+        .featured-case-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 56px 64px;
+            background: linear-gradient(135deg, #1a0f08 0%, #2a170d 100%);
+        }
+        .featured-case-kicker {
+            margin-bottom: 22px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.74rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+        .featured-case-client {
+            margin-bottom: 14px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.55);
+        }
+        .featured-case-title {
+            max-width: 560px;
+            margin-bottom: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            color: #fff;
+        }
+        .featured-case-summary {
+            max-width: 500px;
+            margin-bottom: 30px;
+            font-size: 1rem;
+            line-height: 1.75;
+            color: rgba(255,255,255,0.65);
+        }
+        .featured-case-meta {
+            display: flex;
+            align-items: center;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+        .featured-case-tag {
+            padding: 7px 12px;
+            border: 1px solid rgba(212,149,106,0.4);
+            border-radius: 4px;
+            background: rgba(212,149,106,0.12);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.2px;
+            text-transform: uppercase;
+            color: var(--accent);
+        }
+        .featured-case-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #fff;
+            transition: gap 0.2s;
+        }
+        .featured-case:hover .featured-case-cta { gap: 12px; }
+        .featured-case-arrow {
+            display: inline-block;
+            color: var(--accent);
+            transition: transform 0.2s;
+        }
+        .featured-case:hover .featured-case-arrow { transform: translateX(4px); }
+        .featured-case-image {
+            position: relative;
+            min-height: 360px;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+        .featured-case-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.85);
+            transition: transform 0.6s ease, filter 0.4s ease;
+        }
+        .featured-case:hover .featured-case-image img {
+            transform: scale(1.05);
+            filter: saturate(1);
+        }
+        .featured-case-image::after {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(90deg, rgba(26,15,8,0.28) 0%, transparent 45%);
+            content: '';
+        }
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 28px;
+        }
+
+        /* Loading + empty states for the tile grid fetch */
+        .work-state {
+            grid-column: span 2;
+            padding: 64px 24px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1rem;
+            border: 1px dashed var(--border-strong);
+            border-radius: 12px;
+            background: var(--bg-warm);
+        }
+
+        /* ===== CASE STUDY CARD ===== */
+        .case-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+        .case-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 60px rgba(107,58,31,0.12);
+        }
+
+        .case-card-thumb {
+            position: relative;
+            height: 240px;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+        .case-card-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.85);
+            transition: transform 0.6s ease, filter 0.4s ease;
+        }
+        .case-card:hover .case-card-thumb img {
+            transform: scale(1.05);
+            filter: saturate(1);
+        }
+        .case-card-thumb-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(26,15,8,0.55) 0%, transparent 60%);
+        }
+
+        /* type badge in corner of thumb */
+        .case-badge {
+            position: absolute;
+            top: 16px;
+            left: 16px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: #fff;
+            background: rgba(26,15,8,0.7);
+            backdrop-filter: blur(8px);
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid rgba(212,149,106,0.3);
+        }
+
+        .case-card-body {
+            padding: 28px 32px 32px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .case-client {
+            font-size: 0.78rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--accent);
+        }
+        .case-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            line-height: 1.25;
+            color: var(--text);
+            letter-spacing: -0.5px;
+        }
+        .case-desc {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+            flex: 1;
+        }
+        .case-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 20px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            text-decoration: none;
+            transition: gap 0.2s;
+        }
+        .case-card:hover .case-cta { gap: 10px; }
+        .case-cta-arrow {
+            display: inline-block;
+            transition: transform 0.2s;
+        }
+        .case-card:hover .case-cta-arrow { transform: translateX(4px); }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: var(--bg-dark);
+            padding: 120px 64px;
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-inner {
+            max-width: 720px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+        .cta-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+        .cta-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 5vw, 3.8rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -1.5px;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .cta-title em { font-style: normal; color: var(--accent); }
+        .cta-desc {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.75;
+            margin-bottom: 44px;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+        }
+        .btn-primary:hover { background: var(--accent-dark); transform: translateY(-2px); }
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .btn-ghost:hover { border-color: rgba(212,149,106,0.5); color: var(--accent); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0f0804;
+            padding: 64px 64px 40px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .footer-inner { max-width: 1200px; margin: 0 auto; }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            gap: 40px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            flex-wrap: wrap;
+        }
+        .footer-brand-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+        .footer-brand-name span { color: var(--accent); }
+        .footer-tagline { font-size: 0.85rem; color: rgba(255,255,255,0.35); }
+        .footer-links { display: flex; gap: 28px; flex-wrap: wrap; }
+        .footer-links a {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.45);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+        .footer-links a:hover { color: rgba(255,255,255,0.8); }
+        .footer-bottom {
+            padding-top: 32px;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.2);
+        }
+
+        /* ===== MOBILE ===== */
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: absolute;
+                top: 64px; left: 0; right: 0;
+                background: rgba(255,255,255,0.97);
+                backdrop-filter: blur(10px);
+                padding: 24px 24px 32px;
+                gap: 16px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { font-size: 1.05rem; color: var(--text); }
+            .nav-toggle { display: flex; }
+
+            .hero-inner { padding: 72px 24px 64px; }
+            .hero-stats { gap: 32px; }
+
+            .work-section { padding: 56px 24px 80px; }
+            .featured-case {
+                grid-template-columns: 1fr;
+                margin-bottom: 36px;
+            }
+            .featured-case-content { padding: 40px 32px; }
+            .featured-case-image { min-height: 300px; }
+            .work-grid { grid-template-columns: 1fr; gap: 20px; }
+            .work-state { grid-column: span 1; }
+
+            .cta-section { padding: 80px 24px; }
+
+            footer { padding: 48px 24px 32px; }
+            .footer-top { flex-direction: column; gap: 28px; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-stat-num { font-size: 1.8rem; }
+            .featured-case-content { padding: 32px 24px; }
+            .featured-case-title { font-size: 2rem; }
+            .featured-case-image { min-height: 220px; }
+            .case-card-thumb { height: 200px; }
+            .case-card-body { padding: 22px 24px 26px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- NAV -->
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/work" class="active">Work</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/intake" class="nav-cta">Get a Quote</a></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-eyebrow">Selected Work · Case Studies</div>
+            <h1>Six Projects,<br>End-to-End<br>From <em>Brief</em> to <em>Recap</em></h1>
+            <p class="hero-desc">A working portfolio of how FFMG ships live-event media, brand films, and venue websites across New Mexico. Each case study below opens with the brief and closes with deliverables.</p>
+            <div class="hero-stats">
+                <div class="hero-stat">
+                    <div class="hero-stat-num">6<span>+</span></div>
+                    <div class="hero-stat-label">Case studies</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">5<span></span></div>
+                    <div class="hero-stat-label">Service tracks</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">NM<span></span></div>
+                    <div class="hero-stat-label">Local clients</div>
+                </div>
+                <div class="hero-stat">
+                    <div class="hero-stat-num">48<span>hr</span></div>
+                    <div class="hero-stat-label">Recap turnaround</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- WORK GRID -->
+    <section class="work-section">
+        <div class="work-inner">
+            <div id="featuredCaseStudy" hidden></div>
+            <div class="work-grid" id="workGrid">
+                <div class="work-state" id="workState">Loading case studies…</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA SECTION -->
+    <section class="cta-section">
+        <div class="cta-inner">
+            <div class="cta-eyebrow">Add your project</div>
+            <h2 class="cta-title">Your Case Study<br>Could Be <em>Next</em></h2>
+            <p class="cta-desc">Brief us on your event, brand, or venue. We'll get back within 24 hours with a custom quote and timeline — and the next tile on this page could be yours.</p>
+            <div class="cta-buttons">
+                <a href="/intake" class="btn-primary">Start Your Project →</a>
+                <a href="/portfolio" class="btn-ghost">See Legacy Portfolio</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-brand-name"><img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="32" style="display:inline-block;vertical-align:middle;"></div>
+                    <div class="footer-tagline">New Mexico · Sports & Live Event Media</div>
+                </div>
+                <div class="footer-links">
+                    <a href="/">Home</a>
+                    <a href="/services">Media Services</a>
+                    <a href="/portfolio">Portfolio</a>
+                    <a href="/work">Work</a>
+                    <a href="/what-we-offer">Web Services</a>
+                    <a href="/intake">Get a Quote</a>
+                    <a href="/portal">Client Portal</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2026 Funk Factory Media Group · Albuquerque, NM
+            </div>
+        </div>
+    </footer>
+
+    <!-- Mobile nav toggle -->
+    <script>
+    document.getElementById('navToggle').addEventListener('click', function() {
+        document.getElementById('navLinks').classList.toggle('open');
+    });
+    </script>
+
+    <!-- Tile renderer for the /work grid -->
+    <script>
+    (function() {
+        var featuredHost = document.getElementById('featuredCaseStudy');
+        var grid = document.getElementById('workGrid');
+        var state = document.getElementById('workState');
+
+        function escapeHtml(s) {
+            return String(s == null ? '' : s)
+                .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+        }
+
+        function renderTile(row) {
+            var slug = encodeURIComponent(row.slug || '');
+            var badge = (row.service_tags && row.service_tags.length)
+                ? escapeHtml(row.service_tags[0])
+                : 'Case Study';
+            var client = escapeHtml(row.client || '');
+            var title = escapeHtml(row.title || '');
+            var desc = escapeHtml(row.summary || '');
+            var img = escapeHtml(row.cover_image_url || '');
+
+            var a = document.createElement('a');
+            a.className = 'case-card';
+            a.href = '/work/' + slug;
+
+            var thumb = document.createElement('div');
+            thumb.className = 'case-card-thumb';
+            thumb.innerHTML =
+                '<img src="' + img + '" alt="' + title + '" loading="lazy">' +
+                '<div class="case-card-thumb-overlay"></div>' +
+                '<span class="case-badge">' + badge + '</span>';
+
+            var body = document.createElement('div');
+            body.className = 'case-card-body';
+            body.innerHTML =
+                '<div class="case-client">' + client + '</div>' +
+                '<h2 class="case-title">' + title + '</h2>' +
+                '<p class="case-desc">' + desc + '</p>' +
+                '<span class="case-cta">Read the case study <span class="case-cta-arrow">→</span></span>';
+
+            a.appendChild(thumb);
+            a.appendChild(body);
+            return a;
+        }
+
+        function renderFeatured(row) {
+            var slug = encodeURIComponent(row.slug || '');
+            var tag = (row.service_tags && row.service_tags.length)
+                ? escapeHtml(row.service_tags[0])
+                : 'Case Study';
+            var client = escapeHtml(row.client || '');
+            var title = escapeHtml(row.title || '');
+            var summary = escapeHtml(row.summary || '');
+            var img = escapeHtml(row.cover_image_url || '');
+
+            var a = document.createElement('a');
+            a.className = 'featured-case';
+            a.href = '/work/' + slug;
+            a.innerHTML =
+                '<div class="featured-case-content">' +
+                    '<div class="featured-case-kicker">Featured case study</div>' +
+                    '<div class="featured-case-client">' + client + '</div>' +
+                    '<h2 class="featured-case-title">' + title + '</h2>' +
+                    '<p class="featured-case-summary">' + summary + '</p>' +
+                    '<div class="featured-case-meta">' +
+                        '<span class="featured-case-tag">' + tag + '</span>' +
+                        '<span class="featured-case-cta">Read the case study <span class="featured-case-arrow">→</span></span>' +
+                    '</div>' +
+                '</div>' +
+                '<div class="featured-case-image">' +
+                    '<img src="' + img + '" alt="' + title + '" loading="eager">' +
+                '</div>';
+            return a;
+        }
+
+        fetch('/api/work/case-studies')
+            .then(function(r) { return r.json(); })
+            .then(function(payload) {
+                var featured = payload && payload.featured_case_study;
+                var rows = (payload && payload.case_studies) || [];
+                featuredHost.innerHTML = '';
+                grid.innerHTML = '';
+                if (featured) {
+                    featuredHost.appendChild(renderFeatured(featured));
+                    featuredHost.hidden = false;
+                } else {
+                    featuredHost.hidden = true;
+                }
+                if (rows.length === 0) {
+                    state.textContent = 'No case studies available right now — check back soon.';
+                    grid.appendChild(state);
+                    return;
+                }
+                rows.forEach(function(row) {
+                    grid.appendChild(renderTile(row));
+                });
+            })
+            .catch(function(err) {
+                console.error('[work] failed to load case studies:', err);
+                state.textContent = 'Case studies could not be loaded. Refresh to try again.';
+            });
+    })();
+    </script>
+
+    <!-- Analytics beacon -->
+    <script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';var p=new URLSearchParams(window.location.search);var payload={path:path,referrer:referrer};if(p.get('utm_source'))payload.utm_source=p.get('utm_source');if(p.get('utm_medium'))payload.utm_medium=p.get('utm_medium');if(p.get('utm_campaign'))payload.utm_campaign=p.get('utm_campaign');if(p.get('utm_content'))payload.utm_content=p.get('utm_content');fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});})();</script>
+</body>
+</html>

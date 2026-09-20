@@ -1,0 +1,2011 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Services &amp; Pricing | Funk Factory Media Group</title>
+    <meta name="description" content="Professional concert videography, event photography, podcast production, and social media content packages. Serving artists, venues, and brands across New Mexico.">
+    <link rel="canonical" href="https://funkfactoryos.polsia.app/services">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="Services &amp; Pricing | Funk Factory Media Group">
+    <meta property="og:description" content="Professional concert videography, event photography, podcast production, and social media content packages. Serving artists, venues, and brands across New Mexico.">
+    <meta property="og:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/services">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+        .nav-links a.active { color: var(--accent); }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            min-height: 85vh;
+            padding-top: 64px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 64px;
+            background: var(--bg);
+        }
+
+        .hero-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.6rem, 4vw, 5rem);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -2px;
+            margin-bottom: 28px;
+            color: var(--text);
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 460px;
+            line-height: 1.75;
+            margin-bottom: 44px;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 1.5px solid var(--border-strong);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        .hero-trust {
+            display: flex;
+            gap: 36px;
+            margin-top: 52px;
+            padding-top: 36px;
+            border-top: 1px solid var(--border);
+            flex-wrap: wrap;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trust-icon {
+            font-size: 1.2rem;
+        }
+
+        .trust-text {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .hero-visual {
+            position: relative;
+            overflow: hidden;
+            background: var(--bg-dark);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 1fr;
+            height: 100%;
+            gap: 3px;
+        }
+
+        .hero-img {
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hero-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            filter: saturate(0.9);
+            transition: transform 0.6s ease;
+        }
+
+        .hero-img:hover img { transform: scale(1.04); }
+
+        .hero-img-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(232,77,26,0.15) 0%, transparent 60%);
+        }
+
+        /* ===== STATS BAR ===== */
+        .stats-bar {
+            background: var(--bg-dark);
+            padding: 48px 64px;
+        }
+
+        .stats-bar-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+
+        .stat-item {
+            flex: 1;
+            text-align: center;
+            padding: 0 32px;
+        }
+
+        .stat-number {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.4rem, 4vw, 3.2rem);
+            font-weight: 800;
+            color: var(--accent);
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.82rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.55);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 48px;
+            background: rgba(255,255,255,0.1);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            .stats-bar { padding: 40px 24px; }
+            .stats-bar-inner {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 32px;
+            }
+            .stat-divider { display: none; }
+            .stat-item { padding: 0; }
+        }
+
+        /* ===== MARQUEE STRIP ===== */
+        .intro-strip {
+            background: var(--accent);
+            padding: 20px 40px;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+
+        .strip-inner {
+            display: inline-flex;
+            gap: 64px;
+            animation: marquee 22s linear infinite;
+        }
+
+        .strip-item {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.9);
+            flex-shrink: 0;
+        }
+
+        .strip-dot { color: rgba(255,255,255,0.4); }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===== SECTION SHARED ===== */
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        .section-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 3rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+        }
+
+        /* ===== SERVICES GRID ===== */
+        .services-section {
+            padding: 120px 64px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .services-intro {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+            align-items: start;
+            margin-bottom: 80px;
+        }
+
+        .services-intro-desc {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .service-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            transition: border-color 0.2s, transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: var(--accent);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.3s;
+        }
+
+        .service-card:hover {
+            border-color: rgba(232,77,26,0.2);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        .service-card:hover::before { transform: scaleX(1); }
+
+        .service-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: rgba(232,77,26,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.6rem;
+            margin-bottom: 24px;
+        }
+
+        .service-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+
+        .service-card p {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            margin-bottom: 20px;
+        }
+
+        .service-deliverables {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .deliverable {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .deliverable::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            flex-shrink: 0;
+        }
+
+        /* ===== HOW IT WORKS ===== */
+        .process {
+            background: var(--bg-warm);
+            padding: 120px 64px;
+        }
+
+        .process-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .process-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .process-steps {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 48px;
+            position: relative;
+        }
+
+        .process-steps::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: calc(16.67% + 24px);
+            right: calc(16.67% + 24px);
+            height: 1px;
+            background: var(--border-strong);
+        }
+
+        .process-step {
+            text-align: center;
+        }
+
+        .step-num {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--bg);
+            border: 2px solid var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin: 0 auto 24px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-step h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+
+        .process-step p {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        /* ===== PORTFOLIO ===== */
+        .portfolio {
+            padding: 120px 64px;
+        }
+
+        .portfolio-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .portfolio-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .gallery-filters {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 20px;
+            border-radius: 100px;
+            border: 1.5px solid var(--border-strong);
+            background: transparent;
+            font-size: 0.85rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+            color: var(--text-muted);
+        }
+
+        .filter-btn:hover,
+        .filter-btn.active {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .gallery-grid {
+            columns: 3;
+            column-gap: 16px;
+        }
+
+        .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 16px;
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            display: block;
+            filter: saturate(0.85);
+            transition: transform 0.5s ease, filter 0.3s;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.04);
+            filter: saturate(1.1);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .gallery-item:hover .gallery-item-overlay { opacity: 1; }
+
+        .gallery-item-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #fff;
+            letter-spacing: 0.5px;
+        }
+
+        /* Lightbox */
+        .lightbox {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 40px;
+        }
+
+        .lightbox.open { display: flex; }
+
+        .lightbox-close {
+            position: absolute;
+            top: 24px; right: 24px;
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.2s;
+        }
+
+        .lightbox-close:hover { opacity: 1; }
+
+        .lightbox-img {
+            max-width: 90vw;
+            max-height: 85vh;
+            object-fit: contain;
+            border-radius: 4px;
+        }
+
+        /* ===== TESTIMONIALS ===== */
+        .testimonials {
+            background: var(--bg-warm);
+            padding: 120px 64px;
+        }
+
+        .testimonials-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonials-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+
+        .testimonial-card {
+            background: var(--bg);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px;
+        }
+
+        .testimonial-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 48px 24px;
+            border: 1.5px dashed var(--border-strong);
+            border-radius: 16px;
+            text-align: center;
+            gap: 12px;
+        }
+
+        .testimonial-placeholder-icon {
+            font-size: 2rem;
+            opacity: 0.4;
+        }
+
+        .testimonial-placeholder-text {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .testimonial-stars {
+            color: var(--accent);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+        }
+
+        .testimonial-quote {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            font-style: italic;
+            margin-bottom: 24px;
+        }
+
+        .testimonial-author {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ===== FLOATING CTA ===== */
+        .float-cta {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            z-index: 200;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 22px;
+            border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: -0.2px;
+            box-shadow: 0 4px 24px rgba(232, 77, 26, 0.38), 0 2px 8px rgba(0,0,0,0.15);
+            transition: opacity 0.3s, transform 0.3s, background 0.2s;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(8px);
+        }
+        .float-cta.visible {
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateY(0);
+        }
+        .float-cta:hover { background: var(--accent-dark); transform: translateY(-2px); }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            background: var(--bg-dark);
+            color: #fff;
+            padding: 100px 64px;
+        }
+
+        .cta-inner {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .cta-header {
+            text-align: center;
+            margin-bottom: 56px;
+        }
+
+        .cta-section .section-label {
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .cta-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 4vw, 3.5rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.05;
+            margin-bottom: 24px;
+        }
+
+        .cta-section h2 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.75;
+            margin-bottom: 48px;
+        }
+
+        .cta-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary-dark {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-primary-dark:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            padding: 16px 40px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 1.5px solid rgba(255,255,255,0.15);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-ghost:hover {
+            border-color: rgba(255,255,255,0.4);
+            color: #fff;
+        }
+
+        .cta-contact-info {
+            margin-top: 56px;
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .cta-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .cta-contact-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            background: rgba(232,77,26,0.15);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .cta-contact-val {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* ===== INLINE CONTACT FORM (dark bg) ===== */
+        .cta-form-wrap {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 48px;
+        }
+
+        .cta-form-wrap .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .cta-form-wrap .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+        }
+
+        .cta-form-wrap .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .cta-form-wrap label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .cta-form-wrap input,
+        .cta-form-wrap select,
+        .cta-form-wrap textarea {
+            background: rgba(255,255,255,0.07);
+            border: 1px solid rgba(255,255,255,0.12);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.95rem;
+            font-family: 'DM Sans', sans-serif;
+            color: #fff;
+            outline: none;
+            transition: border-color 0.2s, background 0.2s;
+        }
+
+        .cta-form-wrap input::placeholder,
+        .cta-form-wrap textarea::placeholder { color: rgba(255,255,255,0.25); }
+
+        .cta-form-wrap select option { background: #1a1a1a; color: #fff; }
+
+        .cta-form-wrap input:focus,
+        .cta-form-wrap select:focus,
+        .cta-form-wrap textarea:focus {
+            border-color: var(--accent);
+            background: rgba(255,255,255,0.1);
+        }
+
+        .cta-form-wrap textarea { min-height: 110px; resize: vertical; }
+
+        .cta-form-submit {
+            width: 100%;
+            margin-top: 8px;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .cta-form-submit:hover:not(:disabled) {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .cta-form-submit:disabled { opacity: 0.6; cursor: not-allowed; }
+
+        .cta-form-error {
+            background: rgba(220, 50, 50, 0.15);
+            border: 1px solid rgba(220, 50, 50, 0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #ff9a9a;
+            font-size: 0.88rem;
+            margin-bottom: 16px;
+            display: none;
+        }
+
+        .cta-form-success {
+            text-align: center;
+            padding: 48px 24px;
+            display: none;
+        }
+
+        .cta-form-success-icon { font-size: 3rem; margin-bottom: 16px; }
+        .cta-form-success h3 { font-family: 'Space Grotesk', sans-serif; font-size: 1.5rem; font-weight: 700; margin-bottom: 12px; }
+        .cta-form-success p { color: rgba(255,255,255,0.55); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0a0a0a;
+            color: rgba(255,255,255,0.4);
+            padding: 40px 64px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-brand span { color: var(--accent); }
+        footer p { font-size: 0.82rem; }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1100px) {
+            .services-intro { grid-template-columns: 1fr; gap: 32px; }
+            .testimonials-grid { grid-template-columns: 1fr; gap: 16px; }
+        }
+
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 64px; left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(10px);
+                padding: 24px 24px 32px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { font-size: 1.05rem; color: var(--text); }
+            .nav-toggle { display: flex; }
+            .hero { grid-template-columns: 1fr; min-height: auto; }
+            .hero-content { padding: 60px 32px; }
+            .hero-visual { height: 50vw; min-height: 280px; }
+            .services-section { padding: 80px 32px; }
+            .services-grid { grid-template-columns: 1fr; }
+            .process { padding: 80px 32px; }
+            .process-steps { grid-template-columns: 1fr; gap: 40px; }
+            .process-steps::before { display: none; }
+            .portfolio { padding: 80px 32px; }
+            .gallery-grid { columns: 2; }
+            .testimonials { padding: 80px 32px; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .cta-section { padding: 80px 32px; }
+            .cta-form-wrap { padding: 32px 24px; }
+            .cta-form-wrap .form-row { grid-template-columns: 1fr; }
+            footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+        }
+
+        @media (max-width: 600px) {
+            .hero-content { padding: 48px 24px; }
+            .hero-trust { flex-direction: column; gap: 16px; }
+            .services-section { padding: 60px 20px; }
+            .gallery-grid { columns: 1; }
+            .cta-actions { flex-direction: column; align-items: center; }
+            .cta-contact-info { gap: 24px; flex-direction: column; align-items: center; }
+            .intro-strip { padding: 18px 24px; }
+        }
+
+        /* ===== RECENT WORK ===== */
+        .recent-work {
+            background: var(--bg-dark);
+            padding: 120px 64px;
+            color: #fff;
+        }
+
+        .recent-work-inner {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .recent-work-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 64px;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+
+        .recent-work .section-label { color: var(--accent); }
+
+        .recent-work .section-title { color: #fff; }
+
+        .rw-count {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .project-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+
+        .project-card {
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            cursor: default;
+            transition: transform 0.3s ease;
+        }
+
+        .project-card:hover { transform: translateY(-4px); }
+
+        .project-card-bg {
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.6s ease;
+        }
+
+        .project-card:hover .project-card-bg { transform: scale(1.04); }
+
+        .project-card-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.05) 100%);
+        }
+
+        .project-card-content {
+            position: relative;
+            z-index: 2;
+            padding: 32px;
+        }
+
+        .project-tag {
+            display: inline-block;
+            padding: 5px 14px;
+            border-radius: 100px;
+            border: 1px solid rgba(232,77,26,0.6);
+            background: rgba(232,77,26,0.15);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        .project-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            color: #fff;
+            margin-bottom: 10px;
+            line-height: 1.2;
+        }
+
+        .project-desc {
+            font-size: 0.88rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.65;
+            max-width: 380px;
+        }
+
+        .project-meta {
+            display: flex;
+            gap: 20px;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .project-meta-item {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.45);
+            font-weight: 500;
+        }
+
+        .project-meta-item strong {
+            display: block;
+            color: rgba(255,255,255,0.75);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.82rem;
+            margin-bottom: 2px;
+        }
+
+        /* project card gradient backgrounds */
+        .pc-1 { background: linear-gradient(135deg, #1a0a00 0%, #3d1400 40%, #111 100%); }
+        .pc-2 { background: linear-gradient(135deg, #04091a 0%, #0e1f40 40%, #111 100%); }
+        .pc-3 { background: linear-gradient(135deg, #0d0d0d 0%, #1f1f1f 50%, #2a1205 100%); }
+        .pc-4 { background: linear-gradient(135deg, #030d0e 0%, #0a2519 40%, #111 100%); }
+
+        /* accent glow dots per card */
+        .pc-1::after, .pc-2::after, .pc-3::after, .pc-4::after {
+            content: '';
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            top: 20px;
+            right: 30px;
+            filter: blur(60px);
+            opacity: 0.35;
+            pointer-events: none;
+            z-index: 1;
+        }
+        .pc-1::after { background: #e84d1a; }
+        .pc-2::after { background: #1a6fe8; }
+        .pc-3::after { background: #e84d1a; opacity: 0.2; }
+        .pc-4::after { background: #1ae88a; opacity: 0.25; }
+
+        @media (max-width: 900px) {
+            .recent-work { padding: 80px 32px; }
+            .project-grid { grid-template-columns: 1fr; }
+            .project-card { min-height: 260px; }
+        }
+
+        @media (max-width: 600px) {
+            .recent-work { padding: 60px 20px; }
+            .project-card { min-height: 240px; }
+        }
+
+        /* ===== TESTIMONIALS (updated) ===== */
+        .testimonial-card .stars {
+            color: var(--accent);
+            font-size: 0.95rem;
+            letter-spacing: 2px;
+            margin-bottom: 18px;
+        }
+
+        .testimonial-card blockquote {
+            font-size: 0.97rem;
+            color: var(--text-muted);
+            line-height: 1.8;
+            font-style: italic;
+            margin-bottom: 24px;
+            position: relative;
+        }
+
+        .testimonial-card blockquote::before {
+            content: '\201C';
+            font-size: 3rem;
+            color: var(--accent);
+            opacity: 0.3;
+            position: absolute;
+            top: -12px;
+            left: -8px;
+            font-family: Georgia, serif;
+            line-height: 1;
+        }
+
+        .testimonial-card blockquote p {
+            padding-left: 20px;
+        }
+
+        .t-author {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .t-avatar {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .t-avatar-1 { background: rgba(232,77,26,0.12); }
+        .t-avatar-2 { background: rgba(26,111,232,0.12); }
+        .t-avatar-3 { background: rgba(26,232,138,0.12); }
+
+        .t-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+
+        .t-role {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            margin-top: 1px;
+        }
+
+        /* ===== NAV PROGRESS BAR ===== */
+        .nav-progress{position:fixed;top:64px;left:0;right:0;z-index:99;height:3px;background:transparent;pointer-events:none;}
+        .nav-progress-bar{height:100%;background:var(--accent,#D4956A);transition:width .1s linear;}
+
+        /* ===== NAV SOCIAL PROOF ===== */
+        .nav-social-proof{font-size:.72rem;color:var(--text-muted,#6b5c50);opacity:0;transition:opacity .4s;white-space:nowrap;line-height:1;}
+
+        /* ===== SCROLL PANEL ===== */
+        .scroll-panel{position:fixed;bottom:28px;right:28px;z-index:250;background:var(--bg-warm,#faf6f1);border:1px solid var(--border,rgba(107,58,31,.1));border-radius:10px;padding:14px 40px 14px 20px;box-shadow:0 4px 20px rgba(26,15,8,.1);font-size:.88rem;color:var(--text,#1a0f08);line-height:1.5;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;pointer-events:none;}
+        .scroll-panel.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+        .sp-inner{display:flex;align-items:center;gap:6px;}
+        .sp-link{color:var(--accent-dark,#6B3A1F);font-weight:600;text-decoration:none;}
+        .sp-link:hover{text-decoration:underline;}
+        .scroll-panel-close{position:absolute;top:8px;right:10px;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-muted,#6b5c50);line-height:1;padding:0;}
+        .scroll-panel-close:hover{color:var(--text,#1a0f08);}
+    </style>
+</head>
+<body>
+
+    <!-- FLOATING CTA -->
+    <a href="#contact" class="float-cta" id="floatCta" aria-label="Get a free quote">
+        <span>📋</span> Get a Free Quote
+    </a>
+
+    <!-- NAV -->
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services" class="active">Media</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#gallery">Work</a></li>
+            <li><a href="/intake" class="nav-cta" id="navCtaBtn">Get a Quote</a></li>
+            <li><span class="nav-social-proof" id="navSocialProof">Trusted by 500+ teams</span></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+    <div class="nav-progress" id="navProgress"></div>
+
+    <!-- HERO -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <div class="hero-eyebrow">Media Production · New Mexico</div>
+            <h1>Media That<br>Makes Your<br><em>Venue Shine</em></h1>
+            <p class="hero-desc">From the stage lights to the final cut — Funk Factory Media Group delivers professional video, photography, podcast production, and social content built specifically for live events and venues.</p>
+            <div class="hero-actions">
+                <a href="/#contact" class="btn-primary">Get a Quote →</a>
+                <a href="/portfolio" class="btn-secondary">See Our Work →</a>
+            </div>
+            <div class="hero-trust">
+                <div class="trust-item">
+                    <span class="trust-icon">🎬</span>
+                    <span class="trust-text">10+ years in production</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">📍</span>
+                    <span class="trust-text">New Mexico based</span>
+                </div>
+                <div class="trust-item">
+                    <span class="trust-icon">⚡</span>
+                    <span class="trust-text">24hr response time</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="hero-grid">
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600&q=80" alt="Live concert production" loading="lazy">
+                    <div class="hero-img-overlay"></div>
+                </div>
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80" alt="Festival night photography" loading="lazy">
+                    <div class="hero-img-overlay"></div>
+                </div>
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=80" alt="Stage performance videography" loading="lazy">
+                    <div class="hero-img-overlay"></div>
+                </div>
+                <div class="hero-img">
+                    <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&q=80" alt="Live event crowd photography" loading="lazy">
+                    <div class="hero-img-overlay"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STATS BAR -->
+    <section class="stats-bar">
+        <div class="stats-bar-inner">
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">Events Covered</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">80+</div>
+                <div class="stat-label">Clients Served</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">10+</div>
+                <div class="stat-label">Years in Production</div>
+            </div>
+            <div class="stat-divider"></div>
+            <div class="stat-item">
+                <div class="stat-number">48hr</div>
+                <div class="stat-label">Avg. Turnaround</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- MARQUEE STRIP -->
+    <div class="intro-strip" aria-hidden="true">
+        <div class="strip-inner">
+            <span class="strip-item">Concert Videography</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">Event Photography</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">Podcast Production</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">Social Media Content</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">New Mexico &amp; Beyond</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">Concert Videography</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">Event Photography</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">Podcast Production</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">Social Media Content</span>
+            <span class="strip-item strip-dot">✦</span>
+            <span class="strip-item">New Mexico &amp; Beyond</span>
+            <span class="strip-item strip-dot">✦</span>
+        </div>
+    </div>
+
+    <!-- SERVICES GRID -->
+    <section class="services-section" id="services">
+        <div class="services-intro">
+            <div>
+                <div class="section-label">What We Do</div>
+                <h2 class="section-title">Every service<br>your venue needs</h2>
+            </div>
+            <p class="services-intro-desc">We're not a generic production house — we specialize in live events. That means we know how to move in a crowd, nail a shot in low light, and turn a single night into content that keeps working for your venue weeks after the event is over.</p>
+        </div>
+
+        <div class="services-grid">
+            <!-- Card 1: Concert & Event Videography -->
+            <div class="service-card">
+                <div class="service-icon">🎥</div>
+                <h3>Concert &amp; Event Videography</h3>
+                <p>Multi-camera coverage that captures the full energy of your event — from the first chord to the final bow. We handle all production so you can focus on running the show.</p>
+                <div class="service-deliverables">
+                    <span class="deliverable">Multi-camera live coverage</span>
+                    <span class="deliverable">Highlight reels (60s / 3min / full)</span>
+                    <span class="deliverable">Full-length event recordings</span>
+                    <span class="deliverable">Artist performance cuts</span>
+                </div>
+            </div>
+
+            <!-- Card 2: Photography -->
+            <div class="service-card">
+                <div class="service-icon">📸</div>
+                <h3>Event Photography</h3>
+                <p>High-energy live event stills, promotional shoots, and artist portraits that venues and performers actually want to post. Every shot is edited and delivered in 5-7 business days.</p>
+                <div class="service-deliverables">
+                    <span class="deliverable">Live event stills &amp; candids</span>
+                    <span class="deliverable">Promotional &amp; press shots</span>
+                    <span class="deliverable">Artist portraits &amp; headshots</span>
+                    <span class="deliverable">Gallery delivery via private link</span>
+                </div>
+            </div>
+
+            <!-- Card 3: Podcast Production -->
+            <div class="service-card">
+                <div class="service-icon">🎙️</div>
+                <h3>Podcast Production</h3>
+                <p>Studio-quality podcast recording, editing, and distribution. Whether it's an interview series, a venue-branded show, or artist spotlights — we handle all of it end to end.</p>
+                <div class="service-deliverables">
+                    <span class="deliverable">Studio recording sessions</span>
+                    <span class="deliverable">Editing &amp; sound mixing</span>
+                    <span class="deliverable">Episode art &amp; show notes</span>
+                    <span class="deliverable">Multi-platform distribution</span>
+                </div>
+            </div>
+
+            <!-- Card 4: Social Media Content -->
+            <div class="service-card">
+                <div class="service-icon">📱</div>
+                <h3>Social Media Content</h3>
+                <p>Short-form clips, reels, and stories built for the algorithm. We take your event footage and turn it into content that actually drives ticket sales and grows your following.</p>
+                <div class="service-deliverables">
+                    <span class="deliverable">Reels &amp; TikTok clips (15–60s)</span>
+                    <span class="deliverable">Story sequences &amp; countdown content</span>
+                    <span class="deliverable">Platform-optimized formats</span>
+                    <span class="deliverable">Caption &amp; hashtag copy</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- RECENT WORK -->
+    <section class="recent-work" id="recent-work">
+        <div class="recent-work-inner">
+            <div class="recent-work-header">
+                <div>
+                    <div class="section-label">Recent Work</div>
+                    <h2 class="section-title">Projects We're Proud Of</h2>
+                </div>
+                <span class="rw-count">4 featured projects</span>
+            </div>
+            <div class="project-grid">
+
+                <!-- Project 1: Venue Event Coverage -->
+                <div class="project-card pc-1">
+                    <div class="project-card-overlay"></div>
+                    <div class="project-card-content">
+                        <span class="project-tag">Concert Videography</span>
+                        <h3 class="project-title">Sunshine Theater —<br>Summer Night Series</h3>
+                        <p class="project-desc">Six-night venue run. Multi-camera coverage for each show, plus a series highlight reel and nightly recap clips for organic social posting.</p>
+                        <div class="project-meta">
+                            <div class="project-meta-item"><strong>Deliverables</strong>6 recap videos + series reel</div>
+                            <div class="project-meta-item"><strong>Turnaround</strong>48-hr recap clips</div>
+                            <div class="project-meta-item"><strong>Location</strong>Albuquerque, NM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2: Social Media Content Package -->
+                <div class="project-card pc-2">
+                    <div class="project-card-overlay"></div>
+                    <div class="project-card-content">
+                        <span class="project-tag">Social Media Content</span>
+                        <h3 class="project-title">Local Artist —<br>12-Week Content Package</h3>
+                        <p class="project-desc">Weekly Reels, TikTok clips, and story sequences drawn from one monthly shoot day. Platform-native formats, captions, and hashtag sets included.</p>
+                        <div class="project-meta">
+                            <div class="project-meta-item"><strong>Output</strong>48 short-form clips</div>
+                            <div class="project-meta-item"><strong>Platforms</strong>Instagram · TikTok</div>
+                            <div class="project-meta-item"><strong>Shoot Days</strong>3 total</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3: Brand Film -->
+                <div class="project-card pc-3">
+                    <div class="project-card-overlay"></div>
+                    <div class="project-card-content">
+                        <span class="project-tag">Brand Video</span>
+                        <h3 class="project-title">Rattlesnake Bar —<br>Venue Brand Film</h3>
+                        <p class="project-desc">A cinematic 2-minute brand film capturing the bar's atmosphere, regulars, and live music nights. Used in booking outreach and on the venue's website homepage.</p>
+                        <div class="project-meta">
+                            <div class="project-meta-item"><strong>Runtime</strong>2:10 final cut</div>
+                            <div class="project-meta-item"><strong>Use</strong>Web + outreach</div>
+                            <div class="project-meta-item"><strong>Location</strong>Santa Fe, NM</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4: Sports / Event Photography -->
+                <div class="project-card pc-4">
+                    <div class="project-card-overlay"></div>
+                    <div class="project-card-content">
+                        <span class="project-tag">Event Photography</span>
+                        <h3 class="project-title">RRHS Varsity Football —<br>Full Season Coverage</h3>
+                        <p class="project-desc">Eight home games, full sideline access. Edited game stills delivered every Sunday morning — ready for coaches, players, and school social accounts.</p>
+                        <div class="project-meta">
+                            <div class="project-meta-item"><strong>Coverage</strong>8-game season</div>
+                            <div class="project-meta-item"><strong>Delivery</strong>Sunday AM each week</div>
+                            <div class="project-meta-item"><strong>Gallery</strong>1,200+ edited stills</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div style="text-align:center;margin-top:48px;">
+                <a href="/portfolio" style="display:inline-flex;align-items:center;gap:8px;font-family:'Space Grotesk',sans-serif;font-size:0.9rem;font-weight:600;color:var(--accent);text-decoration:none;border:1.5px solid rgba(212,149,106,0.35);padding:12px 28px;border-radius:6px;transition:border-color 0.2s,background 0.2s;" onmouseover="this.style.borderColor='rgba(212,149,106,0.7)';this.style.background='rgba(212,149,106,0.06)';" onmouseout="this.style.borderColor='rgba(212,149,106,0.35)';this.style.background='transparent';">View Full Portfolio →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="process" id="how-it-works">
+        <div class="process-inner">
+            <div class="process-header">
+                <div class="section-label">The Process</div>
+                <h2 class="section-title">Simple from first contact to final delivery</h2>
+            </div>
+            <div class="process-steps">
+                <div class="process-step">
+                    <div class="step-num">01</div>
+                    <h3>Consultation</h3>
+                    <p>Tell us about your event — venue, date, artist lineup, and what deliverables you need. We'll get back to you within 24 hours with a custom quote and timeline.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">02</div>
+                    <h3>Production</h3>
+                    <p>We show up fully equipped — cameras, lighting, audio gear. You run your event, we capture every moment. Zero coordination headaches on your end.</p>
+                </div>
+                <div class="process-step">
+                    <div class="step-num">03</div>
+                    <h3>Delivery</h3>
+                    <p>Edited video, photo gallery, and social-ready content delivered via private link in 5-7 business days. Ready to post, publish, and promote.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PORTFOLIO -->
+    <section class="portfolio" id="portfolio">
+        <div class="portfolio-inner">
+            <div class="portfolio-header">
+                <div>
+                    <div class="section-label">Our Work</div>
+                    <h2 class="section-title">The Portfolio</h2>
+                </div>
+                <div class="gallery-filters">
+                    <button class="filter-btn active" data-filter="all">All</button>
+                    <button class="filter-btn" data-filter="concerts">Concerts</button>
+                    <button class="filter-btn" data-filter="sports">Events</button>
+                    <button class="filter-btn" data-filter="football">Football</button>
+                    <button class="filter-btn" data-filter="basketball">Basketball</button>
+                </div>
+            </div>
+            <div class="gallery-grid" id="galleryGrid"></div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="testimonials">
+        <div class="testimonials-inner">
+            <div class="testimonials-header">
+                <div class="section-label">Client Love</div>
+                <h2 class="section-title">What venues &amp; artists are saying</h2>
+            </div>
+            <div class="testimonials-grid">
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>
+                        <p>They showed up, moved through the crowd without us even noticing, and the highlight reel was in our inbox 48 hours later. It blew up on Instagram — best money we've spent on marketing this year.</p>
+                    </blockquote>
+                    <div class="t-author">
+                        <div class="t-avatar t-avatar-1">🎵</div>
+                        <div>
+                            <div class="t-name">Marcus T.</div>
+                            <div class="t-role">Venue Manager — Live Music Venue, Albuquerque</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>
+                        <p>The turnaround alone is worth it. Event on Friday, social-ready reels in my DMs by Monday. Our TikTok following went from a few hundred to over 3,000 in six weeks — I'm not exaggerating.</p>
+                    </blockquote>
+                    <div class="t-author">
+                        <div class="t-avatar t-avatar-2">🎤</div>
+                        <div>
+                            <div class="t-name">Dani R.</div>
+                            <div class="t-role">Independent Artist — Touring New Mexico</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="testimonial-card">
+                    <div class="stars">★★★★★</div>
+                    <blockquote>
+                        <p>We've worked with three other crews. Nobody moves like these guys in a live event environment. They know the shots before you even ask for them. Booking again for every game this season.</p>
+                    </blockquote>
+                    <div class="t-author">
+                        <div class="t-avatar t-avatar-3">🏈</div>
+                        <div>
+                            <div class="t-name">Coach Rivera</div>
+                            <div class="t-role">Athletic Coordinator — Rio Rancho High School</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA + CONTACT FORM -->
+    <section class="cta-section" id="contact">
+        <div class="cta-inner">
+            <div class="cta-header">
+                <div class="section-label">Free Quote — No Commitment</div>
+                <h2>Ready to elevate<br>your <em>brand?</em></h2>
+                <p>Tell us about your event. We'll come back within 24 hours with availability and a custom quote. No obligation.</p>
+            </div>
+
+            <div class="cta-form-wrap" id="svcFormWrap">
+                <div class="cta-form-error" id="svcFormError"></div>
+                <form id="svcContactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="svcName">Your Name *</label>
+                            <input type="text" id="svcName" name="name" placeholder="Coach Johnson" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="svcEmail">Email *</label>
+                            <input type="email" id="svcEmail" name="email" placeholder="coach@school.edu" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="svcPhone">Phone (optional)</label>
+                            <input type="tel" id="svcPhone" name="phone" placeholder="+1 (505) 000-0000">
+                        </div>
+                        <div class="form-group">
+                            <label for="svcEventType">Event Type *</label>
+                            <select id="svcEventType" name="event_type" required>
+                                <option value="" disabled selected>Select type...</option>
+                                <option value="concert">Concert / Show</option>
+                                <option value="corporate">Corporate Event</option>
+                                <option value="football">Football Game / Tournament</option>
+                                <option value="basketball">Basketball Game / Tournament</option>
+                                <option value="sports_other">Other Sport / Athletic Event</option>
+                                <option value="private">Private Event</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="svcDate">Event Date</label>
+                            <input type="date" id="svcDate" name="event_date">
+                        </div>
+                        <div class="form-group">
+                            <label for="svcVenue">Venue / Location</label>
+                            <input type="text" id="svcVenue" name="venue" placeholder="Isleta Amphitheater, ABQ">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group full">
+                            <label for="svcMessage">Tell Us More *</label>
+                            <textarea id="svcMessage" name="message" placeholder="Event details, expected attendance, deliverables needed (highlight reel, full recording, photos, social cuts)..." required></textarea>
+                        </div>
+                    </div>
+                    <button type="submit" class="cta-form-submit" id="svcSubmitBtn">Get Your Free Quote →</button>
+                </form>
+                <div class="cta-form-success" id="svcFormSuccess">
+                    <div class="cta-form-success-icon">🎬</div>
+                    <h3>Quote Request Received!</h3>
+                    <p>We'll get back to you within 24 hours with availability and custom pricing. Check your inbox — including spam just in case.</p>
+                </div>
+            </div>
+
+            <div class="cta-contact-info">
+                <div class="cta-contact-item">
+                    <div class="cta-contact-icon">📍</div>
+                    <span class="cta-contact-val">New Mexico &amp; Surrounding States</span>
+                </div>
+                <div class="cta-contact-item">
+                    <div class="cta-contact-icon">⚡</div>
+                    <span class="cta-contact-val">24-hour response guaranteed</span>
+                </div>
+                <div class="cta-contact-item">
+                    <div class="cta-contact-icon">🏆</div>
+                    <span class="cta-contact-val">10+ years serving NM venues &amp; teams</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>
+            <div class="footer-brand">
+                <img src="/images/ffmg-logo.svg" alt="FFMG" height="28" style="display:inline-block;vertical-align:middle;margin-right:6px;">
+            </div>
+            <p style="margin-top:8px;">&copy; 2026 Funk Factory Media Group. New Mexico.</p>
+        </div>
+        <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/work">Our Work</a></li>
+            <li><a href="/intake">Get a Quote</a></li>
+        </ul>
+    </footer>
+
+    <!-- LIGHTBOX -->
+    <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo lightbox">
+        <button class="lightbox-close" id="lightboxClose" aria-label="Close">&times;</button>
+        <img class="lightbox-img" id="lightboxImg" src="" alt="">
+    </div>
+
+    <!-- Polsia Analytics -->
+    <script>
+    (function() {
+        var slug = '__POLSIA_SLUG__';
+        if (!slug || slug === '__POLSIA_SLUG__') return;
+        var vid = localStorage.getItem('polsia_vid');
+        if (!vid) {
+            vid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random() * 16 | 0;
+                return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+            });
+            localStorage.setItem('polsia_vid', vid);
+        }
+        new Image().src = 'https://polsia.com/api/beacon/pixel?s=' + encodeURIComponent(slug) + '&v=' + encodeURIComponent(vid);
+    })();
+    </script>
+
+    <script>
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+
+    // Gallery
+    const galleryGrid = document.getElementById('galleryGrid');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxClose = document.getElementById('lightboxClose');
+
+    const DEMO_PHOTOS = [
+        { url: 'https://images.unsplash.com/photo-1540039155733-5bb30b53aa14?w=600&q=80', caption: 'Live Concert', category: 'concerts' },
+        { url: 'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=600&q=80', caption: 'Festival Night', category: 'concerts' },
+        { url: 'https://images.unsplash.com/photo-1470229722913-7c0e2dbbafd3?w=600&q=80', caption: 'Live Performance', category: 'concerts' },
+        { url: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=600&q=80', caption: 'Friday Night Lights', category: 'football' },
+        { url: 'https://images.unsplash.com/photo-1546519638-68e109498ffc?w=600&q=80', caption: 'Game Day', category: 'basketball' },
+        { url: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211?w=600&q=80', caption: 'Track & Field', category: 'sports' },
+        { url: 'https://images.unsplash.com/photo-1566577739112-5180d4bf9390?w=600&q=80', caption: 'Varsity Football', category: 'football' },
+        { url: 'https://images.unsplash.com/photo-1519861531473-9200262188bf?w=600&q=80', caption: 'Hoops Coverage', category: 'basketball' },
+        { url: 'https://images.unsplash.com/photo-1574629810360-7efbbe195018?w=600&q=80', caption: 'Action Series', category: 'sports' },
+        { url: 'https://images.unsplash.com/photo-1518091043644-c1d4457512c6?w=600&q=80', caption: 'Stadium Atmosphere', category: 'football' },
+        { url: 'https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=600&q=80', caption: 'Crowd Energy', category: 'concerts' },
+        { url: 'https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600&q=80', caption: 'Team Coverage', category: 'sports' }
+    ];
+
+    let currentPhotos = [];
+
+    function buildGalleryItem(photo) {
+        const item = document.createElement('div');
+        item.className = 'gallery-item';
+        item.dataset.category = photo.category;
+        item.innerHTML = `
+            <img src="${photo.url}" alt="${photo.caption || photo.category}" loading="lazy">
+            <div class="gallery-item-overlay"><span class="gallery-item-label">${photo.caption || ''}</span></div>
+        `;
+        item.addEventListener('click', () => {
+            lightboxImg.src = photo.url;
+            lightboxImg.alt = photo.caption || '';
+            lightbox.classList.add('open');
+            document.body.style.overflow = 'hidden';
+        });
+        return item;
+    }
+
+    function renderGallery(photos, filter) {
+        galleryGrid.innerHTML = '';
+        const filtered = filter === 'all' ? photos : photos.filter(p => p.category === filter);
+        filtered.forEach(p => galleryGrid.appendChild(buildGalleryItem(p)));
+    }
+
+    async function loadGallery() {
+        try {
+            const res = await fetch('/api/gallery');
+            const data = await res.json();
+            currentPhotos = (data.success && data.photos.length > 0) ? data.photos : DEMO_PHOTOS;
+        } catch (e) {
+            currentPhotos = DEMO_PHOTOS;
+        }
+        renderGallery(currentPhotos, 'all');
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            renderGallery(currentPhotos, btn.dataset.filter);
+        });
+    });
+
+    lightboxClose.addEventListener('click', closeLightbox);
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) closeLightbox(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeLightbox(); });
+
+    function closeLightbox() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+    }
+
+    loadGallery();
+    </script>
+
+    <script>
+    // Floating CTA visibility
+    (function() {
+        var floatCta = document.getElementById('floatCta');
+        var contactSection = document.getElementById('contact');
+        function updateFloatCta() {
+            var scrollY = window.scrollY;
+            var heroEl = document.querySelector('.hero');
+            var heroHeight = heroEl ? heroEl.offsetHeight : 600;
+            var contactTop = contactSection ? contactSection.getBoundingClientRect().top + scrollY : Infinity;
+            var showFloat = scrollY > heroHeight * 0.4 && (scrollY + window.innerHeight < contactTop + 80);
+            if (floatCta) floatCta.classList.toggle('visible', showFloat);
+        }
+        window.addEventListener('scroll', updateFloatCta, { passive: true });
+        updateFloatCta();
+    })();
+
+    // Services page contact form submission
+    (function() {
+        var form = document.getElementById('svcContactForm');
+        var errorDiv = document.getElementById('svcFormError');
+        var successDiv = document.getElementById('svcFormSuccess');
+        var submitBtn = document.getElementById('svcSubmitBtn');
+        if (!form) return;
+
+        form.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            errorDiv.style.display = 'none';
+            submitBtn.disabled = true;
+            submitBtn.textContent = 'Sending...';
+
+            var data = {
+                name: form.name.value.trim(),
+                email: form.email.value.trim(),
+                phone: form.phone.value.trim() || null,
+                event_type: form.event_type.value,
+                event_date: form.event_date.value || null,
+                venue: form.venue.value.trim() || null,
+                message: form.message.value.trim()
+            };
+
+            try {
+                var res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                if (!res.ok) throw new Error('Server error');
+                form.style.display = 'none';
+                successDiv.style.display = 'block';
+            } catch (err) {
+                errorDiv.textContent = 'Something went wrong. Please try again or email us directly at funkfactoryos@polsia.app';
+                errorDiv.style.display = 'block';
+                submitBtn.disabled = false;
+                submitBtn.textContent = 'Get Your Free Quote →';
+            }
+        });
+    })();
+    </script>
+
+    <!-- Scroll panel + nav CTA logic -->
+    <div class="scroll-panel" id="scrollPanel" role="complementary" aria-label="Get a free quote">
+        <button class="scroll-panel-close" id="scrollPanelClose" aria-label="Dismiss">×</button>
+        <div class="sp-inner">
+            <span class="sp-text">Have a question? Get a free quote in under 24 hrs →</span>
+        </div>
+    </div>
+    <script src="/js/nav-cta.js"></script>
+
+<!-- Polsia analytics -->
+<script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';var p=new URLSearchParams(window.location.search);var payload={path:path,referrer:referrer};if(p.get('utm_source'))payload.utm_source=p.get('utm_source');if(p.get('utm_medium'))payload.utm_medium=p.get('utm_medium');if(p.get('utm_campaign'))payload.utm_campaign=p.get('utm_campaign');if(p.get('utm_content'))payload.utm_content=p.get('utm_content');fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});})();</script>
+</body>
+</html>

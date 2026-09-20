@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFMG Admin — Messages</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f7f3ef; --surface: #ffffff; --sidebar-bg: #1a0f08;
+      --sidebar-text: rgba(255,255,255,0.85); --sidebar-muted: rgba(255,255,255,0.4);
+      --sidebar-active: rgba(212,149,106,0.15); --sidebar-active-text: #D4956A;
+      --border: #e8e0d8; --text: #1a1209; --text-muted: #7a6e62;
+      --copper: #D4956A; --copper-dark: #b97a52; --brown: #6B3A1F;
+      --amber: #f59e0b; --blue: #3b82f6; --green: #22c55e; --red: #ef4444;
+    }
+    html, body { height: 100%; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; min-width: 1024px; }
+
+    /* SIDEBAR */
+    .sidebar { width: 240px; flex-shrink: 0; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+    .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .sidebar-logo .wordmark { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .sidebar-logo .f-mark { width: 32px; height: 32px; background: var(--brown); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sidebar-logo .f-mark svg { width: 18px; height: 18px; }
+    .sidebar-logo .sub { font-size: 11px; color: var(--sidebar-muted); margin-top: 1px; font-weight: 400; font-family: 'DM Sans', sans-serif; }
+    .nav { padding: 16px 12px; flex: 1; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sidebar-muted); padding: 0 8px; margin-bottom: 4px; margin-top: 16px; }
+    .nav-label:first-child { margin-top: 0; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); cursor: pointer; text-decoration: none; transition: background 0.15s; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); }
+    .nav-item.active { background: var(--sidebar-active); color: var(--sidebar-active-text); }
+    .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+
+    /* MAIN */
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; overflow: hidden; }
+
+    /* TOPBAR */
+    .topbar { height: 56px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 50; flex-shrink: 0; }
+    .topbar-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .bell-btn { position: relative; width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .bell-btn:hover { background: var(--bg); }
+    .bell-btn svg { width: 18px; height: 18px; color: var(--text-muted); }
+    .bell-badge { position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: var(--red); border-radius: 50%; border: 2px solid var(--surface); display: none; }
+    .bell-badge.show { display: block; }
+    .notif-dropdown { display: none; position: absolute; top: 44px; right: 0; width: 320px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 200; overflow: hidden; }
+    .notif-dropdown.open { display: block; }
+    .notif-header { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+    .notif-header span { font-size: 13px; font-weight: 600; color: var(--text); }
+    .notif-read-all { font-size: 12px; color: var(--copper); cursor: pointer; background: none; border: none; padding: 0; }
+    .notif-list { max-height: 320px; overflow-y: auto; }
+    .notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; display: flex; gap: 10px; align-items: flex-start; }
+    .notif-item:last-child { border-bottom: none; }
+    .notif-item:hover { background: var(--bg); }
+    .notif-item.unread { background: #fdf6f0; }
+    .notif-dot { width: 8px; height: 8px; background: var(--copper); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .notif-dot.read { background: transparent; border: 1px solid var(--border); }
+    .notif-text { flex: 1; }
+    .notif-text p { font-size: 13px; color: var(--text); line-height: 1.4; }
+    .notif-text span { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: block; }
+    .notif-empty { padding: 24px 16px; text-align: center; font-size: 13px; color: var(--text-muted); }
+    .bell-wrap { position: relative; }
+    .signout-btn { font-size: 13px; font-weight: 500; color: var(--text-muted); background: none; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .signout-btn:hover { color: var(--red); border-color: var(--red); }
+
+    /* TWO-PANEL MESSAGES LAYOUT */
+    .messages-layout { display: flex; flex: 1; overflow: hidden; height: calc(100vh - 56px); }
+
+    /* LEFT PANEL — job list */
+    .jobs-panel { width: 320px; flex-shrink: 0; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; overflow: hidden; }
+    .jobs-panel-header { padding: 16px; border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .jobs-panel-header h3 { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; color: var(--text); }
+    .jobs-panel-header p { font-size: 12px; color: var(--text-muted); margin-top: 2px; }
+    .jobs-list { overflow-y: auto; flex: 1; }
+    .job-row { padding: 14px 16px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; }
+    .job-row:hover { background: var(--bg); }
+    .job-row.active { background: #fdf6f0; border-right: 3px solid var(--copper); }
+    .job-row.unread { background: #fffaf6; }
+    .job-row-top { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+    .job-row-name { font-size: 13px; font-weight: 600; color: var(--text); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; }
+    .unread-badge { background: var(--copper); color: #fff; font-size: 11px; font-weight: 700; padding: 1px 6px; border-radius: 10px; flex-shrink: 0; }
+    .job-row-preview { font-size: 12px; color: var(--text-muted); margin-top: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .job-row-time { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .job-row-from { font-size: 11px; font-weight: 500; }
+    .job-row-from.customer { color: var(--copper); }
+    .job-row-from.agent { color: var(--blue); }
+    .jobs-empty { padding: 40px 16px; text-align: center; color: var(--text-muted); font-size: 13px; }
+
+    /* RIGHT PANEL — thread */
+    .thread-panel { flex: 1; display: flex; flex-direction: column; overflow: hidden; background: var(--bg); }
+    .thread-empty { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: var(--text-muted); gap: 8px; }
+    .thread-empty svg { width: 40px; height: 40px; opacity: 0.3; }
+    .thread-empty p { font-size: 14px; }
+    .thread-header { padding: 14px 20px; background: var(--surface); border-bottom: 1px solid var(--border); flex-shrink: 0; }
+    .thread-header-name { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
+    .thread-header-sub { font-size: 12px; color: var(--text-muted); margin-top: 2px; display: flex; align-items: center; gap: 8px; }
+    .thread-header-sub a { color: var(--copper); text-decoration: none; font-size: 12px; }
+    .thread-header-sub a:hover { text-decoration: underline; }
+    .thread-messages { flex: 1; overflow-y: auto; padding: 20px; display: flex; flex-direction: column; gap: 12px; }
+    .msg-bubble { max-width: 72%; display: flex; flex-direction: column; }
+    .msg-bubble.customer { align-self: flex-start; }
+    .msg-bubble.agent { align-self: flex-end; }
+    .msg-text { padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; word-break: break-word; }
+    .msg-bubble.customer .msg-text { background: var(--surface); border: 1px solid var(--border); color: var(--text); border-bottom-left-radius: 4px; }
+    .msg-bubble.agent .msg-text { background: var(--copper); color: #fff; border-bottom-right-radius: 4px; }
+    .msg-meta { font-size: 11px; color: var(--text-muted); margin-top: 3px; }
+    .msg-bubble.agent .msg-meta { text-align: right; }
+    .compose-area { padding: 16px 20px; background: var(--surface); border-top: 1px solid var(--border); flex-shrink: 0; }
+    .compose-inner { display: flex; gap: 10px; align-items: flex-end; }
+    .compose-textarea { flex: 1; border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--text); background: var(--bg); resize: none; min-height: 44px; max-height: 160px; outline: none; transition: border-color 0.15s; line-height: 1.5; }
+    .compose-textarea:focus { border-color: var(--copper); }
+    .compose-textarea::placeholder { color: var(--text-muted); }
+    .send-btn { background: var(--copper); color: #fff; border: none; border-radius: 10px; padding: 10px 18px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 6px; white-space: nowrap; transition: background 0.15s; flex-shrink: 0; height: 44px; }
+    .send-btn:hover { background: var(--copper-dark); }
+    .send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* LOADING / ERROR */
+    .spinner { display: inline-block; width: 16px; height: 16px; border: 2px solid rgba(255,255,255,0.4); border-top-color: #fff; border-radius: 50%; animation: spin 0.7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .thread-loading { flex: 1; display: flex; align-items: center; justify-content: center; }
+    .thread-loading .spinner-dark { width: 24px; height: 24px; border: 2px solid var(--border); border-top-color: var(--copper); border-radius: 50%; animation: spin 0.7s linear infinite; }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="wordmark">
+      <div class="f-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
+          <path d="M4 6h16M4 12h10M4 18h7"/>
+        </svg>
+      </div>
+      <div>
+        <div>FFMG Admin</div>
+        <div class="sub">Funk Factory Media Group</div>
+      </div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Main</div>
+    <a href="/admin/dashboard" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="/admin/jobs" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+      Jobs
+    </a>
+    <a href="/admin/messages" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Messages
+    </a>
+    <a href="/admin/costs" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Costs
+    </a>
+    <a href="/dashboard/intake" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h6M9 3h6a2 2 0 012 2v1h1a2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h1V5a2 2 0 012-2z"/><path d="M8 11h8M8 15h5"/></svg>
+      Intake
+    </a>
+    <div class="nav-label">Manage</div>
+    <a href="/admin" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+      Gallery
+    </a>
+    <a href="/admin/gigs" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Gigs
+    </a>
+    <a href="/admin/orders" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Orders
+    </a>
+    <a href="/admin/analytics" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Analytics
+    </a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-title">Messages</div>
+    <div class="topbar-right">
+      <div class="bell-wrap">
+        <button class="bell-btn" id="bellBtn" onclick="toggleNotif()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <div class="bell-badge" id="bellBadge"></div>
+        </button>
+        <div class="notif-dropdown" id="notifDropdown">
+          <div class="notif-header">
+            <span>Notifications</span>
+            <button class="notif-read-all" onclick="markAllRead()">Mark all read</button>
+          </div>
+          <div class="notif-list" id="notifList"><div class="notif-empty">No notifications</div></div>
+        </div>
+      </div>
+      <button class="signout-btn" onclick="signOut()">Sign out</button>
+    </div>
+  </div>
+
+  <!-- TWO-PANEL LAYOUT -->
+  <div class="messages-layout">
+    <!-- LEFT: job list -->
+    <div class="jobs-panel">
+      <div class="jobs-panel-header">
+        <h3>Conversations</h3>
+        <p id="convSubtitle">Loading...</p>
+      </div>
+      <div class="jobs-list" id="jobsList">
+        <div class="jobs-empty">Loading conversations...</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: thread -->
+    <div class="thread-panel" id="threadPanel">
+      <div class="thread-empty" id="threadEmpty">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <p>Select a conversation</p>
+      </div>
+      <div id="threadContent" style="display:none; flex:1; flex-direction:column; overflow:hidden; display:none;">
+        <div class="thread-header" id="threadHeader"></div>
+        <div class="thread-messages" id="threadMessages"></div>
+        <div class="compose-area">
+          <div class="compose-inner">
+            <textarea class="compose-textarea" id="composeArea" placeholder="Reply to customer..." rows="1" oninput="autoResize(this)"></textarea>
+            <button class="send-btn" id="sendBtn" onclick="sendReply()">
+              Send Reply
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const BASE = '/api/admin';
+  let token = null;
+  let activeJobId = null;
+  let allJobs = [];
+  let refreshTimer = null;
+
+  function getToken() {
+    token = localStorage.getItem('ffmg_admin_token');
+    const exp = localStorage.getItem('ffmg_admin_expires');
+    if (!token || (exp && Date.now() > parseInt(exp))) {
+      window.location.href = '/admin/login';
+      return false;
+    }
+    return true;
+  }
+
+  function signOut() {
+    localStorage.removeItem('ffmg_admin_token');
+    localStorage.removeItem('ffmg_admin_expires');
+    window.location.href = '/admin/login';
+  }
+
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function formatTime(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    const now = new Date();
+    const diffMs = now - d;
+    const diffDays = Math.floor(diffMs / 86400000);
+    if (diffDays === 0) return d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays < 7) return d.toLocaleDateString([], { weekday: 'short' });
+    return d.toLocaleDateString([], { month: 'short', day: 'numeric' });
+  }
+
+  function formatFullTime(iso) {
+    if (!iso) return '';
+    return new Date(iso).toLocaleString([], { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' });
+  }
+
+  function autoResize(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 160) + 'px';
+  }
+
+  // ── LOAD JOBS LIST ──────────────────────────────────────────────────────────
+  async function loadJobsList() {
+    if (!token) return;
+    try {
+      const r = await fetch(`${BASE}/messages`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await r.json();
+      if (!data.success) return;
+      allJobs = data.jobs || [];
+      renderJobsList();
+      const subtitle = document.getElementById('convSubtitle');
+      const unreadJobs = allJobs.filter(j => j.unread_count > 0);
+      subtitle.textContent = `${allJobs.length} conversation${allJobs.length !== 1 ? 's' : ''}${unreadJobs.length > 0 ? ` · ${unreadJobs.length} unread` : ''}`;
+    } catch (err) {
+      console.error('[Messages] load jobs error:', err);
+    }
+  }
+
+  function renderJobsList() {
+    const el = document.getElementById('jobsList');
+    if (!allJobs.length) {
+      el.innerHTML = '<div class="jobs-empty">No conversations yet.<br>Messages from customers will appear here.</div>';
+      return;
+    }
+    el.innerHTML = allJobs.map(j => {
+      const isActive = j.job_id === activeJobId;
+      const hasUnread = j.unread_count > 0;
+      const cls = ['job-row', isActive ? 'active' : '', hasUnread ? 'unread' : ''].filter(Boolean).join(' ');
+      const fromLabel = j.last_message_from === 'customer'
+        ? `<span class="job-row-from customer">Customer</span>`
+        : `<span class="job-row-from agent">You</span>`;
+      return `<div class="${cls}" onclick="selectJob('${escHtml(j.job_id)}', '${escHtml(j.business_name || j.job_id)}', '${escHtml(j.customer_email || '')}')">
+        <div class="job-row-top">
+          <span class="job-row-name">${escHtml(j.business_name || j.job_id)}</span>
+          ${hasUnread ? `<span class="unread-badge">${j.unread_count}</span>` : ''}
+        </div>
+        <div class="job-row-preview">${fromLabel}: ${escHtml((j.last_message_preview || '').slice(0, 60))}${(j.last_message_preview || '').length > 60 ? '…' : ''}</div>
+        <div class="job-row-time">${formatTime(j.last_message_at)}</div>
+      </div>`;
+    }).join('');
+  }
+
+  // ── SELECT JOB / LOAD THREAD ────────────────────────────────────────────────
+  async function selectJob(jobId, name, email) {
+    activeJobId = jobId;
+    renderJobsList(); // update active highlight
+
+    const empty = document.getElementById('threadEmpty');
+    const content = document.getElementById('threadContent');
+    empty.style.display = 'none';
+    content.style.display = 'flex';
+    content.style.flexDirection = 'column';
+    content.style.flex = '1';
+    content.style.overflow = 'hidden';
+
+    document.getElementById('threadHeader').innerHTML = `
+      <div class="thread-header-name">${escHtml(name)}</div>
+      <div class="thread-header-sub">
+        <span>${escHtml(email)}</span>
+        <span>·</span>
+        <a href="/admin/jobs/${encodeURIComponent(jobId)}" target="_blank">View job →</a>
+      </div>`;
+
+    document.getElementById('threadMessages').innerHTML = '<div class="thread-loading"><div class="spinner-dark"></div></div>';
+
+    await loadThread(jobId);
+
+    // Update unread counts in left panel
+    const job = allJobs.find(j => j.job_id === jobId);
+    if (job) { job.unread_count = 0; renderJobsList(); }
+  }
+
+  async function loadThread(jobId) {
+    if (!token) return;
+    try {
+      const r = await fetch(`${BASE}/messages/${encodeURIComponent(jobId)}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await r.json();
+      if (!data.success) {
+        document.getElementById('threadMessages').innerHTML = '<div style="padding:20px;color:var(--red);font-size:13px">Failed to load messages.</div>';
+        return;
+      }
+      renderThread(data.messages || []);
+    } catch (err) {
+      document.getElementById('threadMessages').innerHTML = '<div style="padding:20px;color:var(--red);font-size:13px">Network error.</div>';
+    }
+  }
+
+  function renderThread(messages) {
+    const el = document.getElementById('threadMessages');
+    if (!messages.length) {
+      el.innerHTML = '<div style="text-align:center;padding:40px 20px;color:var(--text-muted);font-size:13px">No messages yet. Start the conversation below.</div>';
+      return;
+    }
+    el.innerHTML = messages.map(m => {
+      const side = m.from === 'agent' ? 'agent' : 'customer';
+      const label = m.from === 'agent' ? 'You (FFMG)' : 'Customer';
+      return `<div class="msg-bubble ${side}">
+        <div class="msg-text">${escHtml(m.body).replace(/\n/g, '<br>')}</div>
+        <div class="msg-meta">${label} · ${formatFullTime(m.sent_at)}</div>
+      </div>`;
+    }).join('');
+    // Scroll to bottom
+    el.scrollTop = el.scrollHeight;
+  }
+
+  // ── SEND REPLY ──────────────────────────────────────────────────────────────
+  async function sendReply() {
+    if (!activeJobId) return;
+    const textarea = document.getElementById('composeArea');
+    const btn = document.getElementById('sendBtn');
+    const body = textarea.value.trim();
+    if (!body) return;
+
+    btn.disabled = true;
+    btn.innerHTML = '<div class="spinner"></div>';
+
+    try {
+      const r = await fetch(`${BASE}/messages/agent-reply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+        body: JSON.stringify({ job_id: activeJobId, body, sent_at: new Date().toISOString() })
+      });
+      const data = await r.json();
+      if (data.success) {
+        textarea.value = '';
+        textarea.style.height = 'auto';
+        await loadThread(activeJobId);
+        // Refresh left panel preview
+        await loadJobsList();
+        activeJobId = data.message ? activeJobId : activeJobId; // keep active
+        renderJobsList();
+      } else {
+        alert(data.message || 'Failed to send reply');
+      }
+    } catch {
+      alert('Network error — message not sent');
+    } finally {
+      btn.disabled = false;
+      btn.innerHTML = 'Send Reply <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12,5 19,12 12,19"/></svg>';
+    }
+  }
+
+  // Ctrl+Enter / Cmd+Enter sends
+  document.addEventListener('keydown', (e) => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') {
+      const focused = document.activeElement;
+      if (focused && focused.id === 'composeArea') sendReply();
+    }
+  });
+
+  // ── AUTO-REFRESH (30s, only when tab visible) ──────────────────────────────
+  function startAutoRefresh() {
+    if (refreshTimer) clearInterval(refreshTimer);
+    refreshTimer = setInterval(async () => {
+      if (document.visibilityState !== 'visible') return;
+      await loadJobsList();
+      if (activeJobId) await loadThread(activeJobId);
+    }, 30000);
+  }
+
+  // ── NOTIFICATIONS ───────────────────────────────────────────────────────────
+  async function loadNotifications() {
+    if (!token) return;
+    try {
+      const r = await fetch(`${BASE}/notifications`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await r.json();
+      if (!data.success) return;
+      const badge = document.getElementById('bellBadge');
+      badge.classList.toggle('show', data.unread_count > 0);
+      const list = document.getElementById('notifList');
+      if (!data.notifications || !data.notifications.length) {
+        list.innerHTML = '<div class="notif-empty">No notifications</div>';
+        return;
+      }
+      list.innerHTML = data.notifications.map(n => `
+        <div class="notif-item ${n.read ? '' : 'unread'}" onclick="handleNotifClick('${escHtml(n.job_id || '')}', ${n.notification_id})">
+          <div class="notif-dot ${n.read ? 'read' : ''}"></div>
+          <div class="notif-text">
+            <p>${escHtml(n.message || n.type)}</p>
+            <span>${formatTime(n.created_at)}</span>
+          </div>
+        </div>`).join('');
+    } catch { /* non-critical */ }
+  }
+
+  async function handleNotifClick(jobId, notifId) {
+    await fetch(`${BASE}/notifications/read`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ notification_id: notifId })
+    }).catch(() => {});
+    if (jobId) window.location.href = `/admin/jobs/${encodeURIComponent(jobId)}`;
+    else document.getElementById('notifDropdown').classList.remove('open');
+  }
+
+  async function markAllRead() {
+    await fetch(`${BASE}/notifications/read`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ all: true })
+    }).catch(() => {});
+    document.getElementById('bellBadge').classList.remove('show');
+    document.getElementById('notifDropdown').classList.remove('open');
+    loadNotifications();
+  }
+
+  function toggleNotif() {
+    document.getElementById('notifDropdown').classList.toggle('open');
+  }
+
+  document.addEventListener('click', (e) => {
+    const wrap = document.querySelector('.bell-wrap');
+    if (wrap && !wrap.contains(e.target)) {
+      document.getElementById('notifDropdown').classList.remove('open');
+    }
+  });
+
+  // ── INIT ────────────────────────────────────────────────────────────────────
+  if (getToken()) {
+    loadJobsList();
+    loadNotifications();
+    startAutoRefresh();
+    setInterval(loadNotifications, 90000);
+  }
+</script>
+</body>
+</html>

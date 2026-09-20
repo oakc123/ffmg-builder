@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gig Tracker — Funk Factory Admin</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #0f0f0f; --bg-card: #1a1a1a; --bg-hover: #222; --bg-input: rgba(255,255,255,0.04);
+      --border: rgba(255,255,255,0.08); --border-strong: rgba(255,255,255,0.15);
+      --text: #fff; --text-muted: rgba(255,255,255,0.45);
+      --accent: #7C3AED; --accent-dark: #5B21B6;
+      --green: #22c55e; --yellow: #f59e0b; --red: #ef4444; --blue: #3b82f6; --orange: #f97316;
+    }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); min-height: 100vh; }
+
+    /* ── LOGIN ─────────────────────────────────────── */
+    #loginScreen { min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px; }
+    .login-card { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; padding:48px 40px; width:100%; max-width:400px; }
+    .login-logo { font-family:'Space Grotesk',sans-serif; font-size:1.3rem; font-weight:800; margin-bottom:6px; }
+    .login-logo span { color:var(--accent); }
+    .login-sub { font-size:0.85rem; color:var(--text-muted); margin-bottom:32px; }
+    .login-label { display:block; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:1px; color:var(--text-muted); margin-bottom:8px; }
+    .login-input { width:100%; background:rgba(255,255,255,0.06); border:1px solid var(--border); border-radius:8px; padding:13px 16px; font-size:0.95rem; color:var(--text); font-family:'DM Sans',sans-serif; outline:none; transition:border-color 0.2s; }
+    .login-input:focus { border-color:var(--accent); }
+    .login-btn { width:100%; margin-top:18px; padding:14px; background:var(--accent); color:#fff; border:none; border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:0.95rem; font-weight:700; cursor:pointer; transition:background 0.2s; }
+    .login-btn:hover { background:var(--accent-dark); }
+    .login-btn:disabled { opacity:0.5; cursor:not-allowed; }
+    .login-error { display:none; margin-top:12px; padding:10px 14px; background:rgba(239,68,68,0.12); border:1px solid rgba(239,68,68,0.3); border-radius:6px; font-size:0.85rem; color:#fca5a5; }
+
+    /* ── PANEL ─────────────────────────────────────── */
+    #adminPanel { display:none; }
+    .admin-header { position:sticky; top:0; z-index:50; background:rgba(15,15,15,0.95); backdrop-filter:blur(10px); border-bottom:1px solid var(--border); padding:0 32px; height:60px; display:flex; align-items:center; justify-content:space-between; }
+    .admin-brand { font-family:'Space Grotesk',sans-serif; font-size:1rem; font-weight:700; }
+    .admin-brand span { color:var(--accent); }
+    .header-nav { display:flex; gap:4px; }
+    .nav-link { padding:6px 14px; border-radius:6px; font-size:0.82rem; text-decoration:none; color:var(--text-muted); transition:all 0.2s; border:1px solid transparent; }
+    .nav-link:hover { color:var(--text); border-color:var(--border); }
+    .nav-link.active { background:rgba(124,58,237,0.15); color:var(--accent); border-color:rgba(124,58,237,0.3); }
+    .header-right { display:flex; align-items:center; gap:12px; }
+    .logout-btn { background:rgba(255,255,255,0.06); border:1px solid var(--border); color:var(--text-muted); padding:6px 14px; border-radius:6px; font-size:0.82rem; cursor:pointer; }
+    .logout-btn:hover { color:var(--text); }
+
+    .admin-main { max-width:1300px; margin:0 auto; padding:28px 32px 64px; }
+
+    /* ── STATS ─────────────────────────────────────── */
+    .page-title { font-family:'Space Grotesk',sans-serif; font-size:1.5rem; font-weight:800; margin-bottom:20px; }
+    .stats-row { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-bottom:28px; }
+    .stat-card { background:var(--bg-card); border:1px solid var(--border); border-radius:12px; padding:22px; }
+    .stat-val { font-family:'Space Grotesk',sans-serif; font-size:2rem; font-weight:800; margin-bottom:4px; }
+    .stat-label { font-size:0.78rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:0.5px; }
+    .stat-sub { font-size:0.75rem; color:var(--text-muted); margin-top:4px; }
+
+    /* ── TOOLBAR ───────────────────────────────────── */
+    .toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:20px; gap:16px; flex-wrap:wrap; }
+    .status-tabs { display:flex; gap:6px; flex-wrap:wrap; }
+    .stab { padding:6px 16px; border-radius:100px; border:1px solid var(--border); background:transparent; font-size:0.82rem; font-weight:500; cursor:pointer; transition:all 0.2s; font-family:'DM Sans',sans-serif; color:var(--text-muted); }
+    .stab:hover { border-color:var(--border-strong); color:var(--text); }
+    .stab.active { background:var(--accent); color:#fff; border-color:var(--accent); }
+    .add-gig-btn { padding:9px 20px; background:var(--accent); color:#fff; border:none; border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:0.875rem; font-weight:700; cursor:pointer; transition:background 0.2s; white-space:nowrap; }
+    .add-gig-btn:hover { background:var(--accent-dark); }
+    .gig-count { font-size:0.82rem; color:var(--text-muted); }
+
+    /* ── TABLE ─────────────────────────────────────── */
+    .table-wrap { background:var(--bg-card); border:1px solid var(--border); border-radius:16px; overflow:hidden; }
+    table { width:100%; border-collapse:collapse; }
+    thead tr { border-bottom:1px solid var(--border); }
+    th { padding:12px 16px; font-size:0.75rem; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); text-align:left; white-space:nowrap; }
+    td { padding:0; }
+    tbody tr { border-bottom:1px solid var(--border); transition:background 0.15s; }
+    tbody tr:last-child { border-bottom:none; }
+    tbody tr:hover { background:rgba(255,255,255,0.02); }
+    .row-main td { padding:14px 16px; vertical-align:top; cursor:pointer; }
+    .row-edit { display:none; }
+    .row-edit td { padding:0 16px 20px; }
+    .row-edit.open { display:table-row; }
+
+    .gig-id { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.92rem; color:var(--accent); }
+    .gig-date { font-size:0.8rem; color:var(--text-muted); margin-top:2px; }
+    .gig-name { font-weight:600; font-size:0.9rem; }
+    .gig-client { font-size:0.8rem; color:var(--text-muted); margin-top:2px; }
+    .gig-type-badge { display:inline-block; padding:2px 8px; border-radius:4px; font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; background:rgba(255,255,255,0.06); color:var(--text-muted); }
+    .gig-location { font-size:0.82rem; color:var(--text-muted); }
+    .gig-price { font-family:'Space Grotesk',sans-serif; font-weight:700; font-size:0.95rem; }
+    .gig-price.no-price { color:var(--text-muted); font-weight:400; font-size:0.82rem; }
+
+    /* ── STATUS BADGES ─────────────────────────────── */
+    .status-badge { display:inline-flex; align-items:center; gap:5px; padding:4px 10px; border-radius:100px; font-size:0.72rem; font-weight:700; text-transform:uppercase; letter-spacing:0.3px; }
+    .status-inquiry  { background:rgba(245,158,11,0.15);  color:#fcd34d; }
+    .status-confirmed{ background:rgba(59,130,246,0.15);  color:#93c5fd; }
+    .status-completed{ background:rgba(34,197,94,0.15);   color:#86efac; }
+    .status-invoiced { background:rgba(249,115,22,0.15);  color:#fdba74; }
+    .status-paid     { background:rgba(34,197,94,0.2);    color:#4ade80; }
+
+    /* ── EDIT PANEL ────────────────────────────────── */
+    .edit-panel { background:rgba(255,255,255,0.02); border:1px solid var(--border); border-radius:12px; padding:20px; }
+    .edit-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:14px; margin-bottom:16px; }
+    .edit-grid-2col { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:16px; }
+    .form-group { display:flex; flex-direction:column; gap:5px; }
+    .form-label { font-size:0.72rem; font-weight:600; text-transform:uppercase; letter-spacing:0.5px; color:var(--text-muted); }
+    .form-input, .form-select, .form-textarea {
+      background:var(--bg-input); border:1px solid var(--border); border-radius:8px;
+      padding:9px 12px; font-size:0.88rem; color:var(--text); font-family:'DM Sans',sans-serif;
+      outline:none; transition:border-color 0.2s; width:100%;
+    }
+    .form-input:focus, .form-select:focus, .form-textarea:focus { border-color:var(--accent); }
+    .form-select option { background:#1a1a1a; }
+    .form-textarea { resize:vertical; min-height:72px; }
+    .edit-actions { display:flex; gap:10px; align-items:center; }
+    .save-btn { padding:9px 22px; background:var(--accent); color:#fff; border:none; border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:0.85rem; font-weight:700; cursor:pointer; transition:background 0.2s; }
+    .save-btn:hover { background:var(--accent-dark); }
+    .save-btn:disabled { opacity:0.5; cursor:not-allowed; }
+    .delete-btn { padding:9px 22px; background:transparent; color:#fca5a5; border:1px solid rgba(239,68,68,0.3); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:0.85rem; cursor:pointer; transition:all 0.2s; margin-left:auto; }
+    .delete-btn:hover { background:rgba(239,68,68,0.1); }
+    .cancel-edit-btn { padding:9px 18px; background:transparent; border:1px solid var(--border); color:var(--text-muted); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:0.85rem; cursor:pointer; }
+    .cancel-edit-btn:hover { border-color:var(--border-strong); color:var(--text); }
+
+    /* ── ADD GIG MODAL ─────────────────────────────── */
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.7); z-index:200; display:none; align-items:center; justify-content:center; padding:24px; }
+    .modal-overlay.open { display:flex; }
+    .modal { background:var(--bg-card); border:1px solid var(--border); border-radius:20px; padding:32px; width:100%; max-width:620px; max-height:90vh; overflow-y:auto; }
+    .modal-title { font-family:'Space Grotesk',sans-serif; font-size:1.2rem; font-weight:800; margin-bottom:22px; }
+    .modal-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin-bottom:14px; }
+    .modal-grid-full { display:grid; grid-template-columns:1fr; gap:14px; margin-bottom:14px; }
+    .modal-actions { display:flex; gap:10px; justify-content:flex-end; margin-top:20px; }
+    .modal-cancel-btn { padding:11px 22px; background:transparent; border:1px solid var(--border); color:var(--text-muted); border-radius:8px; font-family:'DM Sans',sans-serif; font-size:0.9rem; cursor:pointer; }
+    .modal-cancel-btn:hover { border-color:var(--border-strong); color:var(--text); }
+    .modal-submit-btn { padding:11px 28px; background:var(--accent); color:#fff; border:none; border-radius:8px; font-family:'Space Grotesk',sans-serif; font-size:0.9rem; font-weight:700; cursor:pointer; transition:background 0.2s; }
+    .modal-submit-btn:hover { background:var(--accent-dark); }
+    .modal-submit-btn:disabled { opacity:0.5; cursor:not-allowed; }
+
+    /* ── EMPTY STATE ───────────────────────────────── */
+    .empty-state { padding:64px 32px; text-align:center; }
+    .empty-icon { font-size:3rem; margin-bottom:16px; opacity:0.5; }
+    .empty-title { font-family:'Space Grotesk',sans-serif; font-size:1.1rem; font-weight:700; margin-bottom:8px; }
+    .empty-sub { font-size:0.88rem; color:var(--text-muted); }
+
+    /* ── TOAST ─────────────────────────────────────── */
+    #toast { position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(100px); background:#1e1e1e; border:1px solid var(--border); color:var(--text); padding:12px 22px; border-radius:10px; font-size:0.88rem; font-weight:500; z-index:999; transition:transform 0.3s; pointer-events:none; }
+    #toast.show { transform:translateX(-50%) translateY(0); }
+
+    @media (max-width: 768px) {
+      .admin-header { padding:0 16px; }
+      .admin-main { padding:20px 16px 64px; }
+      .stats-row { grid-template-columns:1fr; }
+      .edit-grid { grid-template-columns:1fr; }
+      .edit-grid-2col { grid-template-columns:1fr; }
+      .modal-grid { grid-template-columns:1fr; }
+      .header-nav { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── LOGIN ──────────────────────────────────────────────── -->
+<div id="loginScreen">
+  <div class="login-card">
+    <div class="login-logo">🎸 Funk<span>Factory</span></div>
+    <div class="login-sub">Gig Tracker — Admin</div>
+    <label class="login-label">Password</label>
+    <input type="password" id="adminPassword" class="login-input" placeholder="Admin password" autocomplete="current-password">
+    <button class="login-btn" id="loginBtn" onclick="doLogin()">Sign In →</button>
+    <div id="loginError" class="login-error">Wrong password. Try again.</div>
+  </div>
+</div>
+
+<!-- ── ADMIN PANEL ────────────────────────────────────────── -->
+<div id="adminPanel">
+  <header class="admin-header">
+    <div class="admin-brand">🎸 Funk<span>Factory</span></div>
+    <nav class="header-nav">
+      <a class="nav-link" href="/admin">Gallery</a>
+      <a class="nav-link" href="/admin/orders">Pet Orders</a>
+      <a class="nav-link active" href="/admin/gigs">Gig Tracker</a>
+    </nav>
+    <div class="header-right">
+      <button class="logout-btn" onclick="doLogout()">Logout</button>
+    </div>
+  </header>
+
+  <main class="admin-main">
+    <h1 class="page-title">Gig Tracker</h1>
+
+    <!-- Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="stat-val" id="statUpcoming">—</div>
+        <div class="stat-label">Upcoming Gigs</div>
+        <div class="stat-sub">confirmed or inquiry</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="statRevenue">—</div>
+        <div class="stat-label">Total Revenue</div>
+        <div class="stat-sub">paid gigs</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-val" id="statPending">—</div>
+        <div class="stat-label">Pending Invoices</div>
+        <div class="stat-sub" id="statPendingCount">—</div>
+      </div>
+    </div>
+
+    <!-- Toolbar -->
+    <div class="toolbar">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+        <div class="status-tabs" id="statusTabs">
+          <button class="stab active" data-status="all" onclick="setFilter('all',this)">All</button>
+          <button class="stab" data-status="inquiry" onclick="setFilter('inquiry',this)">Inquiry</button>
+          <button class="stab" data-status="confirmed" onclick="setFilter('confirmed',this)">Confirmed</button>
+          <button class="stab" data-status="completed" onclick="setFilter('completed',this)">Completed</button>
+          <button class="stab" data-status="invoiced" onclick="setFilter('invoiced',this)">Invoiced</button>
+          <button class="stab" data-status="paid" onclick="setFilter('paid',this)">Paid</button>
+        </div>
+        <span class="gig-count" id="gigCount"></span>
+      </div>
+      <button class="add-gig-btn" onclick="openAddModal()">+ Add Gig</button>
+    </div>
+
+    <!-- Table -->
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Event</th>
+            <th>Type</th>
+            <th>Date</th>
+            <th>Location</th>
+            <th>Status</th>
+            <th>Price</th>
+          </tr>
+        </thead>
+        <tbody id="gigsBody">
+          <tr><td colspan="7"><div class="empty-state"><div class="empty-icon">🎸</div><div class="empty-title">Loading gigs…</div></div></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+<!-- ── ADD GIG MODAL ──────────────────────────────────────── -->
+<div class="modal-overlay" id="addModal" onclick="closeModalIfOverlay(event)">
+  <div class="modal">
+    <div class="modal-title">Add New Gig</div>
+    <div class="modal-grid">
+      <div class="form-group">
+        <label class="form-label">Client Name *</label>
+        <input type="text" id="n_client" class="form-input" placeholder="ABC Corp">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Event Name *</label>
+        <input type="text" id="n_name" class="form-input" placeholder="Summer Fest 2026">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Event Type</label>
+        <select id="n_type" class="form-select">
+          <option value="concert">Concert</option>
+          <option value="corporate">Corporate</option>
+          <option value="podcast">Podcast</option>
+          <option value="social_content">Social Content</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Status</label>
+        <select id="n_status" class="form-select">
+          <option value="inquiry">Inquiry</option>
+          <option value="confirmed">Confirmed</option>
+          <option value="completed">Completed</option>
+          <option value="invoiced">Invoiced</option>
+          <option value="paid">Paid</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Event Date</label>
+        <input type="date" id="n_date" class="form-input">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Price ($)</label>
+        <input type="number" id="n_price" class="form-input" placeholder="1500" min="0" step="0.01">
+      </div>
+    </div>
+    <div class="modal-grid">
+      <div class="form-group">
+        <label class="form-label">Location</label>
+        <input type="text" id="n_location" class="form-input" placeholder="Albuquerque, NM">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Contact Email</label>
+        <input type="email" id="n_email" class="form-input" placeholder="booking@client.com">
+      </div>
+    </div>
+    <div class="modal-grid-full">
+      <div class="form-group">
+        <label class="form-label">Contact Phone</label>
+        <input type="tel" id="n_phone" class="form-input" placeholder="(505) 555-0100">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Notes</label>
+        <textarea id="n_notes" class="form-textarea" placeholder="Details, requirements, special requests…"></textarea>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <button class="modal-cancel-btn" onclick="closeAddModal()">Cancel</button>
+      <button class="modal-submit-btn" id="addSubmitBtn" onclick="submitAddGig()">Add Gig →</button>
+    </div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<script>
+// ─── Auth ─────────────────────────────────────────────────
+async function checkAuth() {
+  try {
+    const r = await fetch('/api/admin/check');
+    const d = await r.json();
+    if (d.authenticated) showPanel();
+  } catch {}
+}
+
+async function doLogin() {
+  const pw = document.getElementById('adminPassword').value;
+  const btn = document.getElementById('loginBtn');
+  const err = document.getElementById('loginError');
+  if (!pw) return;
+  btn.disabled = true; btn.textContent = 'Signing in…'; err.style.display = 'none';
+  try {
+    const r = await fetch('/api/admin/login', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({password:pw})
+    });
+    if (r.ok) showPanel();
+    else { err.style.display='block'; btn.disabled=false; btn.textContent='Sign In →'; }
+  } catch { err.textContent='Connection error'; err.style.display='block'; btn.disabled=false; btn.textContent='Sign In →'; }
+}
+
+async function doLogout() {
+  await fetch('/api/admin/logout',{method:'POST'});
+  document.getElementById('adminPanel').style.display='none';
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('adminPassword').value='';
+}
+
+function showPanel() {
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('adminPanel').style.display='block';
+  loadStats();
+  loadGigs();
+}
+
+document.getElementById('adminPassword').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+// ─── Data ─────────────────────────────────────────────────
+let allGigs = [];
+let currentFilter = 'all';
+
+async function loadStats() {
+  try {
+    const r = await fetch('/api/admin/gigs/stats');
+    const d = await r.json();
+    if (!d.success) return;
+    document.getElementById('statUpcoming').textContent = d.upcoming_gigs;
+    document.getElementById('statRevenue').textContent = '$' + (d.total_revenue || 0).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
+    document.getElementById('statPending').textContent = '$' + (d.pending_invoices || 0).toLocaleString('en-US', {minimumFractionDigits:0, maximumFractionDigits:0});
+    document.getElementById('statPendingCount').textContent = `${d.pending_invoice_count} invoice${d.pending_invoice_count === 1 ? '' : 's'} outstanding`;
+  } catch (e) { console.error('Stats error:', e); }
+}
+
+async function loadGigs() {
+  try {
+    const r = await fetch('/api/admin/gigs');
+    const d = await r.json();
+    if (!d.success) throw new Error(d.message);
+    allGigs = d.gigs || [];
+    renderGigs();
+  } catch (e) {
+    document.getElementById('gigsBody').innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">⚠️</div><div class="empty-title">Error loading gigs</div><div class="empty-sub">${e.message}</div></div></td></tr>`;
+  }
+}
+
+function setFilter(status, el) {
+  currentFilter = status;
+  document.querySelectorAll('.stab').forEach(b => b.classList.remove('active'));
+  el.classList.add('active');
+  renderGigs();
+}
+
+function getFiltered() {
+  if (currentFilter === 'all') return allGigs;
+  return allGigs.filter(g => g.status === currentFilter);
+}
+
+function statusBadge(status) {
+  const labels = { inquiry:'Inquiry', confirmed:'Confirmed', completed:'Completed', invoiced:'Invoiced', paid:'Paid' };
+  return `<span class="status-badge status-${status}">${labels[status] || status}</span>`;
+}
+
+function typeLabel(type) {
+  const map = { concert:'Concert', corporate:'Corporate', podcast:'Podcast', social_content:'Social' };
+  return map[type] || type;
+}
+
+function fmtDate(d) {
+  if (!d) return '<span style="color:var(--text-muted);font-size:0.8rem">TBD</span>';
+  const dt = new Date(d + 'T00:00:00');
+  return dt.toLocaleDateString('en-US', {month:'short', day:'numeric', year:'numeric'});
+}
+
+function fmtPrice(p) {
+  if (p === null || p === undefined || p === '') return '<span class="gig-price no-price">—</span>';
+  return `<span class="gig-price">$${parseFloat(p).toLocaleString('en-US',{minimumFractionDigits:0,maximumFractionDigits:0})}</span>`;
+}
+
+function renderGigs() {
+  const gigs = getFiltered();
+  document.getElementById('gigCount').textContent = `${gigs.length} gig${gigs.length !== 1 ? 's' : ''}`;
+  const tbody = document.getElementById('gigsBody');
+  if (gigs.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="7"><div class="empty-state"><div class="empty-icon">🎸</div><div class="empty-title">No gigs found</div><div class="empty-sub">Add your first gig with the button above.</div></div></td></tr>`;
+    return;
+  }
+  tbody.innerHTML = gigs.map(g => `
+    <tr class="row-main" id="main-${g.id}" onclick="toggleEdit(${g.id})">
+      <td><span class="gig-id">#${g.id}</span></td>
+      <td>
+        <div class="gig-name">${esc(g.event_name)}</div>
+        <div class="gig-client">${esc(g.client_name)}</div>
+      </td>
+      <td><span class="gig-type-badge">${typeLabel(g.event_type)}</span></td>
+      <td><div class="gig-date">${fmtDate(g.event_date)}</div></td>
+      <td><span class="gig-location">${g.location ? esc(g.location) : '<span style="color:var(--text-muted)">—</span>'}</span></td>
+      <td>${statusBadge(g.status)}</td>
+      <td>${fmtPrice(g.price)}</td>
+    </tr>
+    <tr class="row-edit" id="edit-${g.id}">
+      <td colspan="7">
+        <div class="edit-panel">
+          <div class="edit-grid">
+            <div class="form-group">
+              <label class="form-label">Client Name</label>
+              <input type="text" class="form-input" id="e_client_${g.id}" value="${esc(g.client_name)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Event Name</label>
+              <input type="text" class="form-input" id="e_name_${g.id}" value="${esc(g.event_name)}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Event Type</label>
+              <select class="form-select" id="e_type_${g.id}">
+                <option value="concert" ${g.event_type==='concert'?'selected':''}>Concert</option>
+                <option value="corporate" ${g.event_type==='corporate'?'selected':''}>Corporate</option>
+                <option value="podcast" ${g.event_type==='podcast'?'selected':''}>Podcast</option>
+                <option value="social_content" ${g.event_type==='social_content'?'selected':''}>Social Content</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Status</label>
+              <select class="form-select" id="e_status_${g.id}">
+                <option value="inquiry" ${g.status==='inquiry'?'selected':''}>Inquiry</option>
+                <option value="confirmed" ${g.status==='confirmed'?'selected':''}>Confirmed</option>
+                <option value="completed" ${g.status==='completed'?'selected':''}>Completed</option>
+                <option value="invoiced" ${g.status==='invoiced'?'selected':''}>Invoiced</option>
+                <option value="paid" ${g.status==='paid'?'selected':''}>Paid</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label">Event Date</label>
+              <input type="date" class="form-input" id="e_date_${g.id}" value="${g.event_date ? g.event_date.split('T')[0] : ''}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Price ($)</label>
+              <input type="number" class="form-input" id="e_price_${g.id}" value="${g.price !== null && g.price !== undefined ? g.price : ''}" min="0" step="0.01">
+            </div>
+          </div>
+          <div class="edit-grid-2col">
+            <div class="form-group">
+              <label class="form-label">Location</label>
+              <input type="text" class="form-input" id="e_location_${g.id}" value="${esc(g.location || '')}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contact Email</label>
+              <input type="email" class="form-input" id="e_email_${g.id}" value="${esc(g.contact_email || '')}">
+            </div>
+            <div class="form-group">
+              <label class="form-label">Contact Phone</label>
+              <input type="tel" class="form-input" id="e_phone_${g.id}" value="${esc(g.contact_phone || '')}">
+            </div>
+          </div>
+          <div class="form-group" style="margin-bottom:16px">
+            <label class="form-label">Notes</label>
+            <textarea class="form-textarea" id="e_notes_${g.id}">${esc(g.notes || '')}</textarea>
+          </div>
+          <div class="edit-actions">
+            <button class="save-btn" id="saveBtn_${g.id}" onclick="saveGig(${g.id})">Save Changes</button>
+            <button class="cancel-edit-btn" onclick="toggleEdit(${g.id})">Cancel</button>
+            <button class="delete-btn" onclick="deleteGig(${g.id})">Delete Gig</button>
+          </div>
+        </div>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function toggleEdit(id) {
+  const row = document.getElementById(`edit-${id}`);
+  const isOpen = row.classList.contains('open');
+  // Close all open edit rows first
+  document.querySelectorAll('.row-edit.open').forEach(r => r.classList.remove('open'));
+  if (!isOpen) row.classList.add('open');
+}
+
+async function saveGig(id) {
+  const btn = document.getElementById(`saveBtn_${id}`);
+  btn.disabled = true; btn.textContent = 'Saving…';
+  const payload = {
+    client_name: document.getElementById(`e_client_${id}`).value.trim(),
+    event_name:  document.getElementById(`e_name_${id}`).value.trim(),
+    event_type:  document.getElementById(`e_type_${id}`).value,
+    status:      document.getElementById(`e_status_${id}`).value,
+    event_date:  document.getElementById(`e_date_${id}`).value || null,
+    price:       document.getElementById(`e_price_${id}`).value || null,
+    location:    document.getElementById(`e_location_${id}`).value.trim(),
+    contact_email: document.getElementById(`e_email_${id}`).value.trim(),
+    contact_phone: document.getElementById(`e_phone_${id}`).value.trim(),
+    notes:       document.getElementById(`e_notes_${id}`).value.trim(),
+  };
+  try {
+    const r = await fetch(`/api/admin/gigs/${id}`, {
+      method:'PATCH', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const d = await r.json();
+    if (!d.success) throw new Error(d.message);
+    // Update local data
+    const idx = allGigs.findIndex(g => g.id === id);
+    if (idx > -1) allGigs[idx] = d.gig;
+    renderGigs();
+    loadStats();
+    showToast('Gig saved ✓');
+  } catch (e) {
+    showToast('Error: ' + e.message);
+    btn.disabled = false; btn.textContent = 'Save Changes';
+  }
+}
+
+async function deleteGig(id) {
+  if (!confirm('Delete this gig? This cannot be undone.')) return;
+  try {
+    const r = await fetch(`/api/admin/gigs/${id}`, { method:'DELETE' });
+    const d = await r.json();
+    if (!d.success) throw new Error(d.message);
+    allGigs = allGigs.filter(g => g.id !== id);
+    renderGigs();
+    loadStats();
+    showToast('Gig deleted');
+  } catch (e) { showToast('Error: ' + e.message); }
+}
+
+// ─── Add Modal ─────────────────────────────────────────────
+function openAddModal() {
+  document.getElementById('addModal').classList.add('open');
+  // Clear fields
+  ['n_client','n_name','n_date','n_price','n_location','n_email','n_phone','n_notes'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('n_type').value = 'concert';
+  document.getElementById('n_status').value = 'inquiry';
+}
+
+function closeAddModal() {
+  document.getElementById('addModal').classList.remove('open');
+}
+
+function closeModalIfOverlay(e) {
+  if (e.target === document.getElementById('addModal')) closeAddModal();
+}
+
+async function submitAddGig() {
+  const btn = document.getElementById('addSubmitBtn');
+  const client = document.getElementById('n_client').value.trim();
+  const name   = document.getElementById('n_name').value.trim();
+  if (!client || !name) { showToast('Client name and event name are required'); return; }
+  btn.disabled = true; btn.textContent = 'Adding…';
+  const payload = {
+    client_name:   client,
+    event_name:    name,
+    event_type:    document.getElementById('n_type').value,
+    status:        document.getElementById('n_status').value,
+    event_date:    document.getElementById('n_date').value || null,
+    price:         document.getElementById('n_price').value || null,
+    location:      document.getElementById('n_location').value.trim(),
+    contact_email: document.getElementById('n_email').value.trim(),
+    contact_phone: document.getElementById('n_phone').value.trim(),
+    notes:         document.getElementById('n_notes').value.trim(),
+  };
+  try {
+    const r = await fetch('/api/admin/gigs', {
+      method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify(payload)
+    });
+    const d = await r.json();
+    if (!d.success) throw new Error(d.message);
+    allGigs.unshift(d.gig);
+    // Re-sort: upcoming first
+    allGigs.sort((a,b) => {
+      if (!a.event_date && !b.event_date) return 0;
+      if (!a.event_date) return 1;
+      if (!b.event_date) return -1;
+      return new Date(a.event_date) - new Date(b.event_date);
+    });
+    renderGigs();
+    loadStats();
+    closeAddModal();
+    showToast('Gig added ✓');
+  } catch (e) {
+    showToast('Error: ' + e.message);
+    btn.disabled = false; btn.textContent = 'Add Gig →';
+  }
+}
+
+// ─── Helpers ───────────────────────────────────────────────
+function esc(str) {
+  if (!str) return '';
+  return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+// ─── Init ──────────────────────────────────────────────────
+checkAuth();
+</script>
+</body>
+</html>

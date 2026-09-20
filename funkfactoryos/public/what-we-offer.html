@@ -1,0 +1,1676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Services &amp; Pricing | Funk Factory Media Group</title>
+    <meta name="description" content="Custom website design and development packages for contractors and growing businesses. Foundation, Growth Platform, and Contractor Pro AI tiers available. Built in New Mexico.">
+    <link rel="canonical" href="https://funkfactoryos.polsia.app/what-we-offer">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="Web Services &amp; Pricing | Funk Factory Media Group">
+    <meta property="og:description" content="Custom website design and development packages for contractors and growing businesses. Foundation, Growth Platform, and Contractor Pro AI tiers available. Built in New Mexico.">
+    <meta property="og:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/what-we-offer">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 0;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            padding: 124px 64px 80px;
+            background: var(--bg-warm);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(212,149,106,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; left: -60px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(107,58,31,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin-bottom: 20px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: var(--text);
+            margin-bottom: 24px;
+        }
+
+        .page-hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 580px;
+            margin: 0 auto 40px;
+            line-height: 1.75;
+        }
+
+        .hero-subtext {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 28px;
+            font-style: italic;
+        }
+
+        /* ===== PRICING SECTION ===== */
+        .pricing {
+            padding: 100px 64px;
+            background: var(--bg);
+        }
+
+        .section-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            text-align: center;
+            margin-bottom: 16px;
+        }
+
+        .section-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+
+        .section-sub {
+            font-size: 1rem;
+            color: var(--text-muted);
+            text-align: center;
+            max-width: 500px;
+            margin: 0 auto 64px;
+        }
+
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            background: var(--bg);
+            border: 1.5px solid var(--border-strong);
+            border-radius: 16px;
+            padding: 40px 32px;
+            position: relative;
+            transition: box-shadow 0.2s, border-color 0.2s, transform 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .pricing-card:hover {
+            box-shadow: 0 12px 40px rgba(107,58,31,0.12);
+            transform: translateY(-3px);
+        }
+
+        .pricing-card.featured {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, #faf6f1 0%, #fff8f2 100%);
+        }
+
+        .pricing-card.premium-tier {
+            border-color: var(--accent);
+            background: var(--bg-dark);
+            color: #fff;
+        }
+
+        .pricing-card.premium-tier .card-tier,
+        .pricing-card.premium-tier .card-name,
+        .pricing-card.premium-tier .card-price {
+            color: #fff;
+        }
+
+        .pricing-card.premium-tier .card-price-sub {
+            color: rgba(255,255,255,0.6);
+        }
+
+        .pricing-card.premium-tier .card-divider {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .pricing-card.premium-tier .feature-list li {
+            color: rgba(255,255,255,0.85);
+        }
+
+        .pricing-card.premium-tier .feature-check {
+            background: var(--accent);
+        }
+
+        .pricing-card.premium-tier .timeline-badge {
+            background: rgba(255,255,255,0.08);
+            border-color: rgba(255,255,255,0.15);
+            color: var(--accent);
+        }
+
+        .pricing-card.premium-tier .btn-outline {
+            border-color: rgba(255,255,255,0.3);
+            color: #fff;
+        }
+
+        .pricing-card.premium-tier .btn-outline:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        .pricing-card.premium-tier .btn-primary {
+            background: var(--accent);
+        }
+
+        .pricing-card.premium-tier .btn-primary:hover {
+            background: #c07a4e;
+        }
+
+        .card-tier-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 700;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            padding: 5px 14px;
+            border-radius: 20px;
+            margin-bottom: 16px;
+            white-space: nowrap;
+        }
+
+        .card-tier-badge.badge-founding {
+            background: rgba(212,149,106,0.12);
+            color: var(--accent-dark);
+            border: 1px solid rgba(212,149,106,0.3);
+        }
+
+        .card-tier-badge.badge-early {
+            background: rgba(212,149,106,0.12);
+            color: var(--accent-dark);
+            border: 1px solid rgba(212,149,106,0.3);
+        }
+
+        .card-tier-badge.badge-premium {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        .card-tier {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin-bottom: 12px;
+        }
+
+        .card-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text);
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .card-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.6rem;
+            font-weight: 800;
+            color: var(--accent-dark);
+            letter-spacing: -1.5px;
+            margin-bottom: 4px;
+        }
+
+        .card-price-sub {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .card-divider {
+            height: 1px;
+            background: var(--border);
+            margin-bottom: 28px;
+        }
+
+        .feature-list {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .feature-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 14px;
+            line-height: 1.4;
+        }
+
+        .feature-check {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            min-width: 20px;
+            background: var(--accent);
+            color: #fff;
+            border-radius: 50%;
+            font-size: 0.65rem;
+            font-weight: 900;
+            margin-top: 1px;
+        }
+
+        .timeline-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-warm);
+            color: var(--accent-dark);
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid var(--border-strong);
+            margin-bottom: 24px;
+        }
+
+        .btn-primary {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.15s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-outline {
+            display: block;
+            width: 100%;
+            text-align: center;
+            background: transparent;
+            color: var(--accent-dark);
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 2px solid var(--accent-dark);
+            transition: background 0.2s, color 0.2s, transform 0.15s;
+            cursor: pointer;
+        }
+
+        .btn-outline:hover {
+            background: var(--accent-dark);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        /* ===== RETAINERS ===== */
+        .retainers {
+            padding: 80px 64px;
+            background: var(--bg-warm);
+        }
+
+        .retainer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .retainer-card {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px 24px;
+            text-align: center;
+            transition: box-shadow 0.2s;
+        }
+
+        .retainer-card:hover {
+            box-shadow: 0 4px 20px rgba(107,58,31,0.08);
+        }
+
+        .retainer-icon {
+            font-size: 1.8rem;
+            margin-bottom: 12px;
+        }
+
+        .retainer-name {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .retainer-desc {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .retainer-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--accent-dark);
+            margin-top: 10px;
+        }
+
+        /* ===== SOCIAL PROOF ===== */
+        .social-proof {
+            padding: 100px 64px;
+            background: var(--bg);
+        }
+
+        .trust-row {
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+            flex-wrap: wrap;
+            margin-bottom: 72px;
+        }
+
+        .trust-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .trust-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--accent-dark);
+            letter-spacing: -1px;
+        }
+
+        .trust-label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 28px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 32px 28px;
+        }
+
+        .stars {
+            font-size: 0.9rem;
+            color: var(--accent);
+            margin-bottom: 14px;
+            letter-spacing: 2px;
+        }
+
+        .testimonial-text {
+            font-size: 0.95rem;
+            color: var(--text);
+            line-height: 1.65;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+
+        .testimonial-author {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text);
+        }
+
+        .testimonial-biz {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        /* ===== FLOATING CTA ===== */
+        .float-cta {
+            position: fixed;
+            bottom: 28px;
+            right: 28px;
+            background: var(--accent-dark);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 24px;
+            border-radius: 50px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 20px rgba(107,58,31,0.3);
+            z-index: 90;
+            transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+        }
+
+        .float-cta:hover {
+            background: var(--accent);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px rgba(107,58,31,0.35);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0a0a0a;
+            color: rgba(255,255,255,0.4);
+            padding: 40px 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .footer-brand {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .footer-brand span { color: var(--accent); }
+        footer p { font-size: 0.82rem; }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-size: 0.82rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.7); }
+
+        /* ===== POSITIONING STATEMENT ===== */
+        .positioning-statement {
+            padding: 64px 64px 80px;
+            background: var(--bg);
+            text-align: center;
+        }
+
+        .positioning-statement .statement-text {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.5rem, 3vw, 2.4rem);
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--text);
+            max-width: 760px;
+            margin: 0 auto;
+            letter-spacing: -0.5px;
+        }
+
+        .positioning-statement .statement-text em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .positioning-statement .statement-sub {
+            font-size: 1rem;
+            color: var(--text-muted);
+            max-width: 520px;
+            margin: 16px auto 0;
+            line-height: 1.7;
+        }
+
+        /* ===== MANAGED HOSTING ===== */
+        .managed-hosting {
+            padding: 80px 64px;
+            background: var(--bg-warm);
+        }
+
+        .hosting-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .hosting-card {
+            background: var(--bg);
+            border: 1.5px solid var(--border-strong);
+            border-radius: 12px;
+            padding: 36px 28px;
+        }
+
+        .hosting-card h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .hosting-card .hosting-price {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--accent-dark);
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+        }
+
+        .hosting-card .hosting-price span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0;
+        }
+
+        .hosting-includes {
+            list-style: none;
+        }
+
+        .hosting-includes li {
+            font-size: 0.9rem;
+            color: var(--text);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            line-height: 1.4;
+        }
+
+        .hosting-includes li::before {
+            content: '→';
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 0.8rem;
+            margin-top: 1px;
+            flex-shrink: 0;
+        }
+
+        .hosting-custom {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, #faf6f1 0%, #fff8f2 100%);
+        }
+
+        .hosting-custom .hosting-price {
+            color: var(--accent);
+        }
+
+        .hosting-custom::before {
+            content: '★ Featured';
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.7rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        /* ===== WHAT MAKES OUR BUILDS DIFFERENT ===== */
+        .builds-different {
+            padding: 100px 64px;
+            background: var(--bg);
+        }
+
+        .diff-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .diff-item {
+            text-align: center;
+            padding: 24px 16px;
+        }
+
+        .diff-icon {
+            font-size: 2.2rem;
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .diff-item h4 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+
+        .diff-item p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ===== ARCHITECTURE CALLOUT ===== */
+        .arch-callout {
+            padding: 72px 64px;
+            background: var(--bg-dark);
+            text-align: center;
+        }
+
+        .arch-callout h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 40px;
+            letter-spacing: -0.5px;
+        }
+
+        .arch-items {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto 0;
+        }
+
+        .arch-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .arch-item-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: rgba(212,149,106,0.15);
+            border: 1px solid rgba(212,149,106,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        /* ===== STICKY CTA BAR ===== */
+        .sticky-cta-bar {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            z-index: 200;
+            background: var(--bg-dark, #1a0f08);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+            padding: 14px 24px;
+            transform: translateY(100%);
+            transition: transform 0.35s ease;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.2);
+        }
+        .sticky-cta-bar.visible { transform: translateY(0); }
+        .sticky-cta-text { font-size: 0.95rem; }
+        .sticky-cta-text strong { color: var(--accent, #D4956A); }
+        .sticky-cta-link {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--accent, #D4956A);
+            text-decoration: none;
+            background: rgba(212,149,106,0.15);
+            border: 1px solid rgba(212,149,106,0.3);
+            padding: 6px 16px;
+            border-radius: 20px;
+        }
+        .sticky-cta-link:hover { background: rgba(212,149,106,0.25); }
+        .sticky-cta-close {
+            position: absolute;
+            right: 20px;
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.5);
+            font-size: 1.2rem;
+            cursor: pointer;
+            padding: 4px 8px;
+            line-height: 1;
+        }
+        .sticky-cta-close:hover { color: #fff; }
+
+        /* ===== HOW IT WORKS ===== */
+        .how-it-works {
+            padding: 100px 64px;
+            background: var(--bg-warm);
+            text-align: center;
+        }
+        .hiw-track {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            gap: 0;
+            max-width: 900px;
+            margin: 64px auto 0;
+            position: relative;
+        }
+        .hiw-step {
+            flex: 1;
+            max-width: 260px;
+            text-align: center;
+            padding: 0 24px;
+            position: relative;
+            z-index: 1;
+        }
+        .hiw-icon {
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .hiw-num {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: var(--accent);
+            background: #fff;
+            border: 2px solid var(--accent);
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 14px;
+        }
+        .hiw-step h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 8px;
+        }
+        .hiw-step p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+        .hiw-link {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--accent-dark);
+            text-decoration: none;
+            border-bottom: 1px solid var(--accent);
+            padding-bottom: 1px;
+        }
+        .hiw-link:hover { color: var(--accent); }
+        .hiw-connector {
+            width: 80px;
+            height: 2px;
+            background: var(--border-strong);
+            margin-top: 42px;
+            flex-shrink: 0;
+            position: relative;
+            z-index: 0;
+        }
+
+        /* ===== WHAT CLIENTS GET ===== */
+        .what-clients-get {
+            padding: 100px 64px;
+            background: var(--bg);
+            text-align: center;
+        }
+        .wcg-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            max-width: 1080px;
+            margin: 64px auto 0;
+        }
+        .wcg-card {
+            background: var(--bg-warm);
+            border: 1.5px solid var(--border-strong);
+            border-radius: 12px;
+            padding: 32px 28px;
+            text-align: left;
+        }
+        .wcg-card.wcg-featured {
+            border-color: var(--accent);
+            background: linear-gradient(135deg, #faf6f1 0%, #fff8f2 100%);
+        }
+        .wcg-card.wcg-premium {
+            border-color: var(--accent);
+            background: var(--bg-dark);
+            color: #fff;
+        }
+        .wcg-tier {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.72rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent-dark);
+            margin-bottom: 20px;
+        }
+        .wcg-card.wcg-premium .wcg-tier { color: var(--accent); }
+        .wcg-list {
+            list-style: none;
+            padding: 0;
+        }
+        .wcg-list li {
+            font-size: 0.88rem;
+            color: var(--text);
+            margin-bottom: 10px;
+            padding-left: 16px;
+            position: relative;
+            line-height: 1.4;
+        }
+        .wcg-card.wcg-premium .wcg-list li { color: rgba(255,255,255,0.85); }
+        .wcg-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-size: 0.75rem;
+            font-weight: 700;
+            top: 2px;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-section {
+            padding: 100px 64px;
+            background: var(--bg-warm);
+            text-align: center;
+        }
+        .faq-list {
+            max-width: 720px;
+            margin: 56px auto 0;
+            text-align: left;
+        }
+        .faq-item {
+            border-bottom: 1px solid var(--border-strong);
+            padding: 0;
+        }
+        .faq-q {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 22px 0;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 16px;
+        }
+        .faq-q:hover { color: var(--accent-dark); }
+        .faq-plus {
+            font-size: 1.4rem;
+            color: var(--accent);
+            font-weight: 300;
+            line-height: 1;
+            flex-shrink: 0;
+            transition: transform 0.2s;
+        }
+        .faq-item.open .faq-plus { transform: rotate(45deg); }
+        .faq-a {
+            display: none;
+            padding: 0 0 22px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+        .faq-item.open .faq-a { display: block; }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            .nav-links { display: none; gap: 20px; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 64px;
+                left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(10px);
+                padding: 24px 24px 32px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { font-size: 1.05rem; color: var(--text); }
+            .nav-toggle { display: flex; }
+            .page-hero { padding: 100px 32px 64px; }
+            .positioning-statement { padding: 60px 32px; }
+            .pricing { padding: 80px 32px; }
+            .pricing-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .how-it-works { padding: 80px 32px; }
+            .hiw-track { flex-direction: column; align-items: center; gap: 0; }
+            .hiw-connector { display: none; }
+            .hiw-step { max-width: 100%; }
+            .what-clients-get { padding: 80px 32px; }
+            .wcg-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .managed-hosting { padding: 64px 32px; }
+            .hosting-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .builds-different { padding: 80px 32px; }
+            .diff-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+            .retainers { padding: 64px 32px; }
+            .retainer-grid { grid-template-columns: 1fr 1fr; }
+            .arch-callout { padding: 60px 32px; }
+            .arch-items { gap: 24px; }
+            .social-proof { padding: 80px 32px; }
+            .testimonials-grid { grid-template-columns: 1fr; max-width: 480px; }
+            .faq-section { padding: 80px 32px; }
+            footer { padding: 32px 24px; flex-direction: column; text-align: center; }
+            .footer-links { flex-wrap: wrap; justify-content: center; }
+        }
+
+        @media (max-width: 600px) {
+            .page-hero { padding: 90px 20px 48px; }
+            .page-hero h1 { letter-spacing: -1px; }
+            .positioning-statement { padding: 48px 20px; }
+            .positioning-statement .statement-text { font-size: 1.4rem; }
+            .pricing { padding: 60px 20px; }
+            .pricing-card { padding: 36px 24px; }
+            .how-it-works { padding: 60px 20px; }
+            .hiw-track { margin-top: 48px; }
+            .what-clients-get { padding: 60px 20px; }
+            .wcg-grid { margin-top: 48px; }
+            .managed-hosting { padding: 48px 20px; }
+            .builds-different { padding: 60px 20px; }
+            .diff-grid { grid-template-columns: 1fr; }
+            .retainers { padding: 48px 20px; }
+            .retainer-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .arch-callout { padding: 48px 20px; }
+            .arch-items { flex-direction: column; align-items: center; gap: 20px; }
+            .social-proof { padding: 60px 20px; }
+            .trust-row { gap: 28px; }
+            .faq-section { padding: 60px 20px; }
+        }
+
+        /* (unused — removed promo styles) */
+
+        /* ===== NAV PROGRESS BAR ===== */
+        .nav-progress{position:fixed;top:64px;left:0;right:0;z-index:99;height:3px;background:transparent;pointer-events:none;}
+        .nav-progress-bar{height:100%;background:var(--accent,#D4956A);transition:width .1s linear;}
+
+        /* ===== NAV SOCIAL PROOF ===== */
+        .nav-social-proof{font-size:.72rem;color:var(--text-muted,#6b5c50);opacity:0;transition:opacity .4s;white-space:nowrap;line-height:1;}
+
+        /* ===== SCROLL PANEL ===== */
+        .scroll-panel{position:fixed;bottom:28px;right:28px;z-index:250;background:var(--bg-warm,#faf6f1);border:1px solid var(--border,rgba(107,58,31,.1));border-radius:10px;padding:14px 40px 14px 20px;box-shadow:0 4px 20px rgba(26,15,8,.1);font-size:.88rem;color:var(--text,#1a0f08);line-height:1.5;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;pointer-events:none;}
+        .scroll-panel.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+        .sp-inner{display:flex;align-items:center;gap:6px;}
+        .sp-link{color:var(--accent-dark,#6B3A1F);font-weight:600;text-decoration:none;}
+        .sp-link:hover{text-decoration:underline;}
+        .scroll-panel-close{position:absolute;top:8px;right:10px;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-muted,#6b5c50);line-height:1;padding:0;}
+        .scroll-panel-close:hover{color:var(--text,#1a0f08);}
+    </style>
+</head>
+<body>
+
+    <!-- FLOATING CTA -->
+    <a href="/intake?package=growth-platform" class="float-cta">
+        ✦ Book Your Build
+    </a>
+
+    <!-- STICKY CTA BAR -->
+    <div class="sticky-cta-bar" id="stickyCtaBar" role="complementary" aria-label="Book Your Build">
+        <span class="sticky-cta-text">Ready to start? <strong>Book Your Build →</strong></span>
+        <a href="/intake" class="sticky-cta-link">/intake</a>
+        <button class="sticky-cta-close" id="stickyCtaClose" aria-label="Dismiss">×</button>
+    </div>
+
+    <!-- NAV -->
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/what-we-offer" class="active">Web Services</a></li>
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#gallery">Work</a></li>
+            <li><a href="/intake" class="nav-cta" id="navCtaBtn">Start Your Build</a></li>
+            <li><span class="nav-social-proof" id="navSocialProof">Trusted by 500+ teams</span></li>
+        </ul>
+        <button class="nav-toggle" id="navToggle" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </nav>
+    <div class="nav-progress" id="navProgress"></div>
+
+    <!-- HERO -->
+    <section class="page-hero">
+        <div class="eyebrow">Web Design &amp; Development</div>
+        <h1>Websites That <em>Work</em><br>As Hard As You Do</h1>
+        <p>Clean, fast, mobile-first websites built for small businesses that need to show up online — and actually convert visitors into clients.</p>
+        <p class="hero-subtext">No commitment. No deposit required to get your quote.</p>
+        <a href="/intake" class="btn-primary" style="display:inline-flex;align-items:center;gap:8px;width:auto;padding:16px 40px;font-size:1.05rem;">
+            Start Your Project →
+        </a>
+    </section>
+
+    <!-- POSITIONING STATEMENT -->
+    <section class="positioning-statement">
+        <p class="statement-text">We don't just build websites.<br>We build <em>digital infrastructure</em><br>for modern businesses.</p>
+        <p class="statement-sub">Built for contractors, creators, and growing businesses — designed to scale with your ambition.</p>
+    </section>
+
+    <!-- PRICING -->
+    <section class="pricing">
+        <div class="section-label">Our Packages</div>
+        <h2 class="section-heading">Choose Your Build</h2>
+        <p class="section-sub">Own your content and infrastructure — from day one.</p>
+
+        <div class="pricing-grid">
+
+            <!-- FOUNDATION -->
+            <div class="pricing-card">
+                <div class="card-tier-badge badge-founding">Founding Client Pricing</div>
+                <div class="card-tier">Intro Tier</div>
+                <div class="card-name">Foundation</div>
+                <div class="card-price">$1,250–$1,500</div>
+                <div class="card-price-sub">One-time project fee &bull; No hidden costs</div>
+                <div class="timeline-badge">
+                    ⏱ 2–3 week turnaround
+                </div>
+                <div class="card-divider"></div>
+                <ul class="feature-list">
+                    <li><span class="feature-check">✓</span> 5–7 page responsive, mobile-first website</li>
+                    <li><span class="feature-check">✓</span> Custom admin portal — edit your own content</li>
+                    <li><span class="feature-check">✓</span> Local SEO foundation and setup</li>
+                    <li><span class="feature-check">✓</span> Basic analytics dashboard</li>
+                    <li><span class="feature-check">✓</span> Contact forms &amp; calls-to-action</li>
+                    <li><span class="feature-check">✓</span> PocketBase-powered backend</li>
+                    <li><span class="feature-check">✓</span> 30-day post-launch support</li>
+                </ul>
+                <a href="/intake?package=foundation" class="btn-outline">Schedule Your Build →</a>
+            </div>
+
+            <!-- GROWTH PLATFORM -->
+            <div class="pricing-card featured">
+                <div class="card-tier-badge badge-early">Early Partner Pricing Through August 2026</div>
+                <div class="card-tier">Mid Tier</div>
+                <div class="card-name">Growth Platform</div>
+                <div class="card-price">$2,500–$3,000</div>
+                <div class="card-price-sub">One-time project fee &bull; No hidden costs</div>
+                <div class="timeline-badge">
+                    ⏱ 3–4 week turnaround
+                </div>
+                <div class="card-divider"></div>
+                <ul class="feature-list">
+                    <li><span class="feature-check">✓</span> Everything in Foundation, plus:</li>
+                    <li><span class="feature-check">✓</span> 10–15 page website with video gallery support</li>
+                    <li><span class="feature-check">✓</span> Project showcase management system</li>
+                    <li><span class="feature-check">✓</span> Advanced SEO — schema, sitemap, speed optimization</li>
+                    <li><span class="feature-check">✓</span> Enhanced analytics dashboard</li>
+                    <li><span class="feature-check">✓</span> Docker-based deployment for reliability</li>
+                    <li><span class="feature-check">✓</span> Client training session included</li>
+                    <li><span class="feature-check">✓</span> 60-day post-launch support</li>
+                </ul>
+                <a href="/intake?package=growth-platform" class="btn-primary">Start Your Platform →</a>
+            </div>
+
+            <!-- CONTRACTOR PRO AI -->
+            <div class="pricing-card premium-tier">
+                <div class="card-tier-badge badge-premium">Full AI + Media Automation</div>
+                <div class="card-tier">High-End Tier</div>
+                <div class="card-name">Contractor Pro AI</div>
+                <div class="card-price">$4,000–$6,000</div>
+                <div class="card-price-sub">One-time project fee &bull; No hidden costs</div>
+                <div class="timeline-badge">
+                    ⏱ 5–6 week turnaround
+                </div>
+                <div class="card-divider"></div>
+                <ul class="feature-list">
+                    <li><span class="feature-check">✓</span> Everything in Growth Platform, plus:</li>
+                    <li><span class="feature-check">✓</span> AI assistant compatibility built-in</li>
+                    <li><span class="feature-check">✓</span> Media automation workflows</li>
+                    <li><span class="feature-check">✓</span> Scalable architecture for high traffic</li>
+                    <li><span class="feature-check">✓</span> Managed hosting support included</li>
+                    <li><span class="feature-check">✓</span> Priority AI maintenance &amp; updates</li>
+                    <li><span class="feature-check">✓</span> Client intake &amp; lead management portal</li>
+                    <li><span class="feature-check">✓</span> 90-day post-launch support</li>
+                </ul>
+                <a href="/intake?package=contractor-pro-ai" class="btn-outline">Book Discovery Call →</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how-it-works">
+        <div class="section-label">Process</div>
+        <h2 class="section-heading">How It Works</h2>
+        <p class="section-sub">Three steps from decision to live site.</p>
+        <div class="hiw-track">
+            <div class="hiw-step">
+                <div class="hiw-icon">📋</div>
+                <div class="hiw-num">1</div>
+                <h3>Submit Your Intake</h3>
+                <p>Tell us about your business, goals, and style. Takes about 10 minutes.</p>
+                <a href="/intake" class="hiw-link">Start the form →</a>
+            </div>
+            <div class="hiw-connector"></div>
+            <div class="hiw-step">
+                <div class="hiw-icon">🔍</div>
+                <div class="hiw-num">2</div>
+                <h3>We Review &amp; Respond</h3>
+                <p>We study your submission and reply with questions, timeline, and a clear quote — within 24 hours.</p>
+            </div>
+            <div class="hiw-connector"></div>
+            <div class="hiw-step">
+                <div class="hiw-icon">🚀</div>
+                <div class="hiw-num">3</div>
+                <h3>We Build — You Approve</h3>
+                <p>We build your site, share a preview, incorporate one round of revisions, and launch. You stay informed the whole time.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- MANAGED HOSTING & SUPPORT -->
+    <section class="managed-hosting">
+        <div class="section-label">Recurring Services</div>
+        <h2 class="section-heading">Managed Hosting &amp; Support</h2>
+        <p class="section-sub">Keep your platform running, ranking, and growing — without lifting a finger.</p>
+
+        <div class="hosting-grid">
+            <div class="hosting-card">
+                <h3>Essential Hosting</h3>
+                <div class="hosting-price">$99<span>/mo</span></div>
+                <ul class="hosting-includes">
+                    <li>Managed cloud hosting</li>
+                    <li>Daily backups &amp; security patches</li>
+                    <li>Core software updates</li>
+                    <li>Performance analytics</li>
+                    <li>SSL certificate</li>
+                </ul>
+            </div>
+            <div class="hosting-card hosting-custom">
+                <h3>Managed Growth</h3>
+                <div class="hosting-price">$299<span>/mo</span></div>
+                <ul class="hosting-includes">
+                    <li>Everything in Essential</li>
+                    <li>SEO monitoring &amp; reporting</li>
+                    <li>Monthly media uploads</li>
+                    <li>Content updates (2 hrs/mo)</li>
+                    <li>Priority support queue</li>
+                </ul>
+            </div>
+            <div class="hosting-card">
+                <h3>AI + Media Support</h3>
+                <div class="hosting-price">Custom</div>
+                <ul class="hosting-includes">
+                    <li>Everything in Managed Growth</li>
+                    <li>AI system maintenance</li>
+                    <li>Custom automations</li>
+                    <li>Dedicated support channel</li>
+                    <li>Quarterly strategy reviews</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT MAKES OUR BUILDS DIFFERENT -->
+    <section class="builds-different">
+        <div class="section-label">The FFMG Difference</div>
+        <h2 class="section-heading">What Makes Our Builds Different</h2>
+        <p class="section-sub" style="margin-bottom: 56px;">No templates. No page-builders. No lock-in. Every build is a custom system designed to grow with you.</p>
+
+        <div class="diff-grid">
+            <div class="diff-item">
+                <span class="diff-icon">🔧</span>
+                <h4>Custom-Built Systems</h4>
+                <p>Not a template in sight. Every build is purpose-built for your business.</p>
+            </div>
+            <div class="diff-item">
+                <span class="diff-icon">📐</span>
+                <h4>Scalable Architecture</h4>
+                <p>Built to handle growth — from first customer to thousands of monthly visitors.</p>
+            </div>
+            <div class="diff-item">
+                <span class="diff-icon">⚡</span>
+                <h4>Fast Deployment</h4>
+                <p>Production-ready infrastructure from day one. No waiting, no compromises.</p>
+            </div>
+            <div class="diff-item">
+                <span class="diff-icon">🎬</span>
+                <h4>Media-First Design</h4>
+                <p>Photo and video ready. Built to showcase your work, not just describe it.</p>
+            </div>
+            <div class="diff-item">
+                <span class="diff-icon">🖥</span>
+                <h4>Editable Admin Portal</h4>
+                <p>You own your content. Update text, images, and pages without touching code.</p>
+            </div>
+            <div class="diff-item">
+                <span class="diff-icon">🐳</span>
+                <h4>Docker Deployment</h4>
+                <p>Consistent, reliable deployments. Your site works the same everywhere.</p>
+            </div>
+            <div class="diff-item">
+                <span class="diff-icon">🗄</span>
+                <h4>PocketBase Backend</h4>
+                <p>Your own isolated database. No shared servers, no data commingling.</p>
+            </div>
+            <div class="diff-item">
+                <span class="diff-icon">🤖</span>
+                <h4>AI Integration Ready</h4>
+                <p>Architecture in place for AI assistants, automations, and smart workflows.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ARCHITECTURE CALLOUT -->
+    <section class="arch-callout">
+        <h3>Every Build Includes:</h3>
+        <div class="arch-items">
+            <div class="arch-item">
+                <div class="arch-item-icon">🖥</div>
+                Their own isolated deployment
+            </div>
+            <div class="arch-item">
+                <div class="arch-item-icon">🗄</div>
+                Their own backend / database
+            </div>
+            <div class="arch-item">
+                <div class="arch-item-icon">🛠</div>
+                Their own admin portal
+            </div>
+            <div class="arch-item">
+                <div class="arch-item-icon">📦</div>
+                Independent ownership of assets
+            </div>
+        </div>
+    </section>
+
+    <!-- WHAT CLIENTS GET -->
+    <section class="what-clients-get">
+        <div class="section-label">Deliverables</div>
+        <h2 class="section-heading">What Clients Get</h2>
+        <p class="section-sub">Not just a website — a working system you own and can edit.</p>
+        <div class="wcg-grid">
+            <div class="wcg-card">
+                <div class="wcg-tier">Foundation</div>
+                <ul class="wcg-list">
+                    <li>5–7 page custom website (mobile-first)</li>
+                    <li>Admin portal — edit all text and images yourself</li>
+                    <li>1 round of design revisions</li>
+                    <li>Contact form with email notifications</li>
+                    <li>Google Business Profile + local SEO setup</li>
+                    <li>Google Analytics dashboard (connected, you own it)</li>
+                    <li>30-day post-launch support</li>
+                    <li>Full source code + deployment ownership</li>
+                </ul>
+            </div>
+            <div class="wcg-card wcg-featured">
+                <div class="wcg-tier">Growth Platform</div>
+                <ul class="wcg-list">
+                    <li>Everything in Foundation, plus:</li>
+                    <li>10–15 page site with video gallery support</li>
+                    <li>Project showcase management system</li>
+                    <li>sitemap.xml + robots.txt (configured)</li>
+                    <li>Google Business Profile managed setup</li>
+                    <li>Analytics dashboard + quarterly reporting walkthrough</li>
+                    <li>Client training session (1 hr, video call)</li>
+                    <li>60-day post-launch support</li>
+                    <li>Docker-based deployment (you own the repo)</li>
+                </ul>
+            </div>
+            <div class="wcg-card wcg-premium">
+                <div class="wcg-tier">Contractor Pro AI</div>
+                <ul class="wcg-list">
+                    <li>Everything in Growth Platform, plus:</li>
+                    <li>AI assistant integration (trained on your business)</li>
+                    <li>Zapier integration — connect to your CRM/email tools</li>
+                    <li>Client intake portal with lead routing</li>
+                    <li>Priority support queue (response within 4 hrs)</li>
+                    <li>2nd year managed hosting included</li>
+                    <li>90-day post-launch support</li>
+                    <li>Quarterly strategy review (video call)</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOCIAL PROOF -->
+    <section class="social-proof">
+        <div class="section-label">Why Clients Trust Us</div>
+        <h2 class="section-heading">Built on Results</h2>
+
+        <div class="trust-row">
+            <div class="trust-item">
+                <div class="trust-num">50+</div>
+                <div class="trust-label">Sites Delivered</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-num">10yr</div>
+                <div class="trust-label">In the Industry</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-num">NM</div>
+                <div class="trust-label">Based &amp; Rooted</div>
+            </div>
+            <div class="trust-item">
+                <div class="trust-num">100%</div>
+                <div class="trust-label">Client Satisfaction</div>
+            </div>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"They took our scattered brand and turned it into a site we actually send to prospects. Professional, fast, and communicated every step of the way."</p>
+                <div class="testimonial-author">Maria G.</div>
+                <div class="testimonial-biz">Albuquerque Boutique Studio</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Our leads doubled within 60 days of launch. The SEO setup alone was worth every dollar. Couldn't be happier with the result."</p>
+                <div class="testimonial-author">James T.</div>
+                <div class="testimonial-biz">Santa Fe Home Services</div>
+            </div>
+            <div class="testimonial-card">
+                <div class="stars">★★★★★</div>
+                <p class="testimonial-text">"Finally a web team that actually listened. They nailed our vibe on the first draft and had us live in under three weeks."</p>
+                <div class="testimonial-author">Sofia R.</div>
+                <div class="testimonial-biz">Rio Rancho Fitness Co.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-heading">Common Questions</h2>
+        <div class="faq-list">
+            <div class="faq-item">
+                <button class="faq-q">Do you offer payment plans?<span class="faq-plus">+</span></button>
+                <div class="faq-a">Yes. We split payment into 50% deposit to begin work and the remaining 50% due upon delivery. No hidden fees, no interest.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">Can I migrate my existing site?<span class="faq-plus">+</span></button>
+                <div class="faq-a">Yes. We handle domain transfers, content migration, and ensure nothing breaks during the switch. You'll keep your existing SEO equity where possible.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">What if I need changes after launch?<span class="faq-plus">+</span></button>
+                <div class="faq-a">All packages include dedicated post-launch support: 30 days for Foundation, 60 for Growth, 90 for Pro. After that, we offer hourly consulting at $150/hr or you can manage content yourself via the admin portal.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">Do you work with clients outside New Mexico?<span class="faq-plus">+</span></button>
+                <div class="faq-a">Absolutely. All our work is remote — we've built sites for clients in Texas, Colorado, California, and beyond. We use video calls for reviews and collaboration.</div>
+            </div>
+            <div class="faq-item">
+                <button class="faq-q">What's the typical timeline?<span class="faq-plus">+</span></button>
+                <div class="faq-a">Foundation: 2–3 weeks from deposit to launch. Growth Platform: 3–4 weeks. Contractor Pro AI: 5–6 weeks. Timelines depend on how quickly you provide feedback and content.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div>
+            <div class="footer-brand">
+                <img src="/images/ffmg-logo.svg" alt="FFMG" height="28" style="display:inline-block;vertical-align:middle;margin-right:6px;">
+            </div>
+            <p style="margin-top:8px;">&copy; 2026 Funk Factory Media Group. New Mexico.</p>
+        </div>
+        <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/work">Our Work</a></li>
+            <li><a href="/intake">Start Your Build</a></li>
+        </ul>
+    </footer>
+
+    <script>
+    // Mobile nav
+    const navToggle = document.getElementById('navToggle');
+    const navLinks = document.getElementById('navLinks');
+    navToggle.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+    </script>
+
+    <!-- Scroll panel + nav CTA logic -->
+    <div class="scroll-panel" id="scrollPanel" role="complementary" aria-label="Get a free quote">
+        <button class="scroll-panel-close" id="scrollPanelClose" aria-label="Dismiss">×</button>
+        <div class="sp-inner">
+            <span class="sp-text">Have a question? Get a free quote in under 24 hrs →</span>
+        </div>
+    </div>
+    <script src="/js/nav-cta.js"></script>
+
+    <script>
+    // Sticky CTA bar — fires after scrolling past pricing section
+    (function () {
+        var bar = document.getElementById('stickyCtaBar');
+        var closeBtn = document.getElementById('stickyCtaClose');
+        if (!bar) return;
+
+        var pricing = document.querySelector('.pricing');
+        var hasBeenShown = false;
+        var inactivityTimer = null;
+
+        function showBar() {
+            if (hasBeenShown || /^\/intake(\/|$)/.test(window.location.pathname)) return;
+            if (sessionStorage.getItem('sticky-cta-dismissed') === '1') return;
+            hasBeenShown = true;
+            bar.classList.add('visible');
+            resetInactivityTimer();
+        }
+
+        function hideBar() {
+            bar.classList.remove('visible');
+            sessionStorage.setItem('sticky-cta-dismissed', '1');
+            clearTimeout(inactivityTimer);
+        }
+
+        function resetInactivityTimer() {
+            clearTimeout(inactivityTimer);
+            inactivityTimer = setTimeout(hideBar, 5000);
+        }
+
+        function onInteraction() { resetInactivityTimer(); }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', hideBar);
+            closeBtn.addEventListener('mouseenter', onInteraction);
+        }
+        bar.addEventListener('mouseenter', onInteraction);
+        bar.addEventListener('touchstart', onInteraction, { passive: true });
+
+        if (pricing) {
+            var pricingBottom = pricing.offsetTop + pricing.offsetHeight;
+            window.addEventListener('scroll', function () {
+                if (window.scrollY > pricingBottom) showBar();
+            }, { passive: true });
+        }
+    })();
+
+    // FAQ accordion
+    document.querySelectorAll('.faq-q').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+            var item = btn.closest('.faq-item');
+            var wasOpen = item.classList.contains('open');
+            document.querySelectorAll('.faq-item').forEach(function (i) { i.classList.remove('open'); });
+            if (!wasOpen) item.classList.add('open');
+        });
+    });
+    </script>
+
+    <!-- Polsia analytics -->
+    <script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';var p=new URLSearchParams(window.location.search);var payload={path:path,referrer:referrer};if(p.get('utm_source'))payload.utm_source=p.get('utm_source');if(p.get('utm_medium'))payload.utm_medium=p.get('utm_medium');if(p.get('utm_campaign'))payload.utm_campaign=p.get('utm_campaign');if(p.get('utm_content'))payload.utm_content=p.get('utm_content');fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});})();</script>
+</body>
+</html>

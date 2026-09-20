@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" width="500" height="500">
+  <defs>
+    <!-- Top arc path: starts left of center, curves over top, ends right -->
+    <path id="topArc"    d="M 58,262 A 196,196 0 0,1 442,262"/>
+    <!-- Bottom arc path: starts lower-left, curves under bottom, ends lower-right -->
+    <path id="bottomArc" d="M 82,308 A 174,174 0 0,0 418,308"/>
+  </defs>
+
+  <!-- ── RINGS ── -->
+  <circle cx="250" cy="250" r="232" fill="none" stroke="#D4956A" stroke-width="5"/>
+  <circle cx="250" cy="250" r="222" fill="none" stroke="#D4956A" stroke-width="1.5"/>
+
+  <!-- ── ARCHED TEXT ── -->
+  <text font-family="'Arial Black','Arial',sans-serif" font-weight="900"
+        font-size="33" fill="#6B3A1F" letter-spacing="5.5" text-anchor="middle">
+    <textPath href="#topArc" startOffset="50%">FUNK FACTORY</textPath>
+  </text>
+
+  <text font-family="'Arial Black','Arial',sans-serif" font-weight="900"
+        font-size="31" fill="#6B3A1F" letter-spacing="5" text-anchor="middle">
+    <textPath href="#bottomArc" startOffset="50%">MEDIA GROUP</textPath>
+  </text>
+
+  <!-- ── SIDE BULLETS ── -->
+  <circle cx="70"  cy="260" r="7" fill="#D4956A"/>
+  <circle cx="430" cy="260" r="7" fill="#D4956A"/>
+
+  <!-- ── FFMG LETTERS ──
+       Layout: 4 letters at ~65px wide each, 10px gap → total 290px
+       Starting x = 250 - 145 = 105, letters at: 105, 180, 255, 330
+       Letter height: 116px, baseline at y=196 (top) to y=312 (bottom)
+  -->
+
+  <!-- ═══ F (first) ═══ x=105–170 -->
+  <rect x="105" y="196" width="19" height="116" fill="#D4956A"/>
+  <rect x="105" y="196" width="65" height="19"  fill="#D4956A"/>
+  <rect x="105" y="241" width="48" height="17"  fill="#D4956A"/>
+
+  <!-- ═══ F (second) ═══ x=180–245 -->
+  <rect x="180" y="196" width="19" height="116" fill="#D4956A"/>
+  <rect x="180" y="196" width="65" height="19"  fill="#D4956A"/>
+  <rect x="180" y="241" width="48" height="17"  fill="#D4956A"/>
+
+  <!-- ═══ M ═══ x=255–340, with play-button in negative space
+       M polygon: two vertical stems + V-notch at top center
+       Stems: 255–274 and 321–340, height full
+       Diagonals meet at center peak ~297,242
+  -->
+  <polygon
+    points="255,196 274,196 297,242 321,196 340,196 340,312 321,312 321,226 305,268 290,268 274,226 274,312 255,312"
+    fill="#D4956A"/>
+  <!-- Play button: dark-brown right-pointing triangle in M's open center -->
+  <polygon points="278,232 278,281 324,254" fill="#6B3A1F"/>
+
+  <!-- ═══ G ═══ center at cx=383, cy=254, outer-r=38, stroke=20 → inner-r=18
+       G = open annular ring (open on right) + horizontal arm
+       Path: start at top-right of outer arc, sweep 270° CCW to bottom-right,
+       then trace back inward and sweep 270° CW back to top.
+       Open gap: right side (from ~15° above center to ~15° below center)
+  -->
+  <!--
+    Outer circle: cx=383, cy=254, r=38
+      Top-right openpoint: (383+38*cos(−60°), 254+38*sin(−60°)) ≈ (402, 221)
+      Bottom-right openpoint: (383+38*cos(60°), 254+38*sin(60°)) ≈ (402, 287)
+    Inner circle: cx=383, cy=254, r=18
+      Top-right inner: (383+18*cos(−60°), 254+18*sin(−60°)) ≈ (392, 238.4)
+      Bottom-right inner: (383+18*cos(60°), 254+18*sin(60°)) ≈ (392, 269.6)
+  -->
+  <path d="
+    M 402,221
+    A 38,38 0 1,0 402,287
+    L 392,270
+    A 18,18 0 1,1 392,238
+    Z
+  " fill="#D4956A"/>
+  <!-- G arm: horizontal bar from inner-right to outer-right at midheight -->
+  <rect x="392" y="247" width="34" height="16" fill="#D4956A"/>
+
+</svg>

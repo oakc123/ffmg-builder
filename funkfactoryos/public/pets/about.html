@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Funk Factory Pets — Fun Pet Products for Every Pet Parent 🐾</title>
+  <meta name="description" content="Learn about Funk Factory Pets — our story, mission, and why we're the go-to online pet store for fun-loving Gen Z and Millennial pet parents.">
+  <!-- Canonical -->
+  <link rel="canonical" href="https://funkfactorypets.com/about">
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Funk Factory Pets">
+  <meta property="og:url" content="https://funkfactorypets.com/about">
+  <meta property="og:title" content="About Funk Factory Pets — Fun Pet Products for Every Pet Parent 🐾">
+  <meta property="og:description" content="Learn about Funk Factory Pets — our story, mission, and why we're the go-to online pet store for fun-loving Gen Z and Millennial pet parents.">
+  <meta property="og:image" content="https://m.media-amazon.com/images/I/81Nrb092uIL.jpg">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About Funk Factory Pets — Fun Pet Products for Every Pet Parent 🐾">
+  <meta name="twitter:description" content="Learn about Funk Factory Pets — our story, mission, and why we're the go-to online pet store for fun-loving Gen Z and Millennial pet parents.">
+  <meta name="twitter:image" content="https://m.media-amazon.com/images/I/81Nrb092uIL.jpg">
+  <!-- BreadcrumbList Structured Data -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://funkfactorypets.com/"},
+      {"@type": "ListItem", "position": 2, "name": "About", "item": "https://funkfactorypets.com/about"}
+    ]
+  }
+  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root { --primary: #7C3AED; --primary-dark: #5B21B6; --pink: #EC4899; --yellow: #F59E0B; --green: #10B981; --bg: #FFFBF5; --card: #fff; --text: #1F0D3C; --text-muted: #6B5B8A; --border: rgba(124,58,237,0.12); }
+    body { font-family: 'Nunito', sans-serif; background: var(--bg); color: var(--text); overflow-x: hidden; }
+    .nav { position: sticky; top: 0; z-index: 200; background: #fff; border-bottom: 2px solid var(--border); padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 20px rgba(124,58,237,0.07); }
+    .nav-logo { font-family: 'Fredoka One', cursive; font-size: 1.5rem; color: var(--primary); text-decoration: none; }
+    .nav-links { display: flex; align-items: center; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 0.95rem; font-weight: 700; color: var(--text-muted); text-decoration: none; transition: color 0.2s; }
+    .nav-links a:hover, .nav-links a.active { color: var(--primary); }
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-cart { position: relative; display: flex; align-items: center; justify-content: center; width: 44px; height: 44px; border-radius: 50%; background: #FDF2F8; border: 2px solid rgba(236,72,153,0.2); text-decoration: none; font-size: 1.2rem; }
+    .cart-badge { position: absolute; top: -4px; right: -4px; background: var(--pink); color: #fff; font-size: 0.65rem; font-weight: 800; width: 18px; height: 18px; border-radius: 50%; display: none; align-items: center; justify-content: center; }
+    .cart-badge.show { display: flex; }
+    .nav-shop-btn { background: var(--primary); color: #fff; padding: 10px 22px; border-radius: 100px; font-weight: 800; font-size: 0.88rem; text-decoration: none; }
+    .nav-toggle { display: none; background: none; border: none; font-size: 1.5rem; cursor: pointer; }
+
+    /* HERO */
+    .about-hero {
+      background: linear-gradient(135deg, #7C3AED 0%, #EC4899 100%);
+      padding: 80px 40px;
+      text-align: center;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-hero::before {
+      content: '🐾🐾🐾🐾🐾🐾🐾🐾🐾🐾🐾🐾';
+      position: absolute;
+      font-size: 2rem;
+      opacity: 0.06;
+      width: 200%;
+      line-height: 3.5;
+      top: 0; left: -50%;
+      pointer-events: none;
+    }
+
+    .about-hero h1 { font-family: 'Fredoka One', cursive; font-size: clamp(2.5rem, 5vw, 4.5rem); margin-bottom: 16px; position: relative; }
+    .about-hero p { font-size: 1.15rem; opacity: 0.9; max-width: 600px; margin: 0 auto; line-height: 1.7; font-weight: 600; position: relative; }
+
+    /* STORY */
+    .story {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+
+    .story-text .section-label {
+      display: inline-flex;
+      gap: 6px;
+      font-size: 0.75rem;
+      font-weight: 900;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .story-text h2 { font-family: 'Fredoka One', cursive; font-size: clamp(1.8rem, 3vw, 2.8rem); margin-bottom: 20px; line-height: 1.15; }
+
+    .story-text p { font-size: 1rem; color: var(--text-muted); line-height: 1.8; margin-bottom: 18px; }
+
+    .story-images { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .story-img { border-radius: 20px; overflow: hidden; aspect-ratio: 1; }
+    .story-img:first-child { margin-top: 24px; }
+    .story-img img { width: 100%; height: 100%; object-fit: cover; }
+
+    /* VALUES */
+    .values { background: linear-gradient(135deg, #1F0D3C, #4C1D95); padding: 80px 40px; }
+    .values-inner { max-width: 1000px; margin: 0 auto; text-align: center; }
+    .values h2 { font-family: 'Fredoka One', cursive; font-size: clamp(2rem, 3.5vw, 3rem); color: #fff; margin-bottom: 48px; }
+    .values-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 28px; }
+    .value-card { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 32px 24px; text-align: center; }
+    .value-icon { font-size: 2.8rem; margin-bottom: 16px; }
+    .value-title { font-family: 'Fredoka One', cursive; font-size: 1.2rem; color: #fff; margin-bottom: 10px; }
+    .value-desc { font-size: 0.88rem; color: rgba(255,255,255,0.6); line-height: 1.65; }
+
+    /* SHIPPING & RETURNS */
+    .policies { max-width: 960px; margin: 0 auto; padding: 80px 40px; }
+    .policies h2 { font-family: 'Fredoka One', cursive; font-size: 2.2rem; margin-bottom: 40px; }
+    .policy-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+    .policy-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+    }
+
+    .policy-icon { font-size: 2.5rem; margin-bottom: 14px; }
+    .policy-title { font-family: 'Fredoka One', cursive; font-size: 1.3rem; margin-bottom: 10px; }
+    .policy-desc { font-size: 0.88rem; color: var(--text-muted); line-height: 1.7; }
+    .policy-desc strong { color: var(--text); }
+
+    /* CTA */
+    .about-cta {
+      background: linear-gradient(135deg, #EDE9FE, #FCE7F3);
+      padding: 80px 40px;
+      text-align: center;
+    }
+
+    .about-cta h2 { font-family: 'Fredoka One', cursive; font-size: clamp(2rem, 3.5vw, 3rem); margin-bottom: 16px; color: var(--text); }
+    .about-cta p { font-size: 1rem; color: var(--text-muted); margin-bottom: 32px; font-weight: 600; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .about-cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+
+    .btn-primary { display: inline-flex; align-items: center; gap: 8px; background: var(--primary); color: #fff; padding: 14px 28px; border-radius: 100px; font-weight: 800; font-size: 0.95rem; text-decoration: none; transition: background 0.2s, transform 0.2s; }
+    .btn-primary:hover { background: var(--primary-dark); transform: translateY(-2px); }
+    .btn-outline { display: inline-flex; align-items: center; gap: 8px; background: transparent; color: var(--primary); padding: 14px 28px; border-radius: 100px; font-weight: 800; font-size: 0.95rem; text-decoration: none; border: 2px solid var(--primary); transition: background 0.2s; }
+    .btn-outline:hover { background: #EDE9FE; }
+
+    footer { background: #1F0D3C; color: rgba(255,255,255,0.45); padding: 32px 40px; text-align: center; font-size: 0.85rem; }
+    .footer-logo { font-family: 'Fredoka One', cursive; color: #fff; text-decoration: none; font-size: 1.3rem; display: block; margin-bottom: 8px; }
+
+    @media (max-width: 900px) {
+      .nav, .about-hero, .story, .policies { padding-left: 20px; padding-right: 20px; }
+      .nav-links { display: none; }
+      .nav-links.open { display: flex; flex-direction: column; position: fixed; top: 68px; left: 0; right: 0; background: #fff; padding: 24px; gap: 20px; border-bottom: 2px solid var(--border); z-index: 199; }
+      .nav-toggle { display: block; }
+      .story { grid-template-columns: 1fr; gap: 40px; }
+      .story-images { max-width: 380px; }
+      .values-grid { grid-template-columns: 1fr; max-width: 400px; margin: 0 auto; }
+      .policy-grid { grid-template-columns: 1fr; max-width: 500px; }
+      .about-cta { padding: 60px 20px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/pets" class="nav-logo">🐾 Funk Factory Pets</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="/pets/shop">Shop All</a></li>
+      <li><a href="/pets/shop?category=dogs">Dogs</a></li>
+      <li><a href="/pets/shop?category=cats">Cats</a></li>
+      <li><a href="/pets/about" class="active">About</a></li>
+    </ul>
+    <div class="nav-right">
+      <a href="/pets/cart" class="nav-cart">🛒<span class="cart-badge" id="cartBadge">0</span></a>
+      <a href="/pets/shop" class="nav-shop-btn">Shop Now →</a>
+      <button class="nav-toggle" id="navToggle">☰</button>
+    </div>
+  </nav>
+
+  <div class="about-hero">
+    <h1>Built for Pet Lovers,<br>by Pet Lovers 🐾</h1>
+    <p>We believe every pet deserves cool stuff — not boring, overpriced gear from big-box stores. Meet the people behind Funk Factory Pets.</p>
+  </div>
+
+  <section class="story">
+    <div class="story-text">
+      <div class="section-label">💜 Our Story</div>
+      <h2>Where every pet's a rockstar</h2>
+      <p>It started with a golden retriever named Miso and a cat named Pickles who had extremely bad taste in toys. Everything in the pet store either fell apart in a week or cost as much as rent.</p>
+      <p>We knew there had to be a better way. So we scoured the internet, found the best-reviewed, most-fun, most-durable pet products we could — things pets actually love — and made them easy to find in one place.</p>
+      <p>Funk Factory Pets was born. No fluff, no filler. Just great pet gear at fair prices, delivered to your door.</p>
+    </div>
+    <div class="story-images">
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80" alt="Happy dog" loading="lazy">
+      </div>
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1573865526739-10659fec78a5?w=400&q=80" alt="Playful cat" loading="lazy">
+      </div>
+      <div class="story-img" style="margin-top:0;">
+        <img src="https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=400&q=80" alt="Dog with toy" loading="lazy">
+      </div>
+      <div class="story-img">
+        <img src="https://images.unsplash.com/photo-1548681528-6a5c45b66b42?w=400&q=80" alt="Small pet" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="values">
+    <div class="values-inner">
+      <h2>What we stand for</h2>
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">🐾</div>
+          <div class="value-title">Pet-First Everything</div>
+          <div class="value-desc">We only stock products that actually work for pets — no cheap knockoffs, no plastic junk that lasts a week.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">💰</div>
+          <div class="value-title">Fair Prices</div>
+          <div class="value-desc">Premium quality doesn't mean premium markup. We keep prices honest so every pet parent can afford the good stuff.</div>
+        </div>
+        <div class="value-card">
+          <div class="value-icon">🎸</div>
+          <div class="value-title">Actually Fun</div>
+          <div class="value-desc">Pet shopping should be enjoyable. We bring the energy, the personality, and yes — the paw prints.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="policies" id="shipping">
+    <h2>📦 Shipping & Returns</h2>
+    <div class="policy-grid">
+      <div class="policy-card" id="shipping">
+        <div class="policy-icon">🚚</div>
+        <div class="policy-title">Shipping</div>
+        <div class="policy-desc">
+          <strong>Standard shipping (7–14 business days)</strong> is $5.99 on all orders.<br><br>
+          <strong>FREE shipping</strong> on all orders over $50 — automatically applied at checkout.<br><br>
+          We ship from US-based warehouses whenever possible for faster delivery. Tracking info is sent once your order ships.
+        </div>
+      </div>
+      <div class="policy-card" id="returns">
+        <div class="policy-icon">↩️</div>
+        <div class="policy-title">Returns</div>
+        <div class="policy-desc">
+          <strong>30-day return window</strong> on all products. If your pet doesn't love it or the product arrives damaged, we'll make it right.<br><br>
+          Email us at <strong>hello@funkfactorypets.com</strong> with your order number and we'll take care of the rest. No receipts, no drama.<br><br>
+          Refunds processed within 3–5 business days.
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">📦</div>
+        <div class="policy-title">Order Processing</div>
+        <div class="policy-desc">
+          <strong>Orders process within 1–3 business days.</strong> During peak seasons (holidays, sales events), processing may take up to 5 business days.<br><br>
+          You'll receive an email confirmation immediately after your order is placed, and another when it ships with tracking info.
+        </div>
+      </div>
+      <div class="policy-card">
+        <div class="policy-icon">🌎</div>
+        <div class="policy-title">Shipping Region</div>
+        <div class="policy-desc">
+          We currently ship <strong>within the United States only.</strong><br><br>
+          International shipping is coming soon — sign up for our newsletter to be notified when we expand.<br><br>
+          PO Boxes and APO/FPO addresses accepted.
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="about-cta">
+    <h2>Ready to spoil your pet? 🐾</h2>
+    <p>Shop our curated collection of toys, beds, accessories and more. Because every pet's a rockstar.</p>
+    <div class="about-cta-btns">
+      <a href="/pets/shop" class="btn-primary">🛍️ Shop All Products</a>
+      <a href="/pets/shop?category=dogs" class="btn-outline">🐶 Shop Dogs</a>
+    </div>
+  </section>
+
+  <footer>
+    <a href="/pets" class="footer-logo">🐾 Funk Factory Pets</a>
+    <p style="margin-bottom:8px;">© 2026 Funk Factory Pets · Where Every Pet's a Rockstar</p>
+    <p style="font-size:0.8rem;"><a href="/pets/shipping" style="color:rgba(255,255,255,0.5);text-decoration:none;font-weight:600;">Shipping Policy</a> · <a href="/pets/returns" style="color:rgba(255,255,255,0.5);text-decoration:none;font-weight:600;">Returns</a></p>
+  </footer>
+
+  <script>
+  function getCart() { try { return JSON.parse(localStorage.getItem('ffp_cart') || '[]'); } catch { return []; } }
+  function updateCartBadge() {
+    const total = getCart().reduce((s,i)=>s+i.qty,0);
+    const b = document.getElementById('cartBadge');
+    if (total > 0) { b.textContent = total; b.classList.add('show'); } else { b.classList.remove('show'); }
+  }
+  updateCartBadge();
+  document.getElementById('navToggle').addEventListener('click', () => {
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+  </script>
+<!-- Polsia analytics -->
+<script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({path:path,referrer:referrer}),keepalive:true}).catch(function(){});})();</script>
+</body>
+</html>

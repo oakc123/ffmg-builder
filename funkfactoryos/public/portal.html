@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Portal — Funk Factory Media Group</title>
+  <meta name="description" content="Track your web design project with Funk Factory Media Group.">
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='15' fill='%236B3A1F' stroke='%23D4956A' stroke-width='1.5'/%3E%3Ctext x='4' y='13' font-family='Arial Black,Arial' font-weight='900' font-size='8' fill='%23D4956A'%3EFF%3C/text%3E%3Ctext x='4' y='23' font-family='Arial Black,Arial' font-weight='900' font-size='8' fill='%23D4956A'%3EMG%3C/text%3E%3C/svg%3E">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #ffffff;
+      --bg-warm: #faf6f1;
+      --bg-dark: #1a0f08;
+      --text: #1a0f08;
+      --text-muted: #6b5c50;
+      --accent: #D4956A;
+      --accent-dark: #6B3A1F;
+      --border: rgba(107,58,31,0.1);
+      --border-strong: rgba(107,58,31,0.2);
+      --error: #c0392b;
+      --success: #2d7a3a;
+      --cream: #F5E6D3;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg-warm);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px; height: 64px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+
+    .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+    .nav-logo-text { font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.05rem; color: var(--text); }
+
+    .nav-right { display: flex; align-items: center; gap: 16px; }
+    .nav-signout {
+      font-size: 0.85rem; color: var(--text-muted); background: none; border: none;
+      cursor: pointer; padding: 6px 12px; border-radius: 6px;
+      transition: color 0.2s, background 0.2s;
+    }
+    .nav-signout:hover { color: var(--text); background: var(--border); }
+
+    /* ── MAIN WRAPPER ── */
+    main { padding-top: 64px; min-height: 100vh; }
+
+    /* ── LOOKUP SCREEN ── */
+    #screen-lookup {
+      min-height: calc(100vh - 64px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .lookup-card {
+      background: #fff;
+      border: 1px solid var(--border-strong);
+      border-radius: 16px;
+      padding: 48px 40px;
+      width: 100%; max-width: 460px;
+      box-shadow: 0 4px 24px rgba(107,58,31,0.06);
+    }
+
+    .lookup-logo { text-align: center; margin-bottom: 24px; }
+
+    .lookup-card h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 800; font-size: 1.7rem; color: var(--text);
+      text-align: center; margin-bottom: 8px;
+    }
+
+    .lookup-card p.subtitle {
+      color: var(--text-muted); font-size: 0.92rem; text-align: center;
+      margin-bottom: 32px; line-height: 1.5;
+    }
+
+    .form-group { margin-bottom: 18px; }
+
+    label {
+      display: block; font-size: 0.85rem; font-weight: 600;
+      color: var(--text); margin-bottom: 6px;
+    }
+
+    input[type="email"], input[type="text"], textarea, select {
+      width: 100%; padding: 11px 14px;
+      border: 1.5px solid var(--border-strong);
+      border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-size: 0.95rem;
+      color: var(--text); background: #fff;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      outline: none;
+    }
+
+    input:focus, textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(212,149,106,0.15);
+    }
+
+    .btn-primary {
+      width: 100%; padding: 13px 20px;
+      background: var(--accent); color: #fff;
+      border: none; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 1rem;
+      cursor: pointer; transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn-primary:hover { background: var(--accent-dark); }
+    .btn-primary:active { transform: scale(0.99); }
+    .btn-primary:disabled { background: #c9a98a; cursor: not-allowed; }
+
+    .hint-text {
+      font-size: 0.8rem; color: var(--text-muted);
+      text-align: center; margin-top: 14px; line-height: 1.5;
+    }
+
+    .alert {
+      border-radius: 8px; padding: 12px 16px;
+      font-size: 0.9rem; margin-bottom: 16px;
+    }
+
+    .alert-error { background: #fdf0f0; color: var(--error); border: 1px solid #f5c6c6; }
+    .alert-success { background: #f0fdf4; color: var(--success); border: 1px solid #bbf0c8; }
+    .alert-info { background: #fdf8f4; color: var(--accent-dark); border: 1px solid var(--border-strong); }
+
+    /* ── SENT CONFIRMATION ── */
+    #screen-sent {
+      display: none; min-height: calc(100vh - 64px);
+      align-items: center; justify-content: center; padding: 40px 20px;
+    }
+
+    .sent-card {
+      background: #fff; border: 1px solid var(--border-strong);
+      border-radius: 16px; padding: 48px 40px;
+      width: 100%; max-width: 460px;
+      box-shadow: 0 4px 24px rgba(107,58,31,0.06);
+      text-align: center;
+    }
+
+    .sent-icon { font-size: 2.5rem; margin-bottom: 16px; }
+
+    .sent-card h2 {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.5rem;
+      color: var(--text); margin-bottom: 10px;
+    }
+
+    .sent-card p { color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 20px; }
+
+    .btn-outline {
+      padding: 10px 20px; background: transparent;
+      border: 1.5px solid var(--accent); color: var(--accent);
+      border-radius: 8px; font-family: 'DM Sans', sans-serif; font-weight: 600;
+      font-size: 0.9rem; cursor: pointer; transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { background: var(--accent); color: #fff; }
+
+    /* ── DASHBOARD SCREEN ── */
+    #screen-dashboard { display: none; padding: 40px 20px 80px; }
+
+    .dashboard-inner { max-width: 760px; margin: 0 auto; }
+
+    .dashboard-header { margin-bottom: 32px; }
+    .dashboard-header h1 {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 800; font-size: 1.9rem;
+      color: var(--text); margin-bottom: 4px;
+    }
+    .dashboard-header p { color: var(--text-muted); font-size: 0.92rem; }
+
+    /* Cards */
+    .card {
+      background: #fff; border: 1px solid var(--border-strong);
+      border-radius: 14px; padding: 28px;
+      box-shadow: 0 2px 12px rgba(107,58,31,0.05);
+      margin-bottom: 24px;
+    }
+
+    .card-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .card-title {
+      font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 1.05rem;
+      color: var(--text);
+    }
+
+    /* Status badge */
+    .status-badge {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 5px 12px; border-radius: 20px;
+      font-size: 0.8rem; font-weight: 600;
+      background: rgba(212,149,106,0.15); color: var(--accent-dark);
+      border: 1px solid rgba(212,149,106,0.3);
+    }
+
+    .status-dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent); display: inline-block;
+    }
+
+    /* Project info grid */
+    .info-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    @media (max-width: 480px) { .info-grid { grid-template-columns: 1fr; } }
+
+    .info-item label {
+      font-size: 0.78rem; font-weight: 600; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.04em; margin-bottom: 3px;
+    }
+
+    .info-item span {
+      font-size: 0.95rem; color: var(--text); font-weight: 500;
+    }
+
+    /* Progress steps */
+    .progress-steps { display: flex; flex-direction: column; gap: 12px; }
+
+    .progress-step {
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+
+    .step-indicator {
+      width: 28px; height: 28px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 0.78rem; font-weight: 700; flex-shrink: 0; margin-top: 2px;
+    }
+
+    .step-active { background: var(--accent); color: #fff; }
+    .step-done { background: #2d7a3a; color: #fff; }
+    .step-pending { background: #e5ddd6; color: #9b8a7e; }
+
+    .step-content .step-label {
+      font-weight: 600; font-size: 0.92rem; color: var(--text);
+    }
+
+    .step-content .step-desc {
+      font-size: 0.82rem; color: var(--text-muted);
+    }
+
+    /* Messages */
+    .unread-badge {
+      background: var(--accent); color: #fff;
+      font-size: 0.72rem; font-weight: 700;
+      padding: 2px 7px; border-radius: 10px; min-width: 20px; text-align: center;
+    }
+
+    .messages-thread {
+      display: flex; flex-direction: column; gap: 12px;
+      max-height: 380px; overflow-y: auto;
+      padding: 4px 0 8px; margin-bottom: 16px;
+    }
+
+    .msg-bubble {
+      display: flex; flex-direction: column;
+      max-width: 78%;
+    }
+
+    .msg-bubble.customer { align-self: flex-end; align-items: flex-end; }
+    .msg-bubble.agent { align-self: flex-start; align-items: flex-start; }
+
+    .msg-sender {
+      font-size: 0.72rem; font-weight: 600; color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    .msg-body {
+      padding: 10px 14px; border-radius: 10px;
+      font-size: 0.92rem; line-height: 1.5;
+    }
+
+    .msg-bubble.customer .msg-body {
+      background: var(--accent); color: #fff;
+      border-bottom-right-radius: 3px;
+    }
+
+    .msg-bubble.agent .msg-body {
+      background: var(--cream); color: var(--text);
+      border-bottom-left-radius: 3px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .msg-bubble.agent.unread .msg-body { border-left-color: var(--accent-dark); }
+
+    .msg-time {
+      font-size: 0.7rem; color: var(--text-muted); margin-top: 3px;
+    }
+
+    .msg-empty {
+      text-align: center; color: var(--text-muted);
+      font-size: 0.9rem; padding: 24px 0; font-style: italic;
+    }
+
+    /* Compose area */
+    .compose-area { display: flex; flex-direction: column; gap: 8px; }
+
+    textarea.compose-input {
+      resize: none; font-size: 0.92rem; line-height: 1.5;
+    }
+
+    .compose-footer {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+
+    .char-counter { font-size: 0.78rem; color: var(--text-muted); }
+    .char-counter.over { color: var(--error); font-weight: 600; }
+
+    .btn-send {
+      padding: 9px 20px; background: var(--accent); color: #fff;
+      border: none; border-radius: 8px;
+      font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: 0.88rem;
+      cursor: pointer; transition: background 0.2s; white-space: nowrap;
+    }
+
+    .btn-send:hover { background: var(--accent-dark); }
+    .btn-send:disabled { background: #c9a98a; cursor: not-allowed; }
+
+    .msg-feedback {
+      font-size: 0.82rem; min-height: 18px; margin-top: 2px;
+    }
+
+    .msg-feedback.success { color: var(--success); }
+    .msg-feedback.error { color: var(--error); }
+
+    /* Preview links */
+    .preview-list { display: flex; flex-direction: column; gap: 10px; }
+
+    .preview-item {
+      display: flex; align-items: center; gap: 12px;
+      padding: 10px 14px; background: var(--bg-warm);
+      border-radius: 8px; border: 1px solid var(--border);
+    }
+
+    .preview-icon { font-size: 1.1rem; }
+
+    .preview-link {
+      color: var(--accent); text-decoration: none; font-weight: 600; font-size: 0.9rem;
+      word-break: break-all;
+    }
+
+    .preview-link:hover { text-decoration: underline; }
+    .preview-note { font-size: 0.82rem; color: var(--text-muted); margin-top: 2px; }
+
+    .preview-empty {
+      text-align: center; color: var(--text-muted);
+      font-size: 0.88rem; padding: 18px 0; font-style: italic;
+    }
+
+    /* Preview CTA — shown when status = preview_ready */
+    .preview-cta {
+      display: flex; flex-direction: column; gap: 16px;
+    }
+
+    .preview-cta-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 18px 22px;
+      background: linear-gradient(135deg, var(--accent-dark) 0%, #9C4F28 100%);
+      color: #fff; border-radius: 12px;
+      text-decoration: none; font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700; font-size: 1.05rem;
+      transition: opacity 0.2s, transform 0.1s;
+      box-shadow: 0 4px 16px rgba(107,58,31,0.25);
+    }
+
+    .preview-cta-btn:hover { opacity: 0.93; transform: translateY(-1px); }
+    .preview-cta-btn:active { transform: scale(0.99); }
+
+    .preview-cta-arrow { font-size: 1.2rem; }
+
+    .preview-meta {
+      display: flex; flex-wrap: wrap; gap: 10px;
+    }
+
+    .preview-meta-chip {
+      padding: 4px 12px; border-radius: 20px;
+      background: rgba(212,149,106,0.12); color: var(--accent-dark);
+      font-size: 0.8rem; font-weight: 600;
+      border: 1px solid rgba(212,149,106,0.25);
+    }
+
+    .preview-pages {
+      font-size: 0.85rem; color: var(--text-muted);
+    }
+
+    .preview-pages strong { color: var(--text); }
+
+    .preview-expiry {
+      font-size: 0.82rem; color: var(--text-muted);
+      padding: 8px 12px; background: #fdf8f4;
+      border-radius: 8px; border: 1px solid var(--border);
+    }
+
+    .preview-expiry.expiring-soon {
+      color: #92400e; background: #fffbeb;
+      border-color: #fbbf24;
+    }
+
+    .preview-notes-text {
+      font-size: 0.88rem; color: var(--text-muted);
+      line-height: 1.5; padding-top: 4px;
+    }
+
+    /* Footer */
+    footer {
+      background: var(--bg-dark); color: rgba(255,255,255,0.7);
+      padding: 32px 40px; text-align: center; font-size: 0.85rem;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+
+    /* Spinner */
+    .spinner {
+      display: inline-block; width: 16px; height: 16px;
+      border: 2px solid rgba(255,255,255,0.4);
+      border-top-color: #fff; border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      vertical-align: middle; margin-right: 6px;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .lookup-card { padding: 32px 24px; }
+      .card { padding: 20px; }
+      #screen-dashboard { padding: 28px 16px 60px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" href="/">
+    <svg width="28" height="28" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+      <rect width="32" height="32" rx="6" fill="#6B3A1F"/>
+      <text x="8" y="24" font-family="Arial Black,Arial" font-weight="900" font-size="22" fill="#D4956A">F</text>
+    </svg>
+    <span class="nav-logo-text">FFMG</span>
+  </a>
+  <div class="nav-right">
+    <button class="nav-signout" id="btn-signout" style="display:none" onclick="signOut()">Sign out</button>
+  </div>
+</nav>
+
+<main>
+
+  <!-- ── LOOKUP SCREEN ── -->
+  <div id="screen-lookup">
+    <div class="lookup-card">
+      <div class="lookup-logo">
+        <svg width="44" height="44" viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+          <rect width="32" height="32" rx="6" fill="#6B3A1F"/>
+          <text x="8" y="24" font-family="Arial Black,Arial" font-weight="900" font-size="22" fill="#D4956A">F</text>
+        </svg>
+      </div>
+      <h1>Track Your Project</h1>
+      <p class="subtitle">Enter your email and reference number to access your project portal.</p>
+
+      <div id="lookup-alert" class="alert" style="display:none"></div>
+
+      <form id="lookup-form" onsubmit="submitLookup(event)">
+        <div class="form-group">
+          <label for="input-email">Email Address</label>
+          <input type="email" id="input-email" name="email" placeholder="you@example.com" required autocomplete="email">
+        </div>
+        <div class="form-group">
+          <label for="input-uuid">Customer Reference Number</label>
+          <input type="text" id="input-uuid" name="customer_uuid"
+            placeholder="xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx"
+            pattern="[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-4[0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}"
+            required autocomplete="off">
+        </div>
+        <button type="submit" class="btn-primary" id="btn-send-link">Send Me a Login Link</button>
+      </form>
+
+      <p class="hint-text">We'll send a secure login link to your email. It expires in 15 minutes.</p>
+    </div>
+  </div>
+
+  <!-- ── SENT SCREEN ── -->
+  <div id="screen-sent" style="display:none; min-height: calc(100vh - 64px); align-items:center; justify-content:center; padding: 40px 20px;">
+    <div class="sent-card">
+      <div class="sent-icon">📬</div>
+      <h2>Check Your Inbox</h2>
+      <p id="sent-email-text">We've sent a login link to your email. It expires in 15 minutes.</p>
+      <button class="btn-outline" onclick="showLookup()">← Try a different email</button>
+    </div>
+  </div>
+
+  <!-- ── DASHBOARD SCREEN ── -->
+  <div id="screen-dashboard" style="display:none; padding: 40px 20px 80px;">
+    <div class="dashboard-inner">
+
+      <div class="dashboard-header">
+        <h1 id="dash-greeting">Your Project</h1>
+        <p id="dash-subtitle">Track your progress and send messages to the FFMG team.</p>
+      </div>
+
+      <!-- Project Overview Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Project Overview</span>
+          <span class="status-badge">
+            <span class="status-dot"></span>
+            <span id="dash-status-text">In Progress</span>
+          </span>
+        </div>
+        <div class="info-grid">
+          <div class="info-item">
+            <label>Business</label>
+            <span id="dash-business">—</span>
+          </div>
+          <div class="info-item">
+            <label>Package</label>
+            <span id="dash-package">—</span>
+          </div>
+          <div class="info-item">
+            <label>Email</label>
+            <span id="dash-email">—</span>
+          </div>
+          <div class="info-item">
+            <label>Reference #</label>
+            <span id="dash-uuid" style="font-size:0.78rem; word-break:break-all; color:var(--text-muted)">—</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Project Progress Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Project Milestones</span>
+        </div>
+        <div class="progress-steps" id="progress-steps">
+          <!-- Populated by JS -->
+        </div>
+      </div>
+
+      <!-- Preview Links Card -->
+      <div class="card" id="preview-card">
+        <div class="card-header">
+          <span class="card-title" id="preview-card-title">Preview Links</span>
+        </div>
+        <div id="preview-list" class="preview-list">
+          <p class="preview-empty">No previews shared yet. Check back soon.</p>
+        </div>
+      </div>
+
+      <!-- Messages Card -->
+      <div class="card">
+        <div class="card-header">
+          <span class="card-title">Messages</span>
+          <span class="unread-badge" id="unread-badge" style="display:none">0</span>
+        </div>
+
+        <div class="messages-thread" id="messages-thread">
+          <p class="msg-empty">No messages yet. Have a question about your project? Send us a message below.</p>
+        </div>
+
+        <div class="compose-area">
+          <textarea class="compose-input" id="compose-input" rows="4"
+            placeholder="Ask a question or leave a note..."
+            oninput="updateCharCounter()" onkeydown="handleComposeKey(event)"></textarea>
+          <div class="compose-footer">
+            <span class="char-counter" id="char-counter">0 / 500</span>
+            <button class="btn-send" id="btn-send-msg" onclick="sendMessage()" disabled>Send Message →</button>
+          </div>
+          <div class="msg-feedback" id="msg-feedback"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>Funk Factory Media Group · Albuquerque, New Mexico · <a href="mailto:hello@funkfactorymediagroup.com">hello@funkfactorymediagroup.com</a></p>
+  <p style="margin-top: 8px;">Questions? Email us or <a href="/">return to site</a></p>
+  <p style="margin-top: 8px;"><a href="/work">Our Work</a></p>
+</footer>
+
+<script>
+// ── CONSTANTS ──────────────────────────────────────────────────────────────────
+const STATUS_LABELS = {
+  intake_received:   'Intake Received',
+  discovery_call:    'Discovery Call',
+  design_in_progress: 'Design In Progress',
+  development:       'Development',
+  preview_ready:     'Preview Ready',
+  review:            'Client Review',
+  revisions:         'Revisions',
+  launch:            'Launch',
+  completed:         'Completed'
+};
+
+const MILESTONES = [
+  { key: 'intake_received',    label: 'Intake Received',       desc: 'Your project details have been received.' },
+  { key: 'design_in_progress', label: 'Design',                desc: 'Your design concepts are being created.' },
+  { key: 'development',        label: 'Development',           desc: 'Your site is being built.' },
+  { key: 'review',             label: 'Client Review',         desc: 'You\'ll receive a preview link for review.' },
+  { key: 'launch',             label: 'Launch',                desc: 'Your site goes live.' },
+];
+
+const STATUS_ORDER = ['intake_received','discovery_call','design_in_progress','development','review','revisions','launch','completed'];
+
+// ── SESSION ────────────────────────────────────────────────────────────────────
+function getSession() {
+  const token = localStorage.getItem('ffmg_session_token');
+  const expiresAt = localStorage.getItem('ffmg_session_expires');
+  const customerUuid = localStorage.getItem('ffmg_customer_uuid');
+  if (!token || !expiresAt || !customerUuid) return null;
+  if (new Date(expiresAt) < new Date()) return null;
+  return {
+    token,
+    expiresAt,
+    customerUuid,
+    jobId: localStorage.getItem('ffmg_job_id'),
+    email: localStorage.getItem('ffmg_email')
+  };
+}
+
+function clearSession() {
+  ['ffmg_session_token','ffmg_session_expires','ffmg_customer_uuid','ffmg_job_id','ffmg_email'].forEach(k => localStorage.removeItem(k));
+}
+
+function signOut() {
+  clearSession();
+  showLookup();
+}
+
+// ── SCREEN MANAGEMENT ─────────────────────────────────────────────────────────
+function showLookup() {
+  document.getElementById('screen-lookup').style.display = 'flex';
+  document.getElementById('screen-sent').style.display = 'none';
+  document.getElementById('screen-dashboard').style.display = 'none';
+  document.getElementById('btn-signout').style.display = 'none';
+  document.getElementById('lookup-alert').style.display = 'none';
+}
+
+function showSent(email) {
+  document.getElementById('screen-lookup').style.display = 'none';
+  document.getElementById('screen-sent').style.display = 'flex';
+  document.getElementById('screen-dashboard').style.display = 'none';
+  document.getElementById('sent-email-text').textContent =
+    `We've sent a login link to ${email}. It expires in 15 minutes.`;
+}
+
+function showDashboard() {
+  document.getElementById('screen-lookup').style.display = 'none';
+  document.getElementById('screen-sent').style.display = 'none';
+  document.getElementById('screen-dashboard').style.display = 'block';
+  document.getElementById('btn-signout').style.display = 'inline-block';
+}
+
+// ── LOOKUP FORM ───────────────────────────────────────────────────────────────
+// Pre-fill from localStorage if available
+window.addEventListener('DOMContentLoaded', () => {
+  const emailInput = document.getElementById('input-email');
+  const uuidInput = document.getElementById('input-uuid');
+  const saved_email = localStorage.getItem('ffmg_email');
+  const saved_uuid = localStorage.getItem('ffmg_customer_uuid');
+  if (saved_email) emailInput.value = saved_email;
+  if (saved_uuid) uuidInput.value = saved_uuid;
+});
+
+async function submitLookup(e) {
+  e.preventDefault();
+  const email = document.getElementById('input-email').value.trim();
+  const customer_uuid = document.getElementById('input-uuid').value.trim();
+
+  const btn = document.getElementById('btn-send-link');
+  const alert = document.getElementById('lookup-alert');
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span>Sending...';
+  alert.style.display = 'none';
+
+  try {
+    const res = await fetch('/api/auth/magic-link', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email, customer_uuid })
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      showAlert(data.error || 'Something went wrong. Please try again.', 'error');
+      return;
+    }
+
+    showSent(email);
+  } catch (err) {
+    showAlert('Network error. Please check your connection and try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Send Me a Login Link';
+  }
+}
+
+function showAlert(message, type) {
+  const alert = document.getElementById('lookup-alert');
+  alert.className = `alert alert-${type}`;
+  alert.textContent = message;
+  alert.style.display = 'block';
+}
+
+// ── TOKEN VERIFICATION ────────────────────────────────────────────────────────
+async function handleTokenFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  const token = params.get('token');
+  if (!token) return false;
+
+  // Clear token from URL cleanly
+  window.history.replaceState({}, '', '/portal');
+
+  try {
+    const res = await fetch('/api/auth/verify-token', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ token })
+    });
+    const data = await res.json();
+
+    if (!data.valid) {
+      showLookup();
+      showAlert(
+        data.reason === 'expired'
+          ? 'This link has expired. Please request a new one.'
+          : 'This link is invalid or has already been used. Please request a new one.',
+        'error'
+      );
+      return true;
+    }
+
+    // Store session
+    localStorage.setItem('ffmg_session_token', token);
+    localStorage.setItem('ffmg_session_expires', data.expires_at);
+    localStorage.setItem('ffmg_customer_uuid', data.customer_uuid);
+    if (data.job_id) localStorage.setItem('ffmg_job_id', data.job_id);
+    if (data.email) localStorage.setItem('ffmg_email', data.email);
+
+    return true;
+  } catch (err) {
+    showLookup();
+    showAlert('Failed to verify login link. Please try again.', 'error');
+    return true;
+  }
+}
+
+// ── DASHBOARD ─────────────────────────────────────────────────────────────────
+function populateDashboard(session) {
+  document.getElementById('dash-greeting').textContent =
+    `Your Project Portal`;
+  document.getElementById('dash-subtitle').textContent =
+    `Track your progress and send messages to the FFMG team.`;
+  document.getElementById('dash-email').textContent = session.email || '—';
+  document.getElementById('dash-uuid').textContent = session.customerUuid || '—';
+}
+
+function setProjectInfo(status, businessName, packageTier) {
+  const statusLabel = STATUS_LABELS[status] || status || 'In Progress';
+  document.getElementById('dash-status-text').textContent = statusLabel;
+  document.getElementById('dash-business').textContent = businessName || '—';
+  document.getElementById('dash-package').textContent = packageTier
+    ? packageTier.charAt(0).toUpperCase() + packageTier.slice(1)
+    : '—';
+}
+
+function renderProgressSteps(currentStatus) {
+  const container = document.getElementById('progress-steps');
+  const currentIdx = STATUS_ORDER.indexOf(currentStatus);
+  container.innerHTML = '';
+
+  MILESTONES.forEach((milestone, i) => {
+    const milestoneOrderIdx = STATUS_ORDER.indexOf(milestone.key);
+    let stateClass = 'step-pending';
+    let label = String(i + 1);
+    if (milestoneOrderIdx < currentIdx) { stateClass = 'step-done'; label = '✓'; }
+    else if (milestoneOrderIdx === currentIdx || milestone.key === currentStatus) { stateClass = 'step-active'; }
+
+    const step = document.createElement('div');
+    step.className = 'progress-step';
+    step.innerHTML = `
+      <div class="step-indicator ${stateClass}">${label}</div>
+      <div class="step-content">
+        <div class="step-label">${milestone.label}</div>
+        <div class="step-desc">${milestone.desc}</div>
+      </div>
+    `;
+    container.appendChild(step);
+  });
+}
+
+// ── MESSAGES ──────────────────────────────────────────────────────────────────
+let lastMessageCount = 0;
+let pollInterval = null;
+
+function formatTime(isoStr) {
+  try {
+    const d = new Date(isoStr);
+    return d.toLocaleString('en-US', { month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+  } catch { return ''; }
+}
+
+function renderMessages(messages) {
+  const thread = document.getElementById('messages-thread');
+  const badge = document.getElementById('unread-badge');
+
+  if (!messages || messages.length === 0) {
+    thread.innerHTML = '<p class="msg-empty">No messages yet. Have a question about your project? Send us a message below.</p>';
+    badge.style.display = 'none';
+    lastMessageCount = 0;
+    return;
+  }
+
+  const unreadAgent = messages.filter(m => m.from === 'agent' && !m.read).length;
+
+  thread.innerHTML = '';
+  messages.forEach(m => {
+    const bubble = document.createElement('div');
+    bubble.className = `msg-bubble ${m.from}${m.from === 'agent' && !m.read ? ' unread' : ''}`;
+    bubble.innerHTML = `
+      <div class="msg-sender">${m.from === 'customer' ? 'You' : 'FFMG Team'}</div>
+      <div class="msg-body">${escapeHtml(m.body)}</div>
+      <div class="msg-time">${formatTime(m.sent_at)}</div>
+    `;
+    thread.appendChild(bubble);
+  });
+
+  // Scroll to bottom only if new messages arrived
+  if (messages.length > lastMessageCount) {
+    thread.scrollTop = thread.scrollHeight;
+  }
+  lastMessageCount = messages.length;
+
+  if (unreadAgent > 0) {
+    badge.textContent = unreadAgent;
+    badge.style.display = 'inline-block';
+  } else {
+    badge.style.display = 'none';
+  }
+}
+
+async function fetchMessages() {
+  const session = getSession();
+  if (!session || !session.jobId) return;
+
+  try {
+    const res = await fetch(`/api/messages/${encodeURIComponent(session.jobId)}`, {
+      headers: {
+        'Authorization': `Bearer ${session.token}`,
+        'X-Customer-UUID': session.customerUuid
+      }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    renderMessages(data.messages || []);
+  } catch (err) {
+    // Silent — polling failure should not disrupt the UI
+  }
+}
+
+async function fetchProjectProgress() {
+  const session = getSession();
+  if (!session) return;
+
+  try {
+    const res = await fetch(`/api/portal/progress`, {
+      headers: {
+        'Authorization': `Bearer ${session.token}`,
+        'X-Customer-UUID': session.customerUuid
+      }
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+
+    const container = document.getElementById('preview-list');
+
+    // Show preview CTA if a preview has been delivered via /api/preview
+    if (data.preview && data.preview.url) {
+      renderPreviewCTA(container, data.preview);
+    } else if (!data.progress || data.progress.length === 0) {
+      container.innerHTML = '<p class="preview-empty">No previews shared yet. Check back soon.</p>';
+    } else {
+      // Legacy project_progress links (milestone notes from admin panel)
+      container.innerHTML = '';
+      data.progress.forEach(item => {
+        const div = document.createElement('div');
+        div.className = 'preview-item';
+        div.innerHTML = `
+          <span class="preview-icon">🔗</span>
+          <div>
+            ${item.url ? `<a class="preview-link" href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.url)}</a>` : ''}
+            ${item.note ? `<div class="preview-note">${escapeHtml(item.note)}</div>` : ''}
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    if (data.projectStatus) {
+      document.getElementById('dash-status-text').textContent =
+        STATUS_LABELS[data.projectStatus] || data.projectStatus;
+      renderProgressSteps(data.projectStatus);
+    }
+    if (data.businessName) document.getElementById('dash-business').textContent = data.businessName;
+    if (data.packageTier) document.getElementById('dash-package').textContent =
+      data.packageTier.charAt(0).toUpperCase() + data.packageTier.slice(1);
+  } catch (err) {
+    // Silent — polling failure should not disrupt the UI
+  }
+}
+
+function renderPreviewCTA(container, preview) {
+  // Update card title to indicate the preview is ready
+  const titleEl = document.getElementById('preview-card-title');
+  if (titleEl) titleEl.textContent = 'Your Site Preview is Ready 🎉';
+  const builtDate = preview.built_at
+    ? new Date(preview.built_at).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })
+    : null;
+
+  const expiresDate = preview.expires_at ? new Date(preview.expires_at) : null;
+  const expiresLabel = expiresDate
+    ? expiresDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+    : null;
+  // Warn if expiry is within 3 days
+  const expiringSoon = expiresDate && (expiresDate - Date.now()) < 3 * 24 * 60 * 60 * 1000;
+
+  const packageLabel = preview.package
+    ? preview.package.charAt(0).toUpperCase() + preview.package.slice(1) + ' Package'
+    : null;
+
+  const pagesList = Array.isArray(preview.pages_built) && preview.pages_built.length > 0
+    ? preview.pages_built
+    : null;
+
+  container.innerHTML = `
+    <div class="preview-cta">
+      <a class="preview-cta-btn" href="${escapeHtml(preview.url)}" target="_blank" rel="noopener">
+        <span>View Your Site Preview</span>
+        <span class="preview-cta-arrow">→</span>
+      </a>
+      <div class="preview-meta">
+        ${packageLabel ? `<span class="preview-meta-chip">${escapeHtml(packageLabel)}</span>` : ''}
+        ${builtDate ? `<span class="preview-meta-chip">Built ${escapeHtml(builtDate)}</span>` : ''}
+      </div>
+      ${pagesList ? `<div class="preview-pages"><strong>Pages included:</strong> ${escapeHtml(pagesList.join(', '))}</div>` : ''}
+      ${expiresLabel ? `<div class="preview-expiry${expiringSoon ? ' expiring-soon' : ''}">
+        ${expiringSoon ? '⚠️ ' : ''}Preview link expires ${escapeHtml(expiresLabel)}
+      </div>` : ''}
+      ${preview.notes ? `<div class="preview-notes-text">${escapeHtml(preview.notes)}</div>` : ''}
+    </div>
+  `;
+}
+
+function startPolling() {
+  if (pollInterval) clearInterval(pollInterval);
+  pollInterval = setInterval(() => {
+    if (document.visibilityState === 'visible') fetchMessages();
+  }, 30000);
+}
+
+// ── COMPOSE ───────────────────────────────────────────────────────────────────
+function updateCharCounter() {
+  const input = document.getElementById('compose-input');
+  const counter = document.getElementById('char-counter');
+  const btn = document.getElementById('btn-send-msg');
+  const len = input.value.length;
+
+  counter.textContent = `${len} / 500`;
+  counter.className = len > 500 ? 'char-counter over' : 'char-counter';
+  btn.disabled = len === 0 || len > 500;
+}
+
+function handleComposeKey(e) {
+  // Cmd/Ctrl+Enter sends
+  if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+async function sendMessage() {
+  const session = getSession();
+  if (!session) { signOut(); return; }
+
+  const input = document.getElementById('compose-input');
+  const body = input.value.trim();
+  const feedback = document.getElementById('msg-feedback');
+  const btn = document.getElementById('btn-send-msg');
+
+  if (!body || body.length > 500) return;
+
+  btn.disabled = true;
+  feedback.className = 'msg-feedback';
+  feedback.textContent = '';
+
+  try {
+    const res = await fetch('/api/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${session.token}`,
+        'X-Customer-UUID': session.customerUuid
+      },
+      body: JSON.stringify({
+        job_id: session.jobId,
+        customer_uuid: session.customerUuid,
+        from: 'customer',
+        body,
+        sent_at: new Date().toISOString()
+      })
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      feedback.className = 'msg-feedback error';
+      feedback.textContent = data.error || 'Failed to send. Please try again.';
+      return;
+    }
+
+    input.value = '';
+    updateCharCounter();
+    feedback.className = 'msg-feedback success';
+    feedback.textContent = 'Message sent ✓';
+    setTimeout(() => { feedback.textContent = ''; }, 3000);
+
+    // Refresh messages immediately
+    await fetchMessages();
+  } catch (err) {
+    feedback.className = 'msg-feedback error';
+    feedback.textContent = 'Failed to send. Please try again.';
+  } finally {
+    btn.disabled = false;
+  }
+}
+
+// ── UTILITIES ─────────────────────────────────────────────────────────────────
+function escapeHtml(str) {
+  if (!str) return '';
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+async function init() {
+  // Check for token in URL first
+  const handledToken = await handleTokenFromURL();
+
+  const session = getSession();
+
+  if (!session) {
+    showLookup();
+    return;
+  }
+
+  // Valid session — load dashboard
+  showDashboard();
+  populateDashboard(session);
+  renderProgressSteps('intake_received');
+  setProjectInfo('intake_received', null, null);
+
+  // Load data in parallel
+  await Promise.all([
+    fetchMessages(),
+    fetchProjectProgress()
+  ]);
+
+  startPolling();
+
+  // Visibility change handler — resume polling on tab refocus
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+      fetchMessages();
+    }
+  });
+}
+
+init();
+</script>
+
+</body>
+</html>

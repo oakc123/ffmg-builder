@@ -1,0 +1,32 @@
+node_modules
+npm-debug.log*
+
+# Environment files — never bake credentials into the image
+.env
+.env.*
+!.env.example
+
+# Git
+.git
+.gitignore
+
+# Docker files (no need to copy into image)
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Polsia platform files
+.claude
+.claude.json*
+.tmp
+*.jsonl
+session-env
+shell-snapshots
+debug
+
+# Uploads — mounted as a volume at runtime
+public/uploads
+
+# Docs
+HOMELAB.md
+README.md

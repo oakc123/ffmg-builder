@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanks — We'll Be In Touch | Funk Factory Media Group</title>
+    <meta name="description" content="Thanks for reaching out to Funk Factory Media Group. We respond to every inquiry within 24 hours — here's what happens next.">
+    <link rel="canonical" href="https://funkfactoryos.polsia.app/thanks">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="Thanks — We'll Be In Touch | Funk Factory Media Group">
+    <meta property="og:description" content="We respond to every inquiry within 24 hours — here's what happens next.">
+    <meta property="og:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/thanks">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+            --success: #2d6a4f;
+            --error: #9b2c2c;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+        }
+
+        /* ===== CONFIRMATION HERO ===== */
+        .confirm-hero {
+            padding: 144px 64px 80px;
+            max-width: 920px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .check-bubble {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            background: rgba(45,106,79,0.1);
+            border: 1.5px solid rgba(45,106,79,0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 36px;
+        }
+
+        .check-bubble svg {
+            width: 42px;
+            height: 42px;
+            color: var(--success);
+            display: block;
+        }
+
+        .page-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .confirm-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.6rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -2px;
+            margin-bottom: 24px;
+            color: var(--text);
+        }
+
+        .confirm-hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .confirm-lede {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto;
+            line-height: 1.8;
+        }
+
+        /* ===== TRUST STRIP ===== */
+        .trust-strip {
+            padding: 32px 64px 16px;
+            max-width: 1100px;
+            margin: 0 auto 32px;
+        }
+
+        .trust-inner {
+            display: flex;
+            gap: 36px;
+            flex-wrap: wrap;
+            justify-content: center;
+            padding: 28px 24px;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            background: var(--bg-warm);
+            border-radius: 12px;
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trust-icon {
+            width: 18px;
+            height: 18px;
+            flex-shrink: 0;
+        }
+
+        .trust-text {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .trust-text strong {
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        /* ===== NEXT STEPS CARD ===== */
+        .next-section {
+            padding: 24px 64px 40px;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .next-card {
+            background: var(--bg);
+            border: 1px solid var(--border-strong);
+            border-radius: 16px;
+            padding: 48px 52px;
+        }
+
+        .next-card h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.55rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+            color: var(--text);
+        }
+
+        .next-card-sub {
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            margin-bottom: 32px;
+        }
+
+        .next-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .next-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            font-size: 1rem;
+            color: var(--text);
+            line-height: 1.55;
+        }
+
+        .next-num {
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .next-list li strong {
+            display: block;
+            font-weight: 700;
+            color: var(--text);
+            margin-bottom: 4px;
+        }
+
+        .next-list li span.hint {
+            display: block;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.55;
+        }
+
+        /* ===== SECONDARY CTA ===== */
+        .cta-section {
+            padding: 24px 64px 100px;
+            max-width: 920px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-cta-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .cta-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+            font-weight: 800;
+            letter-spacing: -1.2px;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: var(--text);
+        }
+
+        .cta-section h2 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .cta-section p {
+            font-size: 1.0rem;
+            color: var(--text-muted);
+            max-width: 540px;
+            margin: 0 auto 32px;
+            line-height: 1.75;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.98rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 1.5px solid var(--border-strong);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+        .cta-buttons {
+            display: flex;
+            gap: 14px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-dark);
+            color: rgba(255,255,255,0.5);
+            padding: 60px 64px 40px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-brand .nav-logo {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-brand p {
+            font-size: 0.82rem;
+            line-height: 1.6;
+            max-width: 220px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.75); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            font-size: 0.78rem;
+            opacity: 0.35;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 64px; left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(10px);
+                padding: 24px 20px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { font-size: 1.05rem; color: var(--text); }
+            .nav-toggle { display: flex; }
+            .confirm-hero { padding: 120px 24px 56px; }
+            .trust-strip { padding: 24px 24px 16px; }
+            .next-section { padding: 16px 24px 32px; }
+            .cta-section { padding: 16px 24px 80px; }
+            .next-card { padding: 32px 26px; }
+            .trust-inner { gap: 18px; padding: 22px 18px; }
+            footer { padding: 48px 24px 32px; }
+            .footer-inner { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/intake" class="nav-cta">Start Intake</a></li>
+        </ul>
+    </nav>
+
+    <!-- CONFIRMATION HERO -->
+    <section class="confirm-hero">
+        <div class="check-bubble" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+        </div>
+        <div class="page-eyebrow">Message Received</div>
+        <h1>We got your message — <em>talk soon</em></h1>
+        <p class="confirm-lede">Thanks for reaching out. A real person reads every inquiry and you'll get a personal reply within <strong>24 hours</strong> — usually faster. No bots, no templates, no runaround.</p>
+    </section>
+
+    <!-- TRUST STRIP -->
+    <div class="trust-strip">
+        <div class="trust-inner">
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text">Response within <strong>24 hours</strong></span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text">No obligation — free consultation</span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text">10+ years covering New Mexico events</span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text">500+ events documented</span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text" id="dynamicCounter">500+ inquiries across New Mexico</span>
+            </div>
+            <div class="trust-item" data-social-proof data-placement="thanks_bottom">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text"><span data-sp-count>50+</span> websites &amp; media projects shipped</span>
+            </div>
+            <div class="trust-item" data-social-proof data-placement="thanks_bottom">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text" data-sp-rotator style="transition: opacity 0.2s"><span data-sp-event>Sports photography</span> in <strong data-sp-city>Albuquerque, NM</strong> · <span data-sp-when>recent</span></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- NEXT STEPS CARD -->
+    <section class="next-section">
+        <div class="next-card">
+            <h2>What happens next</h2>
+            <p class="next-card-sub">Three steps from here. Nothing automatic — every reply is a real conversation.</p>
+            <ul class="next-list">
+                <li>
+                    <div class="next-num">1</div>
+                    <div>
+                        <strong>You'll hear back within 24 hours</strong>
+                        <span class="hint">Amer is on the lead inbox and replies personally — usually same-day during Albuquerque business hours. Check your inbox (and spam, just in case).</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="next-num">2</div>
+                    <div>
+                        <strong>We'll align on scope together</strong>
+                        <span class="hint">Once we reply, we set up a quick call or email thread to lock in dates, deliverables, and budget — no surprises later.</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="next-num">3</div>
+                    <div>
+                        <strong>Optional: jump to the full intake form</strong>
+                        <span class="hint">If you already know what you need, the intake form below lets us skip the back-and-forth and quote directly from your answers.</span>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- SECONDARY CTA -->
+    <section class="cta-section">
+        <p class="cta-cta-eyebrow">Skip the back-and-forth</p>
+        <h2>Lock in the <em>scope now</em></h2>
+        <p>If you already know dates, deliverables, and budget, complete the 4-section intake form below. We'll quote directly from it and skip the discovery call.</p>
+        <div class="cta-buttons">
+            <a href="/intake" class="btn-primary" data-source="thanks-page-intake-cta">Complete the 4-section intake →</a>
+            <a href="/portfolio" class="btn-secondary">Browse Our Work</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="nav-logo" style="color:rgba(255,255,255,0.85);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;"><img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="32" style="display:inline-block;vertical-align:middle;"></a>
+                <p>New Mexico sports photography, concert videography, brand films &amp; web design. Since 2015.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Media Services</a></li>
+                <li><a href="/portfolio">Portfolio</a></li>
+                <li><a href="/work">Our Work</a></li>
+                <li><a href="/what-we-offer">Web Services</a></li>
+                <li><a href="/intake">Start a Project</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">© 2026 Funk Factory Media Group · Albuquerque, NM</div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle (match contact.html pattern)
+        const navToggleBtn = document.getElementById('navToggle');
+        const navLinksList = document.getElementById('navLinks');
+        if (navToggleBtn) {
+            navToggleBtn.addEventListener('click', () => {
+                const open = navLinksList.classList.toggle('open');
+                navToggleBtn.setAttribute('aria-expanded', open);
+            });
+            navLinksList.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => navLinksList.classList.remove('open'));
+            });
+        }
+
+        // Mark post-submit view in sessionStorage (preserves UTMs on the page)
+        // UTM keys are intentionally NOT cleared — back-button / later pages reuse them.
+        try { sessionStorage.setItem('ffmg_post_submit', '1'); } catch (e) {}
+
+        // Dynamic social-proof counter — fetch /api/analytics/stats; silently fall back to static copy on failure
+        (async function loadDynamicCounter() {
+            var el = document.getElementById('dynamicCounter');
+            if (!el) return;
+            try {
+                var res = await fetch('/api/analytics/stats');
+                if (!res.ok) throw new Error('non-200');
+                var data = await res.json();
+                var n = (data && typeof data.events_captured === 'number') ? data.events_captured : null;
+                if (n != null && n >= 0) {
+                    var label = n >= 1000 ? Math.floor(n / 100) / 10 + 'K+' : n + '+';
+                    el.innerHTML = label + ' inquiries across New Mexico';
+                }
+            } catch (e) {
+                // keep hardcoded fallback ("500+ inquiries across New Mexico")
+            }
+        })();
+    </script>
+
+    <!-- Polsia analytics beacon — same shape as contact.html so the visit is recorded for stat-tracking -->
+    <script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';var p=new URLSearchParams(window.location.search);var payload={path:path,referrer:referrer};['utm_source','utm_medium','utm_campaign'].forEach(function(key){var val=p.get(key);if(val){sessionStorage.setItem('ffmg_'+key,val);payload[key]=val;}});fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});})();</script>
+
+    <!-- Google Analytics 4 — load gtag with measurement ID from env-injected placeholder; UTM context from sessionStorage attached as event params -->
+    <script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var id='__GA4_ID__';if(!id||id==='__GA4_ID__')return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(id);document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',id);var utmKeys=['ffmg_utm_source','ffmg_utm_medium','ffmg_utm_campaign','ffmg_utm_content','ffmg_utm_term'];var utmParams={};utmKeys.forEach(function(k){var v=sessionStorage.getItem(k);if(v)utmParams[k.replace('ffmg_utm_','utm_')]=v;});if(Object.keys(utmParams).length){gtag('set',utmParams);}})();</script>
+
+    <!-- Google Ads conversion gate — fires only when the persisted FFMG Express utm_source is "google" -->
+    <script>
+    (function () {
+      if (navigator.doNotTrack === '1' || window.doNotTrack === '1') return;
+      if (typeof gtag !== 'function') return;
+
+      var src = (sessionStorage.getItem('ffmg_utm_source') || '').toLowerCase().trim();
+      if (src !== 'google') return;
+
+      // Mirror the same utm keys the pageview beacon sets so GA4 sees the same attribution across the funnel
+      var conversionParams = { event_category: 'ffmg_express_thanks', page_location: window.location.href };
+      ['ffmg_utm_source', 'ffmg_utm_medium', 'ffmg_utm_campaign', 'ffmg_utm_content', 'ffmg_utm_term'].forEach(function (k) {
+        var v = sessionStorage.getItem(k);
+        if (v) conversionParams[k.replace('ffmg_utm_', 'utm_')] = v;
+      });
+
+      // GA4 recommended event name — visible in DebugView and reportable as a key event
+      gtag('event', 'conversion', conversionParams);
+      // Google Ads conversion event name — separately importable in the Google Ads UI
+      gtag('event', 'ads_conversion', conversionParams);
+    })();
+    </script>
+
+    <!-- Reusable SocialProof component — thanks_bottom placement repopulates itself from /data/social-proof.json -->
+    <script src="/js/social-proof.js" defer></script>
+</body>
+</html>

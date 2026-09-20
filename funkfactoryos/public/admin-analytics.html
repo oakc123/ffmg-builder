@@ -1,0 +1,914 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFMG Admin — Analytics</title>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #0f0f0f;
+            --bg-card: #1a1a1a;
+            --bg-hover: #222222;
+            --border: rgba(255,255,255,0.08);
+            --border-strong: rgba(255,255,255,0.15);
+            --text: #ffffff;
+            --text-muted: rgba(255,255,255,0.45);
+            --accent: #e84d1a;
+            --accent-dark: #c03a10;
+            --success: #22c55e;
+            --error: #ef4444;
+            --blue: #3b82f6;
+            --purple: #a855f7;
+            --yellow: #eab308;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── LOGIN ── */
+        #loginScreen {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 24px;
+        }
+
+        .login-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 48px 40px;
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .login-logo span { color: var(--accent); }
+
+        .login-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        input[type="password"], input[type="text"] {
+            width: 100%;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 1rem;
+            color: var(--text);
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        input:focus { border-color: var(--accent); }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border: none;
+            transition: all 0.15s;
+        }
+
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .btn-primary:hover { background: var(--accent-dark); }
+        .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .error-msg {
+            color: var(--error);
+            font-size: 0.85rem;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* ── DASHBOARD ── */
+        #dashboard { display: none; }
+
+        .topbar {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 0 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 64px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .topbar-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 800;
+            font-size: 1.1rem;
+            letter-spacing: -0.3px;
+        }
+
+        .topbar-logo span { color: var(--accent); }
+
+        .topbar-nav {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .topbar-nav a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.875rem;
+            font-weight: 500;
+            padding: 6px 12px;
+            border-radius: 6px;
+            transition: all 0.15s;
+        }
+
+        .topbar-nav a:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+        .topbar-nav a.active { color: var(--text); background: rgba(255,255,255,0.1); }
+
+        .topbar-right {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .btn-logout {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--text-muted);
+            padding: 6px 14px;
+            font-size: 0.85rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.15s;
+        }
+
+        .btn-logout:hover { border-color: var(--border-strong); color: var(--text); }
+
+        .main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 32px;
+        }
+
+        .page-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .page-sub {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+        }
+
+        /* ── SITE FILTER ── */
+        .site-filter {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+        }
+
+        .site-filter-btn {
+            padding: 8px 20px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-muted);
+            font-family: inherit;
+            font-size: 0.875rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.15s;
+        }
+
+        .site-filter-btn:hover { border-color: var(--border-strong); color: var(--text); }
+        .site-filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+
+        /* ── STAT CARDS ── */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+        }
+
+        .stat-card.orange::before { background: var(--accent); }
+        .stat-card.blue::before { background: var(--blue); }
+        .stat-card.purple::before { background: var(--purple); }
+        .stat-card.yellow::before { background: var(--yellow); }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--text-muted);
+            margin-bottom: 10px;
+        }
+
+        .stat-value {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 6px;
+        }
+
+        .stat-sub {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* ── ROW LAYOUT ── */
+        .row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 900px) {
+            .row { grid-template-columns: 1fr; }
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+        }
+
+        .card-title {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .card-badge {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            background: rgba(255,255,255,0.06);
+            padding: 3px 10px;
+            border-radius: 12px;
+        }
+
+        /* ── CHART ── */
+        .chart-container {
+            position: relative;
+            height: 160px;
+            display: flex;
+            align-items: flex-end;
+            gap: 3px;
+            padding-bottom: 24px;
+        }
+
+        .chart-bar-wrap {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            height: 100%;
+            justify-content: flex-end;
+        }
+
+        .chart-bar {
+            width: 100%;
+            background: var(--accent);
+            border-radius: 3px 3px 0 0;
+            opacity: 0.8;
+            transition: opacity 0.15s;
+            min-height: 2px;
+            position: relative;
+        }
+
+        .chart-bar:hover { opacity: 1; }
+
+        .chart-bar-tooltip {
+            position: absolute;
+            bottom: calc(100% + 4px);
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0,0,0,0.9);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 0.75rem;
+            white-space: nowrap;
+            pointer-events: none;
+            opacity: 0;
+            z-index: 10;
+            transition: opacity 0.15s;
+        }
+
+        .chart-bar:hover .chart-bar-tooltip { opacity: 1; }
+
+        .chart-label {
+            font-size: 0.6rem;
+            color: var(--text-muted);
+            position: absolute;
+            bottom: 0;
+            white-space: nowrap;
+        }
+
+        /* ── TABLE ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .data-table th {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            padding: 0 0 12px 0;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table th:last-child { text-align: right; }
+
+        .data-table td {
+            padding: 10px 0;
+            font-size: 0.875rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            vertical-align: middle;
+        }
+
+        .data-table td:last-child { text-align: right; font-weight: 600; }
+
+        .data-table tr:last-child td { border-bottom: none; }
+
+        .path-label {
+            font-family: 'DM Mono', 'Courier New', monospace;
+            font-size: 0.8rem;
+            max-width: 260px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .bar-inline {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .bar-track {
+            flex: 1;
+            height: 4px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            height: 100%;
+            border-radius: 2px;
+            background: var(--accent);
+        }
+
+        /* ── REFERRER ── */
+        .ref-list { display: flex; flex-direction: column; gap: 14px; }
+
+        .ref-item {}
+
+        .ref-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 6px;
+        }
+
+        .ref-source {
+            font-size: 0.875rem;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .ref-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+        }
+
+        .ref-count {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .ref-pct {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .ref-bar-track {
+            height: 6px;
+            background: rgba(255,255,255,0.06);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .ref-bar-fill {
+            height: 100%;
+            border-radius: 3px;
+            transition: width 0.5s ease;
+        }
+
+        .site-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 2px 8px;
+            border-radius: 4px;
+        }
+
+        .site-badge.ffmg { background: rgba(232,77,26,0.15); color: var(--accent); }
+        .site-badge.pets { background: rgba(34,197,94,0.15); color: var(--success); }
+
+        .loading-text {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            text-align: center;
+            padding: 40px;
+        }
+
+        .empty-state {
+            color: var(--text-muted);
+            font-size: 0.875rem;
+            text-align: center;
+            padding: 32px 16px;
+        }
+
+        /* ── SITE SPLIT ── */
+        .site-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .site-split { grid-template-columns: 1fr; }
+            .main { padding: 24px 16px; }
+            .topbar { padding: 0 16px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- LOGIN SCREEN -->
+<div id="loginScreen">
+    <div class="login-card">
+        <div class="login-logo">FUNK FACTORY<span>.</span></div>
+        <div class="login-sub">Analytics Dashboard</div>
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="passwordInput" placeholder="Enter admin password" />
+        </div>
+        <button class="btn btn-primary" id="loginBtn" onclick="doLogin()">Sign in</button>
+        <div class="error-msg" id="loginError">Wrong password. Try again.</div>
+    </div>
+</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+    <div class="topbar">
+        <div class="topbar-logo">FUNK FACTORY<span>.</span></div>
+        <nav class="topbar-nav">
+            <a href="/admin">Gallery</a>
+            <a href="/admin/orders">Orders</a>
+            <a href="/admin/gigs">Gigs</a>
+            <a href="/admin/analytics" class="active">Analytics</a>
+        </nav>
+        <div class="topbar-right">
+            <button class="btn-logout" onclick="doLogout()">Log out</button>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="page-title">Analytics</div>
+        <div class="page-sub">First-party traffic data — FFMG &amp; Pets store</div>
+
+        <div id="analyticsContent">
+            <div class="loading-text">Loading data…</div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ── AUTH ──────────────────────────────────────────────────────
+
+document.getElementById('passwordInput').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') doLogin();
+});
+
+async function checkAuth() {
+    try {
+        const r = await fetch('/api/admin/check');
+        const d = await r.json();
+        if (d.authenticated) showDashboard();
+    } catch(e) {}
+}
+
+async function doLogin() {
+    const pw = document.getElementById('passwordInput').value;
+    const btn = document.getElementById('loginBtn');
+    const errEl = document.getElementById('loginError');
+
+    if (!pw) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+    errEl.style.display = 'none';
+
+    try {
+        const r = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password: pw })
+        });
+        const d = await r.json();
+        if (d.success) {
+            showDashboard();
+        } else {
+            errEl.style.display = 'block';
+        }
+    } catch(e) {
+        errEl.textContent = 'Error contacting server.';
+        errEl.style.display = 'block';
+    } finally {
+        btn.disabled = false;
+        btn.textContent = 'Sign in';
+    }
+}
+
+async function doLogout() {
+    await fetch('/api/admin/logout', { method: 'POST' });
+    location.reload();
+}
+
+function showDashboard() {
+    document.getElementById('loginScreen').style.display = 'none';
+    document.getElementById('dashboard').style.display = 'block';
+    loadAnalytics();
+}
+
+// ── ANALYTICS ─────────────────────────────────────────────────
+
+async function loadAnalytics() {
+    try {
+        const r = await fetch('/api/admin/analytics');
+        if (r.status === 401) {
+            document.getElementById('loginScreen').style.display = 'flex';
+            document.getElementById('dashboard').style.display = 'none';
+            return;
+        }
+        const d = await r.json();
+        if (d.success) renderAnalytics(d);
+    } catch(e) {
+        document.getElementById('analyticsContent').innerHTML =
+            '<div class="loading-text">Failed to load data. Please refresh.</div>';
+    }
+}
+
+function fmt(n) {
+    if (!n) return '0';
+    return Number(n).toLocaleString();
+}
+
+function renderAnalytics(data) {
+    const { totals, unique, topPages, referrerBreakdown, dailyTrend, bySite, utmSourceTotals } = data;
+
+    // Site totals map
+    const siteMap = {};
+    (bySite || []).forEach(s => { siteMap[s.site] = parseInt(s.views); });
+
+    const html = `
+        <!-- STAT CARDS -->
+        <div class="stat-grid">
+            <div class="stat-card orange">
+                <div class="stat-label">Views Today</div>
+                <div class="stat-value">${fmt(totals.today)}</div>
+                <div class="stat-sub">${fmt(unique.today)} unique visitors</div>
+            </div>
+            <div class="stat-card blue">
+                <div class="stat-label">Views — 7 Days</div>
+                <div class="stat-value">${fmt(totals.week)}</div>
+                <div class="stat-sub">${fmt(unique.week)} unique visitors</div>
+            </div>
+            <div class="stat-card purple">
+                <div class="stat-label">Views — 30 Days</div>
+                <div class="stat-value">${fmt(totals.month)}</div>
+                <div class="stat-sub">${fmt(unique.month)} unique visitors</div>
+            </div>
+            <div class="stat-card yellow">
+                <div class="stat-label">All-Time Views</div>
+                <div class="stat-value">${fmt(totals.total)}</div>
+                <div class="stat-sub">since tracking started</div>
+            </div>
+        </div>
+
+        <!-- SITE SPLIT (30d) -->
+        <div class="site-split">
+            <div class="card">
+                <div class="card-title">
+                    FFMG Site
+                    <span class="site-badge ffmg">funkfactoryos.polsia.app</span>
+                </div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-1px">
+                    ${fmt(siteMap.ffmg || 0)}
+                </div>
+                <div style="color:var(--text-muted);font-size:0.8rem;margin-top:4px">views in last 30 days</div>
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    Pets Store
+                    <span class="site-badge pets">funkfactorypets.com</span>
+                </div>
+                <div style="font-family:'Space Grotesk',sans-serif;font-size:2rem;font-weight:700;letter-spacing:-1px">
+                    ${fmt(siteMap.pets || 0)}
+                </div>
+                <div style="color:var(--text-muted);font-size:0.8rem;margin-top:4px">views in last 30 days</div>
+            </div>
+        </div>
+
+        <!-- TREND + REFERRERS -->
+        <div class="row">
+            <div class="card">
+                <div class="card-title">
+                    Daily Trend
+                    <span class="card-badge">last 30 days</span>
+                </div>
+                ${renderChart(dailyTrend)}
+            </div>
+            <div class="card">
+                <div class="card-title">
+                    Traffic Sources
+                    <span class="card-badge">last 30 days</span>
+                </div>
+                ${renderReferrers(referrerBreakdown)}
+            </div>
+        </div>
+
+        <!-- UTM SOURCE BREAKDOWN -->
+        <div class="card">
+            <div class="card-title">
+                Campaign Traffic (UTM Sources)
+                <span class="card-badge">last 30 days</span>
+            </div>
+            ${renderUtmSources(utmSourceTotals)}
+        </div>
+
+        <!-- TOP PAGES -->
+        <div class="card">
+            <div class="card-title">
+                Top Pages
+                <span class="card-badge">last 30 days</span>
+            </div>
+            ${renderTopPages(topPages)}
+        </div>
+    `;
+
+    document.getElementById('analyticsContent').innerHTML = html;
+}
+
+function renderChart(dailyTrend) {
+    if (!dailyTrend || dailyTrend.length === 0) {
+        return '<div class="empty-state">No data yet — tracking just started</div>';
+    }
+
+    const maxViews = Math.max(...dailyTrend.map(d => parseInt(d.views) || 0), 1);
+
+    // Fill in missing days
+    const days = [];
+    const now = new Date();
+    for (let i = 29; i >= 0; i--) {
+        const d = new Date(now);
+        d.setDate(d.getDate() - i);
+        const key = d.toISOString().slice(0, 10);
+        const found = dailyTrend.find(r => r.day && r.day.slice(0, 10) === key);
+        days.push({ day: key, views: found ? parseInt(found.views) : 0, unique: found ? parseInt(found.unique_visitors) : 0 });
+    }
+
+    const bars = days.map((d, i) => {
+        const pct = Math.round((d.views / maxViews) * 100);
+        const label = d.day.slice(5); // MM-DD
+        const showLabel = i % 6 === 0 || i === days.length - 1;
+        return `
+            <div class="chart-bar-wrap">
+                <div class="chart-bar" style="height:${Math.max(pct, 1)}%">
+                    <div class="chart-bar-tooltip">${d.day}<br>${fmt(d.views)} views<br>${fmt(d.unique)} unique</div>
+                </div>
+                ${showLabel ? `<div class="chart-label">${label}</div>` : ''}
+            </div>
+        `;
+    }).join('');
+
+    return `<div class="chart-container">${bars}</div>`;
+}
+
+function renderReferrers(breakdown) {
+    if (!breakdown || breakdown.length === 0) {
+        return '<div class="empty-state">No referrer data yet</div>';
+    }
+
+    const total = breakdown.reduce((s, r) => s + parseInt(r.views), 0);
+    const colors = {
+        direct: '#6b7280',
+        search: '#3b82f6',
+        social: '#a855f7',
+        email: '#22c55e',
+        other: '#eab308'
+    };
+
+    const items = breakdown.map(r => {
+        const pct = total > 0 ? Math.round((parseInt(r.views) / total) * 100) : 0;
+        const color = colors[r.source] || colors.other;
+        return `
+            <div class="ref-item">
+                <div class="ref-header">
+                    <div class="ref-source">
+                        <div class="ref-dot" style="background:${color}"></div>
+                        ${r.source.charAt(0).toUpperCase() + r.source.slice(1)}
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center">
+                        <span class="ref-pct">${pct}%</span>
+                        <span class="ref-count">${fmt(r.views)}</span>
+                    </div>
+                </div>
+                <div class="ref-bar-track">
+                    <div class="ref-bar-fill" style="width:${pct}%;background:${color}"></div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    return `<div class="ref-list">${items}</div>`;
+}
+
+function renderUtmSources(sources) {
+    if (!sources || sources.length === 0) {
+        return '<div class="empty-state">No UTM-tagged traffic yet — Wave 3 links will populate this when clicked</div>';
+    }
+
+    const total = sources.reduce((s, r) => s + parseInt(r.views), 0);
+    const palette = ['#f97316','#3b82f6','#a855f7','#22c55e','#eab308','#ec4899','#14b8a6','#f43f5e'];
+
+    const rows = sources.map((r, i) => {
+        const pct = total > 0 ? Math.round((parseInt(r.views) / total) * 100) : 0;
+        const color = palette[i % palette.length];
+        return `
+            <div class="ref-item">
+                <div class="ref-header">
+                    <div class="ref-source">
+                        <div class="ref-dot" style="background:${color}"></div>
+                        ${escapeHtml(r.utm_source)}
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center">
+                        <span class="ref-pct">${pct}%</span>
+                        <span class="ref-count">${fmt(r.views)}</span>
+                    </div>
+                </div>
+                <div class="ref-bar-track">
+                    <div class="ref-bar-fill" style="width:${pct}%;background:${color}"></div>
+                </div>
+            </div>
+        `;
+    }).join('');
+
+    return `
+        <div style="margin-bottom:8px;font-size:0.8rem;color:var(--text-muted)">${fmt(total)} UTM-tagged views total</div>
+        <div class="ref-list">${rows}</div>
+    `;
+}
+
+function renderTopPages(pages) {
+    if (!pages || pages.length === 0) {
+        return '<div class="empty-state">No page view data yet</div>';
+    }
+
+    const maxViews = Math.max(...pages.map(p => parseInt(p.views)), 1);
+
+    const rows = pages.map(p => {
+        const pct = Math.round((parseInt(p.views) / maxViews) * 100);
+        return `
+            <tr>
+                <td><div class="path-label">${escapeHtml(p.page_path)}</div></td>
+                <td>
+                    <div class="bar-inline">
+                        <div class="bar-track">
+                            <div class="bar-fill" style="width:${pct}%"></div>
+                        </div>
+                        ${fmt(p.views)}
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+
+    return `
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Page</th>
+                    <th>Views (30d)</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    `;
+}
+
+function escapeHtml(str) {
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+// ── INIT ──────────────────────────────────────────────────────
+checkAuth();
+</script>
+</body>
+</html>

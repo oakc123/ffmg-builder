@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FFMG Express — Custom Websites in 7–14 Days | Funk Factory Media Group</title>
+    <meta name="description" content="FFMG Express builds custom websites in 7–14 days. Three transparent tiers — Foundation $1,250, Standard $2,500, Premium $5,000. No retainers, no surprises.">
+    <link rel="canonical" href="https://funkfactoryos.polsia.app/ffmg-express">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="Custom websites delivered in 7 days. | Funk Factory Media Group">
+    <meta property="og:description" content="Three transparent tiers. One flat price each. No retainers, no agency markup, no surprises — pick the build that fits and ship a custom site in under two weeks.">
+    <meta property="og:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/ffmg-express">
+    <meta property="og:type" content="website">
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Custom websites delivered in 7 days. | Funk Factory Media Group">
+    <meta name="twitter:description" content="Three transparent tiers. One flat price each. No retainers, no agency markup, no surprises — pick the build that fits and ship a custom site in under two weeks.">
+    <meta name="twitter:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text); }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+        }
+
+        /* ===== HERO ===== */
+        .page-hero {
+            padding: 124px 64px 80px;
+            background: var(--bg-warm);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -80px; right: -80px;
+            width: 400px; height: 400px;
+            background: radial-gradient(circle, rgba(212,149,106,0.15) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-hero::after {
+            content: '';
+            position: absolute;
+            bottom: -60px; left: -60px;
+            width: 300px; height: 300px;
+            background: radial-gradient(circle, rgba(107,58,31,0.08) 0%, transparent 70%);
+            border-radius: 50%;
+        }
+
+        .page-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 18px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.4rem, 5vw, 4.2rem);
+            font-weight: 800;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: var(--text);
+            margin-bottom: 24px;
+        }
+
+        .page-hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .page-hero p {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            max-width: 620px;
+            margin: 0 auto 32px;
+            line-height: 1.75;
+        }
+
+        .hero-actions {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 1rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.15s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-ghost {
+            display: inline-block;
+            color: var(--accent-dark);
+            text-decoration: none;
+            padding: 16px 24px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: color 0.2s;
+        }
+
+        .btn-ghost:hover { color: var(--accent); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #0a0a0a;
+            color: rgba(255,255,255,0.5);
+            padding: 60px 64px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-brand .nav-logo {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .footer-brand p {
+            font-size: 0.82rem;
+            line-height: 1.6;
+            max-width: 220px;
+            color: rgba(255,255,255,0.45);
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.75); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            font-size: 0.78rem;
+            opacity: 0.35;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 900px) {
+            nav { padding: 0 24px; }
+            .nav-links { display: none; gap: 20px; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 64px;
+                left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(10px);
+                padding: 24px 24px 32px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { font-size: 1.05rem; color: var(--text); }
+            .nav-toggle { display: flex; }
+            .page-hero { padding: 100px 32px 60px; }
+            .footer-inner { flex-direction: column; }
+            footer { padding: 48px 24px 32px; }
+        }
+
+        @media (max-width: 600px) {
+            .page-hero { padding: 90px 20px 48px; }
+            .page-hero h1 { letter-spacing: -1px; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/ffmg-express/pricing">Pricing</a></li>
+            <li><a href="/intake?source=ffmg-express-landing" class="nav-cta">Start Intake</a></li>
+        </ul>
+    </nav>
+
+    <section class="page-hero">
+        <div class="page-eyebrow">FFMG Express</div>
+        <h1>Custom websites delivered in <em>7 days</em>.</h1>
+        <p>Three transparent tiers. One flat price each. No retainers, no agency markup, no surprises — pick the build that fits and ship a custom site in under two weeks.</p>
+        <div class="hero-actions">
+            <a href="/ffmg-express/pricing" class="btn-primary">See Pricing &amp; Tiers →</a>
+            <a href="/intake?source=ffmg-express-landing" class="btn-ghost">Or send the intake →</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="nav-logo" style="color:rgba(255,255,255,0.85);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;"><img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="32" style="display:inline-block;vertical-align:middle;"></a>
+                <p>New Mexico sports photography, concert videography, brand films &amp; web design. Since 2015.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Media Services</a></li>
+                <li><a href="/portfolio">Portfolio</a></li>
+                <li><a href="/work">Our Work</a></li>
+                <li><a href="/what-we-offer">Web Services</a></li>
+                <li><a href="/ffmg-express/pricing">FFMG Express Pricing</a></li>
+                <li><a href="/intake?source=ffmg-express-landing">Start a Project</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">© 2026 Funk Factory Media Group · Albuquerque, NM</div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle (matches pricing.html pattern)
+        const navToggleBtn = document.getElementById('navToggle');
+        const navLinksList = document.getElementById('navLinks');
+        if (navToggleBtn) {
+            navToggleBtn.addEventListener('click', () => {
+                const open = navLinksList.classList.toggle('open');
+                navToggleBtn.setAttribute('aria-expanded', open);
+            });
+            navLinksList.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => navLinksList.classList.remove('open'));
+            });
+        }
+    </script>
+
+    <!-- Polsia analytics beacon — same shape as pricing.html so the visit is recorded for stat-tracking -->
+    <script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var path=window.location.pathname+window.location.search;var referrer=document.referrer||'';var p=new URLSearchParams(window.location.search);var payload={path:path,referrer:referrer};['utm_source','utm_medium','utm_campaign'].forEach(function(key){var val=p.get(key);if(val){sessionStorage.setItem('ffmg_'+key,val);payload[key]=val;}});fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});})();</script>
+
+    <!-- Google Analytics 4 — load gtag with measurement ID from env-injected placeholder -->
+    <script>(function(){if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;var id='__GA4_ID__';if(!id||id==='__GA4_ID__')return;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id='+encodeURIComponent(id);document.head.appendChild(s);window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){dataLayer.push(arguments);};gtag('js',new Date());gtag('config',id);})();</script>
+</body>
+</html>

@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Funk Factory Media Group — New Mexico Sports &amp; Event Media</title>
+    <meta name="description" content="Get in touch with Funk Factory Media Group. Book sports photography, concert videography, brand films, or web design for your New Mexico event or organization.">
+    <link rel="canonical" href="https://funkfactoryos.polsia.app/contact">
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png">
+    <meta property="og:title" content="Contact | Funk Factory Media Group">
+    <meta property="og:description" content="Book sports photography, concert videography, or web design for your New Mexico event or organization. We respond within 24 hours.">
+    <meta property="og:image" content="https://funkfactoryos.polsia.app/images/ffmg-logo.png">
+    <meta property="og:url" content="https://funkfactoryos.polsia.app/contact">
+    <meta property="og:type" content="website">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700;800&family=DM+Sans:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg: #ffffff;
+            --bg-warm: #faf6f1;
+            --bg-dark: #1a0f08;
+            --text: #1a0f08;
+            --text-muted: #6b5c50;
+            --accent: #D4956A;
+            --accent-dark: #6B3A1F;
+            --border: rgba(107,58,31,0.1);
+            --border-strong: rgba(107,58,31,0.2);
+            --success: #2d6a4f;
+            --error: #9b2c2c;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* ===== NAV ===== */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+            padding: 0 40px;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-logo {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--text);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 32px;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active { color: var(--text); }
+
+        .nav-links a.active { font-weight: 600; }
+
+        .nav-cta {
+            background: var(--accent) !important;
+            color: #fff !important;
+            padding: 10px 22px;
+            border-radius: 6px;
+            font-weight: 600 !important;
+            font-size: 0.88rem !important;
+            transition: background 0.2s !important;
+        }
+
+        .nav-cta:hover { background: var(--accent-dark) !important; }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 4px;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: var(--text);
+            transition: all 0.3s;
+        }
+
+        /* ===== PAGE HERO ===== */
+        .page-hero {
+            padding: 128px 64px 72px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 40px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        .breadcrumb a {
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .breadcrumb a:hover { color: var(--accent); }
+
+        .breadcrumb-sep { opacity: 0.4; }
+
+        .page-eyebrow {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 20px;
+        }
+
+        .page-hero h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.8rem, 5vw, 4.5rem);
+            font-weight: 800;
+            line-height: 1.0;
+            letter-spacing: -2px;
+            max-width: 700px;
+            margin-bottom: 24px;
+        }
+
+        .page-hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .page-hero-desc {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            max-width: 520px;
+            line-height: 1.8;
+        }
+
+        /* ===== CONTACT SECTION ===== */
+        .contact-section {
+            padding: 0 64px 120px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 340px 1fr;
+            gap: 64px;
+            align-items: start;
+        }
+
+        /* ===== SIDEBAR INFO ===== */
+        .contact-info {
+            position: sticky;
+            top: 88px;
+        }
+
+        .info-block {
+            margin-bottom: 48px;
+        }
+
+        .info-block:last-child { margin-bottom: 0; }
+
+        .info-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        .info-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            line-height: 1.2;
+            margin-bottom: 12px;
+        }
+
+        .info-text {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .info-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .info-list li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+        }
+
+        .info-list li strong {
+            color: var(--text);
+            font-weight: 600;
+        }
+
+        .info-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--accent);
+            margin-top: 7px;
+            flex-shrink: 0;
+        }
+
+        .info-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 40px 0;
+        }
+
+        /* ===== FORM CARD ===== */
+        .form-card {
+            background: var(--bg-warm);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 48px 52px;
+        }
+
+        .form-card-heading {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            margin-bottom: 8px;
+        }
+
+        .form-card-sub {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 40px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .form-field {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-bottom: 20px;
+        }
+
+        .form-field.full { grid-column: span 2; }
+
+        .form-label {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .form-label span {
+            color: var(--accent);
+            margin-left: 2px;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text);
+            background: var(--bg);
+            border: 1.5px solid var(--border-strong);
+            border-radius: 8px;
+            padding: 12px 16px;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-input::placeholder,
+        .form-textarea::placeholder {
+            color: rgba(107,92,80,0.5);
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(212,149,106,0.15);
+        }
+
+        .form-select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b5c50' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 14px center;
+            padding-right: 40px;
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 140px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            padding: 16px 32px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            margin-top: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .submit-btn:hover { background: var(--accent-dark); transform: translateY(-1px); }
+        .submit-btn:active { transform: translateY(0); }
+
+        .submit-btn:disabled {
+            background: var(--text-muted);
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .submit-btn .spinner {
+            width: 18px;
+            height: 18px;
+            border: 2px solid rgba(255,255,255,0.4);
+            border-top-color: #fff;
+            border-radius: 50%;
+            animation: spin 0.7s linear infinite;
+            display: none;
+        }
+
+        .submit-btn.loading .spinner { display: block; }
+        .submit-btn.loading .btn-text { display: none; }
+
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ===== FEEDBACK ===== */
+        .form-feedback {
+            padding: 14px 18px;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: 16px;
+            display: none;
+        }
+
+        .form-feedback.success {
+            display: block;
+            background: rgba(45,106,79,0.1);
+            color: var(--success);
+            border: 1px solid rgba(45,106,79,0.2);
+        }
+
+        .form-feedback.error {
+            display: block;
+            background: rgba(155,44,44,0.08);
+            color: var(--error);
+            border: 1px solid rgba(155,44,44,0.15);
+        }
+
+        /* ===== TRUST BAR ===== */
+        .trust-bar {
+            padding: 0 64px;
+            max-width: 1200px;
+            margin: 0 auto 80px;
+        }
+
+        .trust-inner {
+            display: flex;
+            gap: 48px;
+            flex-wrap: wrap;
+            padding: 32px 0;
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .trust-icon {
+            width: 20px;
+            height: 20px;
+            flex-shrink: 0;
+        }
+
+        .trust-text {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        /* ===== FAQ ===== */
+        .faq-section {
+            background: var(--bg-warm);
+            padding: 100px 64px;
+        }
+
+        .faq-inner {
+            max-width: 720px;
+            margin: 0 auto;
+        }
+
+        .faq-header { margin-bottom: 56px; }
+
+        .faq-header h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1.1;
+            margin-top: 12px;
+        }
+
+        .faq-item {
+            border-top: 1px solid var(--border);
+            cursor: pointer;
+            padding: 24px 0;
+        }
+
+        .faq-item:last-child { border-bottom: 1px solid var(--border); }
+
+        .faq-question {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .faq-question h3 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--text);
+            line-height: 1.4;
+        }
+
+        .faq-toggle {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            border: 1.5px solid var(--border-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .faq-item:hover .faq-toggle { border-color: var(--accent); }
+
+        .faq-toggle svg {
+            transition: transform 0.25s ease;
+        }
+
+        .faq-item.open .faq-toggle svg { transform: rotate(45deg); }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.open .faq-answer { max-height: 200px; }
+
+        .faq-answer p {
+            font-size: 0.92rem;
+            color: var(--text-muted);
+            line-height: 1.75;
+            padding-top: 16px;
+        }
+
+        /* ===== CTA SECTION ===== */
+        .cta-section {
+            padding: 120px 64px;
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-section .page-eyebrow { margin-bottom: 20px; display: block; }
+
+        .cta-section h2 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: clamp(2.2rem, 4.5vw, 4rem);
+            font-weight: 800;
+            letter-spacing: -2px;
+            line-height: 1.0;
+            margin-bottom: 20px;
+        }
+
+        .cta-section h2 em { font-style: normal; color: var(--accent); }
+
+        .cta-section p {
+            font-size: 1.05rem;
+            color: var(--text-muted);
+            max-width: 480px;
+            margin: 0 auto 44px;
+            line-height: 1.8;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--accent);
+            color: #fff;
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .btn-primary:hover {
+            background: var(--accent-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--text);
+            text-decoration: none;
+            padding: 14px 32px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            font-family: 'Space Grotesk', sans-serif;
+            border: 1.5px solid var(--border-strong);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: var(--bg-dark);
+            color: rgba(255,255,255,0.5);
+            padding: 60px 64px 40px;
+            border-top: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 40px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+        }
+
+        .footer-brand .nav-logo {
+            color: rgba(255,255,255,0.85);
+            font-size: 1rem;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        .footer-brand p {
+            font-size: 0.82rem;
+            line-height: 1.6;
+            max-width: 220px;
+        }
+
+        .footer-links {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            list-style: none;
+        }
+
+        .footer-links a {
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: rgba(255,255,255,0.75); }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding-top: 24px;
+            font-size: 0.78rem;
+            opacity: 0.35;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1024px) {
+            .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+            .contact-info { position: static; }
+            .form-row { grid-template-columns: 1fr; }
+            .form-field.full { grid-column: span 1; }
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 0 20px; }
+            .nav-links { display: none; }
+            .nav-links.open {
+                display: flex;
+                flex-direction: column;
+                position: fixed;
+                top: 64px; left: 0; right: 0;
+                background: rgba(255,255,255,0.98);
+                backdrop-filter: blur(10px);
+                padding: 24px 20px;
+                gap: 20px;
+                border-bottom: 1px solid var(--border);
+                z-index: 99;
+            }
+            .nav-links.open a { font-size: 1.05rem; color: var(--text); }
+            .nav-toggle { display: flex; }
+            .page-hero { padding: 100px 24px 56px; }
+            .contact-section { padding: 0 24px 80px; }
+            .trust-bar { padding: 0 24px 64px; }
+            .faq-section { padding: 64px 24px; }
+            .cta-section { padding: 80px 24px; }
+            footer { padding: 48px 24px 32px; }
+            .footer-inner { flex-direction: column; }
+            .form-card { padding: 32px 28px; }
+        }
+
+        /* ===== NAV PROGRESS BAR ===== */
+        .nav-progress{position:fixed;top:64px;left:0;right:0;z-index:99;height:3px;background:transparent;pointer-events:none;}
+        .nav-progress-bar{height:100%;background:var(--accent,#D4956A);transition:width .1s linear;}
+
+        /* ===== NAV SOCIAL PROOF ===== */
+        .nav-social-proof{font-size:.72rem;color:var(--text-muted,#6b5c50);opacity:0;transition:opacity .4s;white-space:nowrap;line-height:1;}
+
+        /* ===== SCROLL PANEL ===== */
+        .scroll-panel{position:fixed;bottom:28px;right:28px;z-index:250;background:var(--bg-warm,#faf6f1);border:1px solid var(--border,rgba(107,58,31,.1));border-radius:10px;padding:14px 40px 14px 20px;box-shadow:0 4px 20px rgba(26,15,8,.1);font-size:.88rem;color:var(--text,#1a0f08);line-height:1.5;opacity:0;transform:translateY(12px);transition:opacity .3s,transform .3s;pointer-events:none;}
+        .scroll-panel.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+        .sp-inner{display:flex;align-items:center;gap:6px;}
+        .sp-link{color:var(--accent-dark,#6B3A1F);font-weight:600;text-decoration:none;}
+        .sp-link:hover{text-decoration:underline;}
+        .scroll-panel-close{position:absolute;top:8px;right:10px;background:none;border:none;cursor:pointer;font-size:1.2rem;color:var(--text-muted,#6b5c50);line-height:1;padding:0;}
+        .scroll-panel-close:hover{color:var(--text,#1a0f08);}
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="44" style="display:inline-block;vertical-align:middle;">
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation" aria-expanded="false">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/about">About</a></li>
+            <li><a href="/services">Media</a></li>
+            <li><a href="/portfolio">Portfolio</a></li>
+            <li><a href="/what-we-offer">Web Services</a></li>
+            <li><a href="/#gallery">Work</a></li>
+            <li><a href="/contact" class="active">Contact</a></li>
+            <li><a href="/intake" class="nav-cta" id="navCtaBtn">Get a Quote</a></li>
+            <li><span class="nav-social-proof" id="navSocialProof">Trusted by 500+ teams</span></li>
+        </ul>
+    </nav>
+    <div class="nav-progress" id="navProgress"></div>
+
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+            <a href="/">Home</a>
+            <span class="breadcrumb-sep">›</span>
+            <span>Contact</span>
+        </nav>
+        <div class="page-eyebrow">Get in Touch</div>
+        <h1>Let's talk about<br><em>your next project</em></h1>
+        <p class="page-hero-desc">We respond to every inquiry within 24 hours. Tell us about your event, venue, or project — we'll come back with availability and a custom quote.</p>
+    </section>
+
+    <!-- TRUST BAR -->
+    <div class="trust-bar">
+        <div class="trust-inner">
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text">Response within 24 hours</span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text">No obligation — free consultation</span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text">10+ years covering New Mexico events</span>
+            </div>
+            <div class="trust-item">
+                <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="#D4956A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                </svg>
+                <span class="trust-text">500+ events documented</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTACT GRID -->
+    <section class="contact-section">
+        <div class="contact-grid">
+
+            <!-- SIDEBAR INFO -->
+            <div class="contact-info">
+
+                <div class="info-block">
+                    <div class="info-label">Serving</div>
+                    <div class="info-heading">Albuquerque &amp; Across New Mexico</div>
+                    <ul class="info-list">
+                        <li><div class="info-dot"></div>Albuquerque — HQ, no travel fee</li>
+                        <li><div class="info-dot"></div>Rio Rancho · Santa Fe · Las Cruces</li>
+                        <li><div class="info-dot"></div>Statewide for the right project</li>
+                    </ul>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-block">
+                    <div class="info-label">Contact</div>
+                    <ul class="info-list">
+                        <li>
+                            <div class="info-dot"></div>
+                            <span><strong>Email:</strong> <a href="mailto:hello@funkfactorymediagroup.com" style="color:var(--text-muted);text-decoration:none;">hello@funkfactorymediagroup.com</a></span>
+                        </li>
+                        <li>
+                            <div class="info-dot"></div>
+                            <span><strong>Phone:</strong> Available on request via email</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-block">
+                    <div class="info-label">Response Time</div>
+                    <p class="info-text">We check messages every day and respond to every inquiry within 24 hours — including weekends when a deadline is approaching.</p>
+                </div>
+
+                <div class="info-divider"></div>
+
+                <div class="info-block">
+                    <div class="info-label">Follow Our Work</div>
+                    <ul class="info-list">
+                        <li><div class="info-dot"></div>Instagram — behind-the-scenes + finished work</li>
+                        <li><div class="info-dot"></div>YouTube — full event films and recaps</li>
+                        <li><div class="info-dot"></div><a href="/portfolio" style="color:var(--accent);text-decoration:none;font-weight:600;">View full portfolio →</a></li>
+                    </ul>
+                </div>
+
+            </div>
+
+            <!-- FORM -->
+            <div class="form-card">
+                <div class="form-card-heading">Send us a message</div>
+                <div class="form-card-sub">Fill in what you know — we'll handle the rest.</div>
+
+                <form id="contactForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label class="form-label" for="name">Your Name <span>*</span></label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Marcus Thompson" required autocomplete="name">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="email">Email Address <span>*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="marcus@example.com" required autocomplete="email">
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label class="form-label" for="phone">Phone</label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="(505) 555-0142" autocomplete="tel">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="event_type">Project Type <span>*</span></label>
+                            <select id="event_type" name="event_type" class="form-select" required>
+                                <option value="" disabled selected>Select a service</option>
+                                <option value="sports_photography">Sports Photography</option>
+                                <option value="concert_videography">Concert Videography</option>
+                                <option value="brand_film">Brand Film</option>
+                                <option value="social_media">Social Media Content</option>
+                                <option value="web_design">Web Design</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-field">
+                            <label class="form-label" for="event_date">Event Date</label>
+                            <input type="date" id="event_date" name="event_date" class="form-input">
+                        </div>
+                        <div class="form-field">
+                            <label class="form-label" for="venue">Venue / Organization</label>
+                            <input type="text" id="venue" name="venue" class="form-input" placeholder="Sunshine Theater, Rio Rancho HS...">
+                        </div>
+                    </div>
+
+                    <div class="form-field full">
+                        <label class="form-label" for="message">Project Details <span>*</span></label>
+                        <textarea id="message" name="message" class="form-textarea" placeholder="Tell us about your event or project — what you're looking for, when it is, and any specifics that matter. The more context, the better the quote." required></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="submitBtn">
+                        <span class="btn-text">Send Message →</span>
+                        <span class="spinner"></span>
+                    </button>
+
+                    <div class="form-feedback" id="formFeedback" role="alert"></div>
+                </form>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq-section">
+        <div class="faq-inner">
+            <div class="faq-header">
+                <div class="page-eyebrow">Common Questions</div>
+                <h2>Before you reach out</h2>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <div class="faq-question">
+                    <h3>How far in advance should I book?</h3>
+                    <div class="faq-toggle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5c50" stroke-width="2.5" stroke-linecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>We recommend reaching out at least 2–4 weeks before your event. For sports season packages, contact us 4–6 weeks ahead. That said — if you've got something coming up sooner, still reach out. We'll tell you what's possible.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <div class="faq-question">
+                    <h3>Do you travel outside Albuquerque?</h3>
+                    <div class="faq-toggle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5c50" stroke-width="2.5" stroke-linecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>No travel fee within 60 miles of Albuquerque (Rio Rancho, Santa Fe, Tijeras, Moriarty). Events further out can be arranged — travel fees depend on distance and duration. Ask in your inquiry and we'll give you a straight answer.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <div class="faq-question">
+                    <h3>What's your turnaround time?</h3>
+                    <div class="faq-toggle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5c50" stroke-width="2.5" stroke-linecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Standard recap delivery is 48 hours after the event. For sports season packages, galleries go out every Sunday morning. Brand films and web projects have their own timelines discussed during kickoff. We don't miss deadlines — it's the core of the reputation.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <div class="faq-question">
+                    <h3>Can I get raw files or all the footage?</h3>
+                    <div class="faq-toggle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5c50" stroke-width="2.5" stroke-linecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>We deliver edited, curated work — not raw dumps. Raw footage is available as an add-on for select projects. Our edit is the product: we frame the story, color-grade, and deliver what's worth keeping.</p>
+                </div>
+            </div>
+
+            <div class="faq-item" data-faq>
+                <div class="faq-question">
+                    <h3>Do you offer ongoing retainer packages?</h3>
+                    <div class="faq-toggle">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#6b5c50" stroke-width="2.5" stroke-linecap="round">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                    </div>
+                </div>
+                <div class="faq-answer">
+                    <p>Yes. We offer monthly content retainers for venues, schools, and organizations that need consistent coverage. Monthly rates, scheduled shoot days, and predictable output. <a href="/what-we-offer" style="color:var(--accent);font-weight:600;">See web design retainers here →</a></p>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <span class="page-eyebrow" style="display:block;margin-bottom:20px;">Ready to Get Started?</span>
+        <h2>Or go straight to the<br><em>project form</em></h2>
+        <p>If you know what you need, skip the back-and-forth — fill out the intake form and we'll quote directly from it.</p>
+        <div class="cta-buttons">
+            <a href="/intake" class="btn-primary">Start Intake Form →</a>
+            <a href="/portfolio" class="btn-secondary">Browse Our Work</a>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-brand">
+                <a href="/" class="nav-logo" style="color:rgba(255,255,255,0.85);text-decoration:none;display:inline-flex;align-items:center;gap:8px;margin-bottom:10px;"><img src="/images/ffmg-logo.svg" alt="Funk Factory Media Group" height="32" style="display:inline-block;vertical-align:middle;"></a>
+                <p>New Mexico sports photography, concert videography, brand films &amp; web design. Since 2015.</p>
+            </div>
+            <ul class="footer-links">
+                <li><a href="/about">About</a></li>
+                <li><a href="/services">Media Services</a></li>
+                <li><a href="/portfolio">Portfolio</a></li>
+                <li><a href="/work">Our Work</a></li>
+                <li><a href="/what-we-offer">Web Services</a></li>
+                <li><a href="/intake">Start a Project</a></li>
+            </ul>
+        </div>
+        <div class="footer-bottom">© 2026 Funk Factory Media Group · Albuquerque, NM</div>
+    </footer>
+
+    <script>
+        // Mobile nav toggle
+        const toggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        toggle.addEventListener('click', () => {
+            const open = navLinks.classList.toggle('open');
+            toggle.setAttribute('aria-expanded', open);
+        });
+        navLinks.querySelectorAll('a').forEach(a => {
+            a.addEventListener('click', () => navLinks.classList.remove('open'));
+        });
+
+        // Form submission
+        const form = document.getElementById('contactForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const feedback = document.getElementById('formFeedback');
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            feedback.className = 'form-feedback';
+            feedback.style.display = 'none';
+
+            const formData = new FormData(form);
+            const data = {
+                name: formData.get('name'),
+                email: formData.get('email'),
+                phone: formData.get('phone') || '',
+                event_type: formData.get('event_type'),
+                event_date: formData.get('event_date') || '',
+                venue: formData.get('venue') || '',
+                message: formData.get('message'),
+                utm_source:   sessionStorage.getItem('ffmg_utm_source') || null,
+                utm_medium:   sessionStorage.getItem('ffmg_utm_medium') || null,
+                utm_campaign: sessionStorage.getItem('ffmg_utm_campaign') || null,
+                referrer:     document.referrer || null,
+                pricing_variant_source: sessionStorage.getItem('ffmg_pricing_variant_source') || null
+            };
+
+            // Basic validation
+            if (!data.name || !data.email || !data.event_type || !data.message) {
+                feedback.className = 'form-feedback error';
+                feedback.textContent = 'Please fill in all required fields (name, email, project type, and message).';
+                feedback.style.display = 'block';
+                return;
+            }
+
+            const emailRe = /^[^\t\r\n @]+@[^\t\r\n @]+\/[^\t\r\n @]+$/;
+            if (!emailRe.test(data.email)) {
+                const emailCheck = /^[^\t\r\n @]+@[^\t\r\n @]+\/[^\t\r\n @]+$/;
+            }
+
+            submitBtn.classList.add('loading');
+            submitBtn.disabled = true;
+            submitBtn.querySelector('.btn-text').textContent = 'Sending…';
+
+            try {
+                const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+
+                const result = await res.json();
+
+                if (res.ok && result.success) {
+                    if (typeof gtag === 'function') {
+                        gtag('event', 'contact_submitted', {
+                            event_type: data.event_type || null,
+                            utm_source: data.utm_source || null,
+                            utm_medium: data.utm_medium || null,
+                            utm_campaign: data.utm_campaign || null,
+                            variant_source: data.pricing_variant_source || null
+                        });
+                    }
+                    sessionStorage.setItem('ffmg_post_submit', '1');
+                    window.location.href = '/thanks';
+                } else {
+                    feedback.className = 'form-feedback error';
+                    feedback.textContent = result.message || 'Something went wrong. Please try again.';
+                    feedback.style.display = 'block';
+                }
+            } catch (err) {
+                feedback.className = 'form-feedback error';
+                feedback.textContent = 'Network error — please check your connection and try again.';
+                feedback.style.display = 'block';
+            } finally {
+                submitBtn.classList.remove('loading');
+                submitBtn.disabled = false;
+                submitBtn.querySelector('.btn-text').textContent = 'Send Message →';
+            }
+        });
+
+        // FAQ accordion
+        document.querySelectorAll('[data-faq]').forEach(item => {
+            item.addEventListener('click', () => {
+                const wasOpen = item.classList.contains('open');
+                document.querySelectorAll('[data-faq]').forEach(i => i.classList.remove('open'));
+                if (!wasOpen) item.classList.add('open');
+            });
+        });
+
+        // Analytics beacon — capture UTM from URL, persist to sessionStorage for form use
+        (function(){
+            if(navigator.doNotTrack==='1'||window.doNotTrack==='1')return;
+            var path=window.location.pathname+window.location.search;
+            var referrer=document.referrer||'';
+            var p=new URLSearchParams(window.location.search);
+            var payload={path:path,referrer:referrer};
+            ['utm_source','utm_medium','utm_campaign'].forEach(function(key){
+                var val=p.get(key);
+                if(val){
+                    sessionStorage.setItem('ffmg_'+key,val);
+                    payload[key]=val;
+                }
+            });
+            fetch('/api/analytics/pageview',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload),keepalive:true}).catch(function(){});
+        })();
+
+        // Google Analytics 4 — load gtag with measurement ID from env-injected placeholder
+        (function(){
+            var id = '__GA4_ID__';
+            if (!id || id === '__GA4_ID__') return;
+            var s = document.createElement('script');
+            s.async = true;
+            s.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(id);
+            document.head.appendChild(s);
+            window.dataLayer = window.dataLayer || [];
+            window.gtag = window.gtag || function(){ dataLayer.push(arguments); };
+            gtag('js', new Date());
+            gtag('config', id);
+        })();
+    </script>
+
+    <!-- Scroll panel + nav CTA logic -->
+    <div class="scroll-panel" id="scrollPanel" role="complementary" aria-label="Get a free quote">
+        <button class="scroll-panel-close" id="scrollPanelClose" aria-label="Dismiss">×</button>
+        <div class="sp-inner">
+            <span class="sp-text">Have a question? Get a free quote in under 24 hrs →</span>
+        </div>
+    </div>
+    <script src="/js/nav-cta.js"></script>
+</body>
+</html>

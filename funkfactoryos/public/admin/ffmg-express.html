@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FFMG Admin — FFMG Express Attribution</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    :root {
+      --bg: #f7f3ef; --surface: #ffffff; --sidebar-bg: #1a0f08;
+      --sidebar-text: rgba(255,255,255,0.85); --sidebar-muted: rgba(255,255,255,0.4);
+      --sidebar-active: rgba(212,149,106,0.15); --sidebar-active-text: #D4956A;
+      --border: #e8e0d8; --text: #1a1209; --text-muted: #7a6e62;
+      --copper: #D4956A; --copper-dark: #b97a52; --brown: #6B3A1F;
+      --amber: #f59e0b; --blue: #3b82f6; --green: #22c55e; --red: #ef4444;
+    }
+    html, body { height: 100%; }
+    body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); display: flex; min-height: 100vh; min-width: 1024px; }
+
+    /* SIDEBAR */
+    .sidebar { width: 240px; flex-shrink: 0; background: var(--sidebar-bg); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; height: 100vh; overflow-y: auto; z-index: 100; }
+    .sidebar-logo { padding: 24px 20px 20px; border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .sidebar-logo .wordmark { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 10px; }
+    .sidebar-logo .f-mark { width: 32px; height: 32px; background: var(--brown); border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .sidebar-logo .f-mark svg { width: 18px; height: 18px; }
+    .sidebar-logo .sub { font-size: 11px; color: var(--sidebar-muted); margin-top: 1px; font-weight: 400; font-family: 'DM Sans', sans-serif; }
+    .nav { padding: 16px 12px; flex: 1; }
+    .nav-label { font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--sidebar-muted); padding: 0 8px; margin-bottom: 4px; margin-top: 16px; }
+    .nav-label:first-child { margin-top: 0; }
+    .nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 10px; border-radius: 8px; font-size: 14px; font-weight: 500; color: var(--sidebar-text); cursor: pointer; text-decoration: none; transition: background 0.15s; }
+    .nav-item:hover { background: rgba(255,255,255,0.06); }
+    .nav-item.active { background: var(--sidebar-active); color: var(--sidebar-active-text); }
+    .nav-item svg { width: 16px; height: 16px; flex-shrink: 0; opacity: 0.7; }
+    .nav-item.active svg { opacity: 1; }
+
+    /* MAIN */
+    .main { margin-left: 240px; flex: 1; display: flex; flex-direction: column; min-height: 100vh; }
+
+    /* TOPBAR */
+    .topbar { height: 56px; background: var(--surface); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 24px; position: sticky; top: 0; z-index: 50; }
+    .topbar-title { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; color: var(--text); }
+    .topbar-right { display: flex; align-items: center; gap: 12px; }
+    .bell-btn { position: relative; width: 36px; height: 36px; border: 1px solid var(--border); background: var(--surface); border-radius: 8px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+    .bell-btn:hover { background: var(--bg); }
+    .bell-btn svg { width: 18px; height: 18px; color: var(--text-muted); }
+    .bell-badge { position: absolute; top: 4px; right: 4px; width: 8px; height: 8px; background: var(--red); border-radius: 50%; border: 2px solid var(--surface); display: none; }
+    .bell-badge.show { display: block; }
+    .notif-dropdown { display: none; position: absolute; top: 44px; right: 0; width: 320px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.12); z-index: 200; overflow: hidden; }
+    .notif-dropdown.open { display: block; }
+    .notif-header { padding: 14px 16px 10px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--border); }
+    .notif-header span { font-size: 13px; font-weight: 600; color: var(--text); }
+    .notif-read-all { font-size: 12px; color: var(--copper); cursor: pointer; background: none; border: none; padding: 0; }
+    .notif-list { max-height: 320px; overflow-y: auto; }
+    .notif-item { padding: 12px 16px; border-bottom: 1px solid var(--border); cursor: pointer; transition: background 0.1s; display: flex; gap: 10px; align-items: flex-start; }
+    .notif-item:last-child { border-bottom: none; }
+    .notif-item:hover { background: var(--bg); }
+    .notif-item.unread { background: #fdf6f0; }
+    .notif-dot { width: 8px; height: 8px; background: var(--copper); border-radius: 50%; flex-shrink: 0; margin-top: 5px; }
+    .notif-dot.read { background: transparent; border: 1px solid var(--border); }
+    .notif-text p { font-size: 13px; color: var(--text); line-height: 1.4; }
+    .notif-text span { font-size: 11px; color: var(--text-muted); margin-top: 2px; display: block; }
+    .notif-empty { padding: 24px 16px; text-align: center; font-size: 13px; color: var(--text-muted); }
+    .bell-wrap { position: relative; }
+    .signout-btn { font-size: 13px; font-weight: 500; color: var(--text-muted); background: none; border: 1px solid var(--border); padding: 6px 12px; border-radius: 8px; cursor: pointer; transition: all 0.15s; }
+    .signout-btn:hover { color: var(--red); border-color: var(--red); }
+
+    /* PAGE CONTENT */
+    .page-content { padding: 28px 28px 40px; flex: 1; }
+    .page-heading { font-family: 'Space Grotesk', sans-serif; font-size: 20px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .page-sub { font-size: 13px; color: var(--text-muted); margin-bottom: 20px; }
+
+    /* SUMMARY CARDS */
+    .cards-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 28px; }
+    .card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+    .card-label { font-size: 12px; font-weight: 500; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .card-value { font-family: 'Space Grotesk', sans-serif; font-size: 28px; font-weight: 700; color: var(--text); margin-top: 8px; }
+    .card-value.copper { color: var(--copper); }
+    .card-sub { font-size: 12px; color: var(--text-muted); margin-top: 4px; }
+
+    /* RE-BASELINE SUMMARY */
+    .rebaseline-panel { background: var(--surface); border: 1px solid var(--border); border-left: 4px solid var(--copper); border-radius: 12px; padding: 20px; margin-bottom: 28px; }
+    .rebaseline-panel.pending { border-left-color: var(--amber); }
+    .rebaseline-panel.error { border-left-color: var(--red); }
+    .rebaseline-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+    .rebaseline-kicker { font-size: 11px; font-weight: 600; color: var(--copper-dark); text-transform: uppercase; letter-spacing: 0.08em; }
+    .rebaseline-title { font-family: 'Space Grotesk', sans-serif; font-size: 17px; font-weight: 600; color: var(--text); margin-top: 4px; }
+    .rebaseline-window { font-size: 12px; color: var(--text-muted); line-height: 1.5; text-align: right; }
+    .rebaseline-metrics { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; margin-top: 18px; }
+    .rebaseline-metric { background: #faf8f5; border: 1px solid var(--border); border-radius: 8px; padding: 14px; min-width: 0; }
+    .rebaseline-metric-label { font-size: 11px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .rebaseline-rate { font-family: 'Space Grotesk', sans-serif; font-size: 24px; font-weight: 700; color: var(--text); margin-top: 7px; }
+    .rebaseline-detail { font-size: 12px; color: var(--text-muted); margin-top: 4px; line-height: 1.45; }
+    .rebaseline-lift { color: var(--text-muted); }
+    .rebaseline-lift.positive { color: var(--green); }
+    .rebaseline-lift.negative { color: var(--red); }
+    .rebaseline-lift.flat { color: var(--text-muted); }
+    .rebaseline-lift.unavailable { color: var(--text-muted); }
+    .rebaseline-message { font-size: 13px; color: var(--text-muted); line-height: 1.6; margin-top: 8px; }
+    .rebaseline-message strong { color: var(--text); font-weight: 600; }
+
+    /* TABLE */
+    .table-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; margin-bottom: 22px; }
+    .table-header { padding: 16px 20px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+    .table-title { font-family: 'Space Grotesk', sans-serif; font-size: 15px; font-weight: 600; color: var(--text); }
+    .table-info { font-size: 13px; color: var(--text-muted); }
+    table { width: 100%; border-collapse: collapse; }
+    th { padding: 10px 16px; text-align: left; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-muted); background: #faf8f5; border-bottom: 1px solid var(--border); cursor: pointer; white-space: nowrap; user-select: none; }
+    th:hover { color: var(--text); }
+    th .sort-arrow { display: inline; margin-left: 4px; opacity: 0.4; }
+    th.sorted .sort-arrow { opacity: 1; color: var(--copper); }
+    th.no-sort { cursor: default; }
+    td { padding: 11px 16px; font-size: 13px; color: var(--text); border-bottom: 1px solid var(--border); }
+    tr:last-child td { border-bottom: none; }
+    tr:nth-child(even) td { background: #faf8f5; }
+    tr:hover td { background: #fdf6f0; }
+    .source-cell { font-family: 'Space Grotesk', sans-serif; font-size: 13px; color: var(--copper-dark); font-weight: 500; }
+    .medium-cell { font-size: 12px; color: var(--text-muted); }
+    .num-cell { font-family: 'Space Grotesk', sans-serif; font-weight: 600; }
+    .rate-cell { font-weight: 600; color: var(--text); }
+    .rate-cell.zero { color: var(--text-muted); }
+    .empty-row td { padding: 32px; text-align: center; font-size: 13px; color: var(--text-muted); }
+
+    /* SPINNER */
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-box { display: flex; align-items: center; justify-content: center; padding: 60px; }
+    .loading-box .spinner { width: 28px; height: 28px; border: 3px solid var(--border); border-top-color: var(--copper); border-radius: 50%; animation: spin 0.7s linear infinite; }
+    .error-box { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 40px; text-align: center; }
+    .error-box h3 { font-family: 'Space Grotesk', sans-serif; font-size: 16px; font-weight: 600; margin-bottom: 8px; color: var(--red); }
+    .error-box p { font-size: 14px; color: var(--text-muted); line-height: 1.6; }
+  </style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="wordmark">
+      <div class="f-mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round">
+          <path d="M4 6h16M4 12h10M4 18h7"/>
+        </svg>
+      </div>
+      <div>
+        <div>FFMG Admin</div>
+        <div class="sub">Funk Factory Media Group</div>
+      </div>
+    </div>
+  </div>
+  <nav class="nav">
+    <div class="nav-label">Main</div>
+    <a href="/admin/dashboard" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+      Dashboard
+    </a>
+    <a href="/admin/jobs" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14,2 14,8 20,8"/></svg>
+      Jobs
+    </a>
+    <a href="/admin/messages" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      Messages
+    </a>
+    <a href="/admin/costs" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      Costs
+    </a>
+    <a href="/dashboard/ffmg-express" class="nav-item active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22,12 18,12 15,21 9,3 6,12 2,12"/></svg>
+      FFMG Express
+    </a>
+    <a href="/dashboard/intake" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 5h6M9 3h6a2 2 0 012 2v1h1a2 2 0 012 2v11a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2h1V5a2 2 0 012-2z"/><path d="M8 11h8M8 15h5"/></svg>
+      Intake
+    </a>
+    <div class="nav-label">Manage</div>
+    <a href="/admin" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/></svg>
+      Gallery
+    </a>
+    <a href="/admin/gigs" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Gigs
+    </a>
+    <a href="/admin/orders" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+      Orders
+    </a>
+    <a href="/admin/analytics" class="nav-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+      Analytics
+    </a>
+  </nav>
+</aside>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="topbar">
+    <div class="topbar-title">FFMG Express · Attribution</div>
+    <div class="topbar-right">
+      <div class="bell-wrap">
+        <button class="bell-btn" id="bellBtn" onclick="toggleNotif()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+          <div class="bell-badge" id="bellBadge"></div>
+        </button>
+        <div class="notif-dropdown" id="notifDropdown">
+          <div class="notif-header">
+            <span>Notifications</span>
+            <button class="notif-read-all" onclick="markAllRead()">Mark all read</button>
+          </div>
+          <div class="notif-list" id="notifList"><div class="notif-empty">No notifications</div></div>
+        </div>
+      </div>
+      <button class="signout-btn" onclick="signOut()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="page-content" id="pageContent">
+    <div class="loading-box"><div class="spinner"></div></div>
+  </div>
+</div>
+
+<script>
+  const BASE = '/api/admin';
+  let token = null;
+  let sessionsRows = [];
+  let contactsRows = [];
+  let intakesRows = [];
+  let topRows = [];
+  let expressVariantsRows = [];
+  let socialProofRows = [];
+  let pricingVariantRows = [];
+  let rebaseline = { status: 'pending', available: false };
+  let daysWindow = 30;
+
+  // ── AUTH HELPERS ────────────────────────────────────────────────────────────
+  function getToken() {
+    token = localStorage.getItem('ffmg_admin_token');
+    const exp = localStorage.getItem('ffmg_admin_expires');
+    if (!token || (exp && Date.now() > parseInt(exp))) {
+      window.location.href = '/admin/login';
+      return false;
+    }
+    return true;
+  }
+
+  function signOut() {
+    localStorage.removeItem('ffmg_admin_token');
+    localStorage.removeItem('ffmg_admin_expires');
+    window.location.href = '/admin/login';
+  }
+
+  function escHtml(s) {
+    return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+  }
+
+  function fmtNum(n) {
+    if (n == null) return '—';
+    return Number(n).toLocaleString();
+  }
+
+  function fmtMoney(n) {
+    if (n == null || isNaN(Number(n))) return '—';
+    const v = Math.round(Number(n));
+    return '$' + v.toLocaleString();
+  }
+
+  function ratePercent(num, den) {
+    if (!den || !num) return null;
+    return (num / den) * 100;
+  }
+
+  function mergeBySource(a, b, aKey, bKey) {
+    const m = new Map();
+    for (const r of a) m.set(r.source, { source: r.source, [aKey]: r[aKey] });
+    for (const r of b) {
+      const cur = m.get(r.source) || { source: r.source };
+      cur[bKey] = r[bKey];
+      m.set(r.source, cur);
+    }
+    return Array.from(m.values());
+  }
+
+  function sortArrow(col, currentKey, currentDir) {
+    if (currentKey !== col) return `<span class="sort-arrow">↕</span>`;
+    return `<span class="sort-arrow">${currentDir === 'asc' ? '↑' : '↓'}</span>`;
+  }
+
+  // ── LOAD ATTRIBUTION ────────────────────────────────────────────────────────
+  async function loadAttribution() {
+    try {
+      const r = await fetch(`${BASE}/ffmg-express-attribution?days=${daysWindow}`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+      const data = await r.json();
+
+      if (!data.success) {
+        renderError(data.message || 'Attribution data unavailable');
+        return;
+      }
+
+      sessionsRows = data.sessions || [];
+      contactsRows = data.contacts || [];
+      intakesRows  = data.intakes || [];
+      topRows      = data.top || [];
+      expressVariantsRows = data.express_variants || [];
+      socialProofRows    = data.social_proof || [];
+      pricingVariantRows = data.pricing_variants || [];
+      rebaseline         = data.rebaseline || { status: 'pending', available: false };
+      overall      = data.overall || { sessions: 0, contacts: 0, intakes: 0 };
+      daysWindow   = data.days || 30;
+
+      renderPage(overall);
+    } catch (err) {
+      renderError(err.message || 'Network error');
+    }
+  }
+
+  let overall = { sessions: 0, contacts: 0, intakes: 0 };
+
+  function renderError(msg) {
+    document.getElementById('pageContent').innerHTML = `
+      <div class="error-box">
+        <h3>Could not load attribution</h3>
+        <p>${escHtml(msg)}</p>
+      </div>`;
+  }
+
+  function formatSnapshotDate(value) {
+    if (!value) return '—';
+    const raw = String(value).slice(0, 10);
+    const parts = raw.split('-');
+    return parts.length === 3 ? `${parts[1]}/${parts[2]}/${parts[0]}` : raw;
+  }
+
+  function formatStoredRate(value) {
+    const rate = Number(value);
+    return Number.isFinite(rate) ? `${rate.toFixed(2)}%` : '—';
+  }
+
+  function renderRebaselineSummary() {
+    if (rebaseline.status === 'error') {
+      return `
+        <section class="rebaseline-panel error" aria-labelledby="rebaselineTitle">
+          <div class="rebaseline-kicker">14-day re-baseline</div>
+          <div class="rebaseline-title" id="rebaselineTitle">Lift summary unavailable</div>
+          <p class="rebaseline-message">The re-baseline summary could not be loaded. Existing attribution data below is still available.</p>
+        </section>`;
+    }
+
+    if (!rebaseline.available || !rebaseline.baseline || !rebaseline.current) {
+      const windowLabel = rebaseline.rolling_window_days ? `${rebaseline.rolling_window_days}-day rolling window · ` : '';
+      return `
+        <section class="rebaseline-panel pending" aria-labelledby="rebaselineTitle">
+          <div class="rebaseline-header">
+            <div>
+              <div class="rebaseline-kicker">14-day re-baseline</div>
+              <div class="rebaseline-title" id="rebaselineTitle">Lift summary pending</div>
+            </div>
+            <div class="rebaseline-window">${windowLabel}14-day qualification</div>
+          </div>
+          <p class="rebaseline-message">A completed 14-day rollup is not available yet. This comparison will appear after an eligible daily snapshot is stored.</p>
+        </section>`;
+    }
+
+    const baseline = rebaseline.baseline;
+    const current = rebaseline.current;
+    const baselineRate = Number(baseline.conversion_rate);
+    const currentRate = Number(current.conversion_rate);
+    const lift = Number.isFinite(baselineRate) && Number.isFinite(currentRate) && baselineRate > 0
+      ? ((currentRate - baselineRate) / baselineRate) * 100
+      : null;
+    const liftClass = lift == null ? 'unavailable' : lift > 0 ? 'positive' : lift < 0 ? 'negative' : 'flat';
+    const liftLabel = lift == null ? '—' : `${lift > 0 ? '+' : ''}${lift.toFixed(1)}%`;
+    const liftDetail = lift == null
+      ? `Unavailable · baseline rate is ${formatStoredRate(baseline.conversion_rate)}`
+      : 'Relative conversion-rate lift';
+
+    return `
+      <section class="rebaseline-panel" aria-labelledby="rebaselineTitle">
+        <div class="rebaseline-header">
+          <div>
+            <div class="rebaseline-kicker">14-day re-baseline</div>
+            <div class="rebaseline-title" id="rebaselineTitle">Conversion lift summary</div>
+          </div>
+          <div class="rebaseline-window">
+            Reporting window: ${formatSnapshotDate(baseline.snapshot_date)} → ${formatSnapshotDate(current.snapshot_date)}<br>
+            ${rebaseline.qualification_days || 14}-day qualification · ${rebaseline.rolling_window_days || '—'}-day rolling window
+          </div>
+        </div>
+        <div class="rebaseline-metrics">
+          <div class="rebaseline-metric">
+            <div class="rebaseline-metric-label">Baseline conversion</div>
+            <div class="rebaseline-rate">${formatStoredRate(baseline.conversion_rate)}</div>
+            <div class="rebaseline-detail">${fmtNum(baseline.contacts)} contacts · ${fmtNum(baseline.sessions)} sessions</div>
+          </div>
+          <div class="rebaseline-metric">
+            <div class="rebaseline-metric-label">Current conversion</div>
+            <div class="rebaseline-rate">${formatStoredRate(current.conversion_rate)}</div>
+            <div class="rebaseline-detail">${fmtNum(current.contacts)} contacts · ${fmtNum(current.sessions)} sessions</div>
+          </div>
+          <div class="rebaseline-metric">
+            <div class="rebaseline-metric-label">Relative lift</div>
+            <div class="rebaseline-rate rebaseline-lift ${liftClass}">${liftLabel}</div>
+            <div class="rebaseline-detail">${liftDetail}</div>
+          </div>
+        </div>
+      </section>`;
+  }
+
+  // ── HERO CTA A/B VARIANT ROWS ───────────────────────────────────────────────
+  function renderExpressVariantRows() {
+    const order = ['A', 'B', 'untracked'];
+    const total = expressVariantsRows.reduce((s, r) => s + (r.submissions || 0), 0);
+    const byVariant = new Map(expressVariantsRows.map(r => [r.variant, r.submissions || 0]));
+    if (total === 0) {
+      return `<div class="card-value">—</div><div class="card-sub">No intake submissions in window</div>`;
+    }
+    return order.map(v => {
+      const n = byVariant.get(v) || 0;
+      const pct = total ? ((n / total) * 100).toFixed(1) + '%' : '—';
+      return `<div class="card-label" style="margin-top:10px;">Variant ${escHtml(v)}</div>
+        <div class="card-value">${fmtNum(n)}</div>
+        <div class="card-sub">${pct} of tracked intakes</div>`;
+    }).join('');
+  }
+
+  function renderPage(overall) {
+    const convRate = ratePercent(overall.contacts, overall.sessions);
+    const intakesFromContacts = ratePercent(overall.intakes, overall.contacts);
+
+    document.getElementById('pageContent').innerHTML = `
+      <div class="page-heading">FFMG Express · Conversion Attribution</div>
+      <div class="page-sub">Last ${daysWindow} days · utm_source / utm_medium grouped from page_views, contact_submissions, intake_submissions</div>
+
+      ${renderRebaselineSummary()}
+
+      <div class="cards-row">
+        <div class="card">
+          <div class="card-label">Sessions</div>
+          <div class="card-value">${fmtNum(overall.sessions)}</div>
+          <div class="card-sub">Distinct visitors</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Contact Forms</div>
+          <div class="card-value">${fmtNum(overall.contacts)}</div>
+          <div class="card-sub">${convRate != null ? convRate.toFixed(2) + '% of sessions' : 'No sessions yet'}</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Intakes</div>
+          <div class="card-value">${fmtNum(overall.intakes)}</div>
+          <div class="card-sub">${intakesFromContacts != null ? intakesFromContacts.toFixed(2) + '% of contacts' : 'No contacts yet'}</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Overall Conversion</div>
+          <div class="card-value copper">${convRate != null ? convRate.toFixed(2) + '%' : '—'}</div>
+          <div class="card-sub">Sessions → Contact form</div>
+        </div>
+        <div class="card">
+          <div class="card-label">Hero CTA A/B (FFMG Express)</div>
+          ${renderExpressVariantRows()}
+        </div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Sessions by source / medium</div>
+          <div class="table-info" id="sessionsInfo"></div>
+        </div>
+        <div id="sessionsTable"></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Contact form conversion rate</div>
+          <div class="table-info" id="contactsInfo"></div>
+        </div>
+        <div id="contactsTable"></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Intake completion rate</div>
+          <div class="table-info" id="intakesInfo"></div>
+        </div>
+        <div id="intakesTable"></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Top 5 campaigns by ROI (30-day pipeline)</div>
+          <div class="table-info" id="topInfo"></div>
+        </div>
+        <div id="topTable"></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Social proof placements · last ${daysWindow} days</div>
+          <div class="table-info" id="socialProofInfo"></div>
+        </div>
+        <div id="socialProofTable"></div>
+      </div>
+
+      <div class="table-card">
+        <div class="table-header">
+          <div class="table-title">Pricing hero variant attribution · last ${daysWindow} days</div>
+          <div class="table-info" id="pricingVariantInfo"></div>
+        </div>
+        <div id="pricingVariantTable"></div>
+      </div>
+    `;
+
+    renderSessionsTable();
+    renderContactsTable();
+    renderIntakesTable();
+    renderTopTable();
+    renderSocialProofTable();
+    renderPricingVariantTable();
+  }
+
+  // ── SESSIONS TABLE ──────────────────────────────────────────────────────────
+  function renderSessionsTable() {
+    const totalSessions = sessionsRows.reduce((s, r) => s + (r.sessions || 0), 0);
+    const sorted = [...sessionsRows].sort((a, b) => (b.sessions || 0) - (a.sessions || 0));
+
+    document.getElementById('sessionsInfo').textContent =
+      `${sorted.length} source${sorted.length === 1 ? '' : 's'} · ${fmtNum(totalSessions)} total sessions`;
+
+    if (!sorted.length) {
+      document.getElementById('sessionsTable').innerHTML =
+        `<table><tbody><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody></table>`;
+      return;
+    }
+
+    const thead = `<thead><tr>
+      <th class="no-sort">Source</th>
+      <th class="no-sort">Medium</th>
+      <th>Sessions<span class="sort-arrow">↕</span></th>
+      <th class="no-sort">% of total</th>
+    </tr></thead>`;
+
+    const tbody = `<tbody>${sorted.map(r => {
+      const pct = totalSessions ? ((r.sessions / totalSessions) * 100).toFixed(1) + '%' : '—';
+      return `<tr>
+        <td class="source-cell">${escHtml(r.source)}</td>
+        <td class="medium-cell">${escHtml(r.medium)}</td>
+        <td class="num-cell">${fmtNum(r.sessions)}</td>
+        <td>${pct}</td>
+      </tr>`;
+    }).join('')}</tbody>`;
+
+    document.getElementById('sessionsTable').innerHTML = `<table>${thead}${tbody}</table>`;
+  }
+
+  // ── CONTACT CONVERSION TABLE ────────────────────────────────────────────────
+  function renderContactsTable() {
+    const merged = mergeBySource(sessionsRows, contactsRows, 'sessions', 'contacts');
+    const sorted = [...merged].sort((a, b) => {
+      const ar = ratePercent(a.contacts || 0, a.sessions || 0) || -1;
+      const br = ratePercent(b.contacts || 0, b.sessions || 0) || -1;
+      return br - ar;
+    });
+
+    const totalContacts = merged.reduce((s, r) => s + (r.contacts || 0), 0);
+    document.getElementById('contactsInfo').textContent =
+      `${sorted.length} source${sorted.length === 1 ? '' : 's'} · ${fmtNum(totalContacts)} total contacts`;
+
+    if (!sorted.length) {
+      document.getElementById('contactsTable').innerHTML =
+        `<table><tbody><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody></table>`;
+      return;
+    }
+
+    const thead = `<thead><tr>
+      <th class="no-sort">Source</th>
+      <th>Sessions<span class="sort-arrow">↕</span></th>
+      <th>Contacts<span class="sort-arrow">↕</span></th>
+      <th class="no-sort">Rate</th>
+    </tr></thead>`;
+
+    const tbody = `<tbody>${sorted.map(r => {
+      const rate = ratePercent(r.contacts || 0, r.sessions || 0);
+      const rateLabel = rate == null ? '—' : rate.toFixed(2) + '%';
+      const rateClass = (rate && rate > 0) ? 'rate-cell' : 'rate-cell zero';
+      return `<tr>
+        <td class="source-cell">${escHtml(r.source)}</td>
+        <td class="num-cell">${fmtNum(r.sessions)}</td>
+        <td class="num-cell">${fmtNum(r.contacts)}</td>
+        <td class="${rateClass}">${rateLabel}</td>
+      </tr>`;
+    }).join('')}</tbody>`;
+
+    document.getElementById('contactsTable').innerHTML = `<table>${thead}${tbody}</table>`;
+  }
+
+  // ── INTAKE COMPLETION TABLE ─────────────────────────────────────────────────
+  function renderIntakesTable() {
+    const merged = mergeBySource(contactsRows, intakesRows, 'contacts', 'intakes');
+    const sorted = [...merged].sort((a, b) => {
+      const ar = ratePercent(a.intakes || 0, a.contacts || 0) || -1;
+      const br = ratePercent(b.intakes || 0, b.contacts || 0) || -1;
+      return br - ar;
+    });
+
+    const totalIntakes = merged.reduce((s, r) => s + (r.intakes || 0), 0);
+    document.getElementById('intakesInfo').textContent =
+      `${sorted.length} source${sorted.length === 1 ? '' : 's'} · ${fmtNum(totalIntakes)} total intakes`;
+
+    if (!sorted.length) {
+      document.getElementById('intakesTable').innerHTML =
+        `<table><tbody><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody></table>`;
+      return;
+    }
+
+    const thead = `<thead><tr>
+      <th class="no-sort">Source</th>
+      <th>Contacts<span class="sort-arrow">↕</span></th>
+      <th>Intakes<span class="sort-arrow">↕</span></th>
+      <th class="no-sort">Rate</th>
+    </tr></thead>`;
+
+    const tbody = `<tbody>${sorted.map(r => {
+      const rate = ratePercent(r.intakes || 0, r.contacts || 0);
+      const rateLabel = rate == null ? '—' : rate.toFixed(2) + '%';
+      const rateClass = (rate && rate > 0) ? 'rate-cell' : 'rate-cell zero';
+      return `<tr>
+        <td class="source-cell">${escHtml(r.source)}</td>
+        <td class="num-cell">${fmtNum(r.contacts)}</td>
+        <td class="num-cell">${fmtNum(r.intakes)}</td>
+        <td class="${rateClass}">${rateLabel}</td>
+      </tr>`;
+    }).join('')}</tbody>`;
+
+    document.getElementById('intakesTable').innerHTML = `<table>${thead}${tbody}</table>`;
+  }
+
+  // ── TOP CAMPAIGNS ───────────────────────────────────────────────────────────
+  function renderTopTable() {
+    document.getElementById('topInfo').textContent =
+      `Top ${topRows.length} campaign${topRows.length === 1 ? '' : 's'} · Standard $2.5K · Premium $5K`;
+
+    if (!topRows.length) {
+      document.getElementById('topTable').innerHTML =
+        `<table><tbody><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody></table>`;
+      return;
+    }
+
+    const thead = `<thead><tr>
+      <th class="no-sort">Source</th>
+      <th class="no-sort">Campaign</th>
+      <th>Sessions<span class="sort-arrow">↕</span></th>
+      <th class="no-sort">Pipeline Value</th>
+    </tr></thead>`;
+
+    const tbody = `<tbody>${topRows.map(r => `
+      <tr>
+        <td class="source-cell">${escHtml(r.source)}</td>
+        <td class="medium-cell">${escHtml(r.campaign)}</td>
+        <td class="num-cell">${fmtNum(r.sessions)}</td>
+        <td class="rate-cell copper" style="color:var(--copper-dark)">${fmtMoney(r.pipeline_value)}</td>
+      </tr>
+    `).join('')}</tbody>`;
+
+    document.getElementById('topTable').innerHTML = `<table>${thead}${tbody}</table>`;
+  }
+
+  // ── SOCIAL PROOF PLACEMENTS ─────────────────────────────────────────────────
+  function renderSocialProofTable() {
+    const totalViews = socialProofRows.reduce((s, r) => s + (r.views || 0), 0);
+    document.getElementById('socialProofInfo').textContent =
+      `${socialProofRows.length} placement${socialProofRows.length === 1 ? '' : 's'} · ${fmtNum(totalViews)} total views`;
+
+    if (!socialProofRows.length) {
+      document.getElementById('socialProofTable').innerHTML =
+        `<table><tbody><tr class="empty-row"><td colspan="4">No social proof views yet</td></tr></tbody></table>`;
+      return;
+    }
+
+    const sorted = [...socialProofRows].sort((a, b) => (b.views || 0) - (a.views || 0));
+
+    const thead = `<thead><tr>
+      <th class="no-sort">Placement</th>
+      <th class="no-sort">Page path</th>
+      <th>Views<span class="sort-arrow">↕</span></th>
+      <th class="no-sort">Unique visitors</th>
+    </tr></thead>`;
+
+    const tbody = `<tbody>${sorted.map(r => `
+      <tr>
+        <td class="source-cell">${escHtml(r.placement)}</td>
+        <td class="medium-cell">${escHtml(r.page_path)}</td>
+        <td class="num-cell">${fmtNum(r.views)}</td>
+        <td class="num-cell">${fmtNum(r.unique_visitors)}</td>
+      </tr>
+    `).join('')}</tbody>`;
+
+    document.getElementById('socialProofTable').innerHTML = `<table>${thead}${tbody}</table>`;
+  }
+
+  // ── PRICING HERO VARIANT ATTRIBUTION ─────────────────────────────────────────
+  // One row per variant source (linkedin | twitter | google | direct). Conversion rate is
+  // sessions→contacts — when posts go live this is the column that tells you
+  // whether the LinkedIn/X copy actually pays off vs. the direct control row.
+  function renderPricingVariantTable() {
+    const order = ['linkedin', 'twitter', 'google', 'direct'];
+    const byVariant = new Map(pricingVariantRows.map(r => [r.variant_source, r]));
+    for (const v of order) {
+      if (!byVariant.has(v)) byVariant.set(v, { variant_source: v, sessions: 0, contacts: 0, intakes: 0, portfolio_reads: 0 });
+    }
+    const sorted = order.filter(v => byVariant.has(v)).map(v => byVariant.get(v));
+
+    const totalSessions = sorted.reduce((s, r) => s + (r.sessions || 0), 0);
+    const totalPortfolioReads = sorted.reduce((s, r) => s + Number(r.portfolio_reads || 0), 0);
+    document.getElementById('pricingVariantInfo').textContent =
+      `${sorted.length} variant${sorted.length === 1 ? '' : 's'} · ${fmtNum(totalSessions)} total sessions · ${fmtNum(totalPortfolioReads)} total portfolio reads`;
+
+    const thead = `<thead><tr>
+      <th class="no-sort">Variant source</th>
+      <th>Sessions<span class="sort-arrow">↕</span></th>
+      <th>Portfolio reads<span class="sort-arrow">↕</span></th>
+      <th>Contacts<span class="sort-arrow">↕</span></th>
+      <th>Intakes<span class="sort-arrow">↕</span></th>
+      <th class="no-sort">Conversion</th>
+    </tr></thead>`;
+
+    const tbody = `<tbody>${sorted.map(r => {
+      const rate = ratePercent(r.contacts || 0, r.sessions || 0);
+      const rateLabel = rate == null ? '—' : rate.toFixed(2) + '%';
+      const rateClass = (rate && rate > 0) ? 'rate-cell' : 'rate-cell zero';
+      return `<tr>
+        <td class="source-cell">${escHtml(r.variant_source)}</td>
+        <td class="num-cell">${fmtNum(r.sessions)}</td>
+        <td class="num-cell">${fmtNum(r.portfolio_reads || 0)}</td>
+        <td class="num-cell">${fmtNum(r.contacts)}</td>
+        <td class="num-cell">${fmtNum(r.intakes)}</td>
+        <td class="${rateClass}">${rateLabel}</td>
+      </tr>`;
+    }).join('')}</tbody>`;
+
+    document.getElementById('pricingVariantTable').innerHTML = `<table>${thead}${tbody}</table>`;
+  }
+
+  // ── NOTIFICATIONS (same pattern as other admin pages) ───────────────────────
+  async function loadNotifications() {
+    if (!token) return;
+    try {
+      const r = await fetch(`${BASE}/notifications`, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await r.json();
+      if (!data.success) return;
+      document.getElementById('bellBadge').classList.toggle('show', data.unread_count > 0);
+      const list = document.getElementById('notifList');
+      if (!data.notifications || !data.notifications.length) {
+        list.innerHTML = '<div class="notif-empty">No notifications</div>';
+        return;
+      }
+      list.innerHTML = data.notifications.map(n => `
+        <div class="notif-item ${n.read ? '' : 'unread'}" onclick="handleNotifClick('${escHtml(n.job_id || '')}', ${n.notification_id})">
+          <div class="notif-dot ${n.read ? 'read' : ''}"></div>
+          <div class="notif-text"><p>${escHtml(n.message || n.type)}</p><span>${new Date(n.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}</span></div>
+        </div>`).join('');
+    } catch { /* non-critical */ }
+  }
+
+  async function handleNotifClick(jobId, notifId) {
+    await fetch(`${BASE}/notifications/read`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ notification_id: notifId })
+    }).catch(() => {});
+    if (jobId) window.location.href = `/admin/jobs/${encodeURIComponent(jobId)}`;
+    else document.getElementById('notifDropdown').classList.remove('open');
+  }
+
+  async function markAllRead() {
+    await fetch(`${BASE}/notifications/read`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
+      body: JSON.stringify({ all: true })
+    }).catch(() => {});
+    document.getElementById('bellBadge').classList.remove('show');
+    document.getElementById('notifDropdown').classList.remove('open');
+    loadNotifications();
+  }
+
+  function toggleNotif() { document.getElementById('notifDropdown').classList.toggle('open'); }
+
+  document.addEventListener('click', (e) => {
+    const wrap = document.querySelector('.bell-wrap');
+    if (wrap && !wrap.contains(e.target)) document.getElementById('notifDropdown').classList.remove('open');
+  });
+
+  // ── INIT ────────────────────────────────────────────────────────────────────
+  if (getToken()) {
+    loadAttribution();
+    loadNotifications();
+    setInterval(loadNotifications, 90000);
+  }
+</script>
+</body>
+</html>
